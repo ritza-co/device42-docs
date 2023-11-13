@@ -2,8 +2,19 @@
 title: "Jira Integrations Overview"
 ---
 
-See the [Jira Service Management Assets Integration](device42-jira-assets-integration.mdx) page for instructions on connecting your Device42 instance to your Premium or Enterprise Jira Service Management account. Use the [Device42 for Jira Service Management **Assets**](https://marketplace.atlassian.com/apps/1229672/device42-for-jira-service-management-assets?hosting=cloud&tab=overview) app, available from the Atlassian Marketplace, to make the integration. For more guidance see our [Device42 for JSM assets](solution-guides/jira-service-management-integration.md/#configure-device42-for-jsm-assets-the-settings-tab) sections of our Jira Integration solution guide. Our Jira solution guide is crafted with a variety of use-case examples that demonstrate Device42-Jira integration features in a practical manner.
+For Premium or Enterprise Jira Service Management accounts:
 
-If you are a Jira Cloud user, see our [Jira Service Management Integration](device42-jira-cloud-integration.mdx) guide on installing and using the [Device42 for Jira Service Management](https://marketplace.atlassian.com/apps/1218369/device42-for-jira-service-management?hosting=cloud&tab=overview) app. Learn how to synchronize data from Device42 to your Jira instance and how to link or create Jira issues using that data. For additional context on the Device42-Jira installation, see [Device42 for Jira Service Management](solution-guides/jira-service-management-integration.md/#device42-for-jira-service-management) and it's following sections of our solution guide.
+- [How to connect your Device42 instance to your Jira Service Management account](device42-jira-assets-integration.mdx).
+- Use the [Device42 for Jira Service Management **Assets** app](https://marketplace.atlassian.com/apps/1229672/device42-for-jira-service-management-assets?hosting=cloud&tab=overview) from the Atlassian Marketplace to integrate Jira Service Management with Device42.
+- See the [Device42 for JSM assets](solution-guides/jira-service-management-integration.md/#configure-device42-for-jsm-assets-the-settings-tab) sections of the Jira Integration solution guide for more guidance. The Jira solution guide includes use-case examples that practically demonstrate Device42-Jira integration features.
 
-See the [Jira (self-managed) Integration](device42-jira-integration.md) page for a comprehensive guide on integrating your self-hosted Jira instance with Device42 using the connector app, [Device42 - CMDB with REST APIs for Jira](https://marketplace.atlassian.com/apps/1213601/device42-cmdb-with-rest-apis-for-jira?hosting=datacenter&tab=overview). Find instructions on downloading and installing the app, using filtering Device42 configuration items (CIs), and creating custom fields that CIs to your link Jira issues. 
+For Jira Cloud accounts:
+
+- Learn how to synchronize data from Device42 to your Jira instance and how to link or create Jira issues in the [Jira Service Management integration guide](device42-jira-cloud-integration.mdx).
+- Use the [Device42 for Jira Service Management app](https://marketplace.atlassian.com/apps/1218369/device42-for-jira-service-management?hosting=cloud&tab=overview). 
+- For additional context on the Device42-Jira installation, see the [Device42 for Jira Service Management](solution-guides/jira-service-management-integration.md/#device42-for-jira-service-management) sections in the Jira Integration solution guide.
+
+For self-hosted Jira accounts:
+
+- See the [Jira (self-managed) Integration page](device42-jira-integration.md) for a comprehensive guide to integrating your self-hosted Jira instance with Device42, including instructions for downloading and installing the app, filtering Device42 configuration items (CIs), and creating custom fields to link CIs to Jira issues.
+- Use the connector app, [Device42 - CMDB with REST APIs for Jira](https://marketplace.atlassian.com/apps/1213601/device42-cmdb-with-rest-apis-for-jira?hosting=datacenter&tab=overview).  
