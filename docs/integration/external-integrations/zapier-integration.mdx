@@ -1,15 +1,26 @@
 ---
-title: "Zapier Integration"
+title: "Zapier Automation using Webhooks"
 sidebar_position: 29
 ---
 
 import ThemedImage from '@theme/ThemedImage'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
+Zapier is a versatile workflow automation tool based on 'if-this-then-that' logic. You can create an automation sequence, known as a 'Zap', to perform a actions in response to changes made to resources managed in the Device42 main appliance.
+
+In this example, we'll have Zapier create a new row in a Google spreadsheet of the webhook payload whenever a new device is added to the Device42 main appliance. The process consists of the following broad steps:
+
+- Generate the Zapier endpoint and add it to Device42
+- Configure the Device42 trigger action 
+- Configure the Zapier response action
+- Test the automation
+
 ## Generate the Zapier Endpoint
 
-1. Sign up for Zapier or log in to your account and click on the **+ Create Zap** button.
-2. Give your Zap a name at the top-left corner and click on the **1. Trigger** button.
+Obtain the endpoint URL in Zapier as follows:
+
+1. Log in to your account and click on the **+ Create Zap** button.
+2. Name your Zap at the top-left corner and then click on the **1. Trigger** box to open a window with a list of trigger options to choose from.
 
     ![Set up Zap](/assets/images/zapier-integration/zap-create.png)
 
@@ -23,11 +34,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 5. Copy the generated webhook URL to add as an endpoint in the Device42 main appliance.
 
-## Device42 Configuration
+## Add the Endpoint to Device42
 
-In Device42, follow the steps below and add a Webhook Endpoint and Action. The Action is what triggers the webhook.  
-
-### Add the Endpoint to Device42
+Log in to your Device42 main appliance and add a new endpoint webhook as follows:
 
 1. Navigate to **Tools > Webhooks > Endpoints** and click on the **+ Add Webhook Endpoint** button on the left.
 
@@ -58,7 +67,7 @@ sources={{
 />
 <br/><br/>
 
-### Configure the Device42 Action
+## Configure the Device42 Action
 
 Actions define which targets to monitor for changes (known as events) that will trigger the webhook. For example, you can monitor all Devices for any changes or monitor changes to specific Device fields, like **Device Operating System**. 
 
@@ -97,9 +106,21 @@ sources={{
 />
 <br/><br/>
 
+## Test the Trigger Action
+
+Test that the Device42 action triggers the webhook to send data to Zapier endpoint. In this example, we created a new device in the main appliance. 
+
+Return to Zapier and click on the **Test trigger** button.
+
+![Test trigger action](/assets/images/zapier-integration/test-trigger-action.png)
+
+Zapier will look for data about the trigger event. A successful trigger test will display the returned data. You may have to wait a few moments and rerun the test before you begin seeing any data. Select a record and click on the **Continue with selected record button** to proceed with configuring the response action in Zapier.
+
+![Test trigger action](/assets/images/zapier-integration/select-request-data.png)
+
 ## Configure the Zapier Action
 
-Now we'll configure the action that Zapier automates when the webhook is triggered. In this example we'll print the JSON data returned from the webhook on a new line in a Google Sheet.
+Now we'll configure the response action for Zapier to perform when the initial action triggers the webhook. In this example, the webhook data is added as a row in Google Sheets.
 
 1. In Zapier, click on the box labeled **2. Action** and select **Google Sheets** from the options. 
 2. Select the **Create Spreadsheet Row** as the **Event**. Click on the **Continue** button and link your Google account to the Zap.
@@ -110,23 +131,22 @@ Now we'll configure the action that Zapier automates when the webhook is trigger
    - **Drive**: select the Google Drive that the Google Spreadsheet is stored on.
    - **Spreadsheet**: the name of the spreadsheet to add data to.
    - **Worksheet**: select the spreadsheet worksheet to target.
-   - **"Column Name"**: Zapier will fetch the column headings in the spreadsheet and add them as fields. Select the data you want to add under the column from the dropdown menu
+   - **"Column Name"**: Zapier will fetch the column headings in the spreadsheet and add them as fields. Select the data you want to add under the column from the dropdown menu. 
 
+   Click the **Continue** button.
 
-(Redo with data)
-![Add Google Spreadsheet details](/assets/images/zapier-integration/spreadsheet-action.png)
+![Add Google Spreadsheet details](/assets/images/zapier-integration/configure-spreadsheet.png)
 
-4. Run the test.
+4. Test that Zapier is able to create a new row in your spreadsheet as expected. Check your spreadsheet for the expected data.  
 
-(Redo with data)
-![Test Zap](/assets/images/zapier-integration/spreadsheet-test.png)
+![Test Zap](/assets/images/zapier-integration/test-create-row.png)
 
-5. When the test passes, click on the **Publish** button that becomes active. 
+5. When the test passes, click on the **Publish** button. 
 
 ## Test the Zap
 
-Test the Zap by making a change to the resource category you chose when setting up the Action in Device42. Refresh the Google Spreadsheet to see the JSON data that's been added to a row.
+Test the Zap by making a change to the resource category you chose when setting up the Action in Device42. In this example, new devices are added to the main appliance causing Zapier to add data about the events to the spreadsheet as new rows.
 
-(Image of Google Sheet data)
+![spreadsheet data](/assets/images/zapier-integration/spreadsheet-data.png)
 
-To view any webhooks that have been triggered and pending, navigate to **Tools > Webhooks > Pending**. Delete processing webhooks by checking them in the list and choose one of the delete actions from the **Select an action** dropdown menu. Click on the **hammer icon** to perform the deletion. 
+To view any webhooks that have been triggered and pending, navigate to **Tools > Webhooks > Pending**. 
