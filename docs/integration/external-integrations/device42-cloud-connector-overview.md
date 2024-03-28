@@ -5,7 +5,7 @@ sidebar_position: 5
 
 ## The Device42 Cloud Connector Overview
 
-Certain Device42 integrations allow users to fetch data from their Device42 appliance to populate another application with CIs (Configuration Items) from Device42. Use cases range from powering a 3rd party CMDB with Device42 discovery, integrating with ticketing aka IT Service Management systems (ITSM), etc.
+Certain Device42 integrations allow users to fetch data from their Device42 appliance to populate another application with CIs (Configuration Items) from Device42. Use cases for Device42 Cloud Connector include ITSM integration, CRE (Customer Relationship Management), warranty synch, and more.
 
 Configuration data from Device42 is often presented to external applications in the form of one or more _data sources_, and the specific CI details from these defined data sources are mapped to the target application via _transformation maps_.
 
