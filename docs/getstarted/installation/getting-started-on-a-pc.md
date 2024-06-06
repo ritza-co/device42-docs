@@ -3,6 +3,8 @@ title: "Getting Started on a PC"
 sidebar_position: 14
 ---
 
+import ThemedImage from '@theme/ThemedImage'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 import extract from '/assets/images/getting-started-on-a-pc/2extract.PNG'
 
 ## From the Start: How to Setup Device42 on a PC Hypervisor
@@ -81,7 +83,14 @@ Log in using the default credentials and start using Device42!
 - Name: `admin`
 - Password: `adm!nd42` 
 
-![Device42 Web UI Login](/assets/images/v15-login-screen.PNG)
+<ThemedImage
+  alt="Device42 UI Login Screen"
+  sources={{
+    light: useBaseUrl("/assets/images/getting-started-on-a-pc/login-light.png"),
+    dark: useBaseUrl("/assets/images/getting-started-on-a-pc/login-dark.png"),
+  }}
+  style={{ width: '70%' }} 
+/>
 
 ## What's next?
 
