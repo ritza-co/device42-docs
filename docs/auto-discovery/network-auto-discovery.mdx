@@ -53,7 +53,11 @@ MAC to switch port association brings only switch ports that have MAC addresses 
   }}
 />
 
-**Note**: when creating an SNMP job for Cisco Nexus, you must set up an SNMP server context for the management VRF (this actually needs to be done for any Cisco VRF contexts that you want to query over SNMP): snmp\-server context mymgmt vrf management
+**Note**: when creating an SNMP job for Cisco Nexus, you must set up an SNMP server context for the management VRF (this actually needs to be done for any Cisco VRF contexts that you want to query over SNMP):
+
+```
+snmp\-server context mymgmt vrf management
+```
 
 Go to _Discovery > SNMP_ to add a new network autodiscovery job.
 
@@ -131,19 +135,30 @@ Reorder the credentials by clicking on the **up** and **down** arrow buttons 
 />
 <br/><br/>
 
+### Security and Encryption
+
+**Auth Protocols**
+
 For SNMP v3, we support the following **Auth Protocols**: 
 - MD5
 - SHA
 - SHA256
 - SHA512
 
+To enable a higher level of security and encryption, you can set the Auth Protocol to SHA256 or SHA512. The 256 or 512-bit hash encryption values are irreversible for increased resistance to cryptographic attacks. 
+
+**Privacy Protocols**
+
 For SNMP v3, we support the following **Privacy Protocols**:  
+
 - DES
 - 3DES
 - AES
 - AES128 
 - AES192
 - AES256
+
+The Advanced Encryption Standard (AES) is a cipher that encrypts data in blocks. The AES192 and AES256 protocols use 192 and 256-bit key sizes to provide a greater level of encryption and security.
 
 <ThemedImage
   alt="Move SNMP credentials"
@@ -152,6 +167,7 @@ For SNMP v3, we support the following **Privacy Protocols**:
     dark: useBaseUrl('/assets/images/network-auto-discovery/credentials-protocols-dark.png'),
   }}
 />
+
 
 ## Network Device Options
 
