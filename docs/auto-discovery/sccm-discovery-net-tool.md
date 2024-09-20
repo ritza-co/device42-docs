@@ -35,7 +35,7 @@ After running the installation, you can find the application in your **Start Men
 
 ### Silent Installation
 
-The silent install will fail if, for whatever reason, it is unable to successfully stop the service in a short time period. If a discovery is running, the service will not stop until the discovery can be gracefully terminated, which could take a bit of time. The solution is to stop the service, and then wait; if the process is still running, kill it and then proceed with the installation.
+The silent installation will fail if, for whatever reason, it is unable to successfully stop the service in a short time period. If a discovery is running, the service will not stop until the discovery can be gracefully terminated, which could take a bit of time. The solution is to stop the service and wait; if the process is still running, kill it and then proceed with the installation.
 
 The key here is to ensure the process is not running when you attempt to run the silent installation.
 
@@ -45,7 +45,7 @@ The key here is to ensure the process is not running when you attempt to run the
 
 ## The Settings Tab
 
-Under the **Settings** tab, you will have sections for **System**, **Credentials**, and **Exclusions**.
+Under the **Settings** tab, you will the **System**, **Credentials**, and **Exclusions** sections.
 
 ### System Sub-Menu - Device42 System Settings
 
@@ -75,7 +75,7 @@ You can enter a test address to verify that a server is accessible from the auto
 
 ### Ports
 
-Use the **Exclusions** sub-menu to list listening or remote ports that you would like excluded from autodiscovery. For example, if you are not interested in seeing SSH connections in Device42, adding port 22 to the excluded Unix ports will exclude adding the service port for SSH.
+Use the **Exclusions** sub-menu to list listening or remote ports that you would like excluded from autodiscovery. For example, if you are not interested in seeing SSH connections in Device42, adding port 22 to the excluded Unix ports will exclude the service port for SSH.
 
 ### Remote Connections
 
@@ -119,7 +119,7 @@ For example:
 (&(objectCategory=computer)(dNSHostName=d42sus.pvt))
 ```
 
-This query will search the domain server for all computers with DNS hostname, `d42sus.pvt`, and auto-discover the matches.
+This query will search the domain server for all computers with the DNS hostname, `d42sus.pvt`, and autodiscover the matches.
 
 ### Run Status
 
@@ -148,7 +148,7 @@ In order to set the Device Name to the FQDN of the device, make sure you select 
 
 ### Recent Messages
 
-In the **Information** section, you can see **Recent Messages** which will allow you to follow the progress of your autodiscovery jobs.
+In the **Information** section, you can see **Recent Messages**, which will allow you to follow the progress of your autodiscovery jobs.
 
 ### Search Logs
 
@@ -158,11 +158,11 @@ The Search Logs section will allow you to enter search criteria to check the log
 
 ![Diagnostic Settings](/assets/images/autodiscovery-05.png)
 
-If you have trouble with autodiscovery using the application, we now have a section to generate a log bundle to send to the Device42 team for diagnosis. This section allows you to set the location of the logs, select which logs to keep, and generate a bundle.
+If you have trouble with autodiscovery using the application, you can use the new **Diagnostic Settings** section to generate a log bundle to send to the Device42 team for diagnosis. This section allows you to set the location of the logs, select which logs to keep, and generate a bundle.
 
 ### Summary
 
-The **Summary** section displays a summary list of results of recent discovery attempts against a list of discovered IPs, including a date and timestamp. Looking at the summary is a quick way to determine if discovery against a specific IP succeeded or failed, and if failed, if the failure was possibly due to the instance residing on the IP being unreachable \[‘TCP Ping’\], or maybe because of authentication errors \[‘Authenticated’\]. A value of ‘True’ in the ‘Sent to D42’ column means that CI data in the Device42 CMDB was updated for that particular line’s instance.
+The **Summary** section displays a summary list of the results of recent discovery attempts against a list of discovered IPs, including a date and timestamp. Looking at the summary is a quick way to determine whether discovery against a specific IP succeeded or failed, and if it failed, whether the failure occurred because the instance residing on the IP was unreachable \[‘TCP Ping’\] or because there were authentication errors \[‘Authenticated’\]. A value of ‘True’ in the ‘Sent to D42’ column means that CI data in the Device42 CMDB was updated for the instance in that particular line.
 
 * * *
 
@@ -178,8 +178,8 @@ In the Status section, you will see the last status of each of your autodiscover
 
 Here are some limitations and considerations:
 
-- If you have populated Device42 (CSV imports, spreadsheets, manual entry, etc.) with devices before your first run of this tool, please make sure to run this on a few devices first to make sure the naming convention used by you and the one discovered by the tool are compatible. For example, you added `nh-linux01` as a device. Then, autodiscovery finds the hostname `nh-linux01.example.com` and adds it as a new device because the names don’t match. To fix this, you can check the checkbox above to use only hostname.
-- It is best to use the auto-discovery client after you have run network autodiscovery and/or defined the subnets your network IPs reside on.
-- Floating IPs that belong to a cluster logically but are found on a device during autodiscovery will be assigned to that device, and **not** the cluster resource.
+- If you have populated Device42 (CSV imports, spreadsheets, manual entry, etc.) with devices before your first run of this tool, please make sure to run the tool on a few devices first to ensure the naming convention you use is compatible with the naming convention discovered by the tool. For example, if you added `nh-linux01` as a device and autodiscovery found the hostname `nh-linux01.example.com`, autodiscovery would add it as a new device because the names didn’t match. To fix incompatible naming conventions, you can check the checkbox to use only the hostname.
+- It is best to use the autodiscovery client after you have run network autodiscovery and/or defined the subnets where your network IPs reside.
+- Floating IPs that logically belong to a cluster but are found on a device during autodiscovery will be assigned to that device, and **not** the cluster resource.
 - You can run the .NET Discovery tool from any (and multiple) network segments. Communication from the autodiscovery client back to the main Device42 instance requires access via port TCP/443 (HTTPS) to be allowed on your network.
 - Please be sure to use an Administrator account. If you use the **Local System account**, discovery will not work correctly for other machines in the network.
