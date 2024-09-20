@@ -45,7 +45,7 @@ The key here is to ensure the process is not running when you attempt to run the
 
 ## The Settings Tab
 
-Under the **Settings** tab, you will the **System**, **Credentials**, and **Exclusions** sections.
+Under the **Settings** tab, you will see the **System**, **Credentials**, and **Exclusions** sections.
 
 ### System Sub-Menu - Device42 System Settings
 
