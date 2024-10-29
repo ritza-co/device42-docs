@@ -5,7 +5,7 @@ sidebar_position: 6
 
 ### Customs Column Views in Device42
 
-You can set custom column views in Device42, allowing you to chooose which columns you see in most list views. The objects with customizable list view pages include: Application Components, Assets, Blade Devices, Buildings, Certificates, Cluster Devices, Customers, DNS Records, DNS Zones, Departments, Devices, Device Hardware Models, Other Devices, End Users, IP Addresses, IP Nat/Maps, MAC Addresses, Operating Systems, PDUs, Purchases, QR/Barcodes, Racks, Rooms, Services, Service Instances, Service Ports, Service Schedules, Software Components, Software In Use, Software Licensing Models, Subnets, Switch Ports, Telco Circuits, Transfers, Unknown Devices, VLANs, VRF Groups, Vendors, and Virtual Devices.
+You can set custom column views in Device42, allowing you to choose which columns you see in most list views. The objects with customizable list view pages include: Application Components, Assets, Blade Devices, Buildings, Certificates, Cluster Devices, Customers, DNS Records, DNS Zones, Departments, Devices, Device Hardware Models, Other Devices, End Users, IP Addresses, IP Nat/Maps, MAC Addresses, Operating Systems, PDUs, Purchases, QR/Barcodes, Racks, Rooms, Services, Service Instances, Service Ports, Service Schedules, Software Components, Software In Use, Software Licensing Models, Subnets, Switch Ports, Telco Circuits, Transfers, Unknown Devices, VLANs, VRF Groups, Vendors, and Virtual Devices.
 
 To add a custom column view, click the drop down on the right above the column headers on a list view page and select "Add column list..." ![List view drop down](/assets/images/custom-columns-001.png)
 
