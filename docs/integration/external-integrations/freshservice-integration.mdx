@@ -35,7 +35,14 @@ Ensure that cloud services are enabled and configured:
 1. Navigate to **Tools > Integrations > Cloud Services**.
 2. Enter your externally accessible Device42 IP address or FQDN in the **D42 URL for SaaS apps** field. If you have configured a digital certificate, you can enter the name of the device instead. 
 3. Select your **Cloud Connector** location or environment. It's set to **USA** by default.
-    ![Configure Cloud Services](/assets/images/freshservice-integration/cloud-services-settings.png)
+   
+    <ThemedImage
+        alt="Configure Cloud services"
+        sources={{
+            light: useBaseUrl('/assets/images/freshservice-integration/cloud-services-settings-light.png'),
+            dark: useBaseUrl('/assets/images/freshservice-integration/cloud-services-settings-dark.png'),
+        }}
+    />
 
 ### 2. Create a Freshservice External Integration in Device42
 
@@ -47,7 +54,13 @@ Ensure that cloud services are enabled and configured:
 3. Under **Type**, choose **Freshservice**.
 4. You can optionally select **Enable Freshworks SSO** to enable single sign-on. We recommend using this feature for a seamless login experience when working with the integration. 
 
-    ![Add external integration](/assets/images/freshservice-integration/add-external-integration.png)
+        <ThemedImage
+        alt="Add External Integration"
+        sources={{
+            light: useBaseUrl('/assets/images/freshservice-integration/add-external-integration-light.png'),
+            dark: useBaseUrl('/assets/images/freshservice-integration/add-external-integration-dark.png'),
+        }}
+    />
 
     To enable the single-sign-in feature, ensure that you have an administrator in your Device42 instance with the same email address as your Freshservice agent:
     - Navigate to **Tools > Admin & Permissions > Administrators**. 
