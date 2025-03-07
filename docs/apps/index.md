@@ -17,7 +17,7 @@ After you have performed a successful autodiscovery of your environment, you can
 />
 
 
-These sections cover the following entries found in the **Applications** menu of the Device42 Main Appliance. Explore these categories in the docs using the sidebar on the left.
+These sections cover the following entries found in the **Applications** menu of the Device42 Main Appliance. Explore these categories in the documentation using the sidebar on the left.
 
 - **[Application Dependency Mapping](enterprise-application-dependency-mapping/)** provides information about the autodiscovery of application and service dependencies throughout a network.
 - **[Application Components](application-components/)** are discovered components such as databases, web servers, and load balancers. See a complete list of Device42’s supported applications here: **[ADM supported applications](apps/enterprise-application-dependency-mapping/adm-supported-applications)**.
