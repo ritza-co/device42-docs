@@ -9,7 +9,7 @@ The Discovery Scores page provides users with an the ability to view the success
 
 The discovery scores have been refactored to reflect what Device42 does during discovery more accurately. When Device42 communicates with an API rather than an individual endpoint (e.g., a virtual machine), Device42 now creates an _API Manager_ discovery score record to report successes or failures against the API endpoint directly. Devices returned by the API will then generate individual discovery score records.
 
-To view the Discovery Scores page, select  _Analytics > Discovery Status > Discovery Scores_ from the main menu_._
+To view the Discovery Scores page, select  _Analytics > Discovery Status > Discovery Scores_ from the main menu.
 
 ![](/assets/images/Discovery-scores-pie-charts-2.png)
 
@@ -31,6 +31,8 @@ _Partial Failure_: If any of the discovery aspects fail, this will result in a "
 
 Each discovered device in the list on the "Discovery Score" view page includes helpful statistics that offer insight into what was discovered from each device.
 
+Device pages now display the latest five Discovery Scores, with the ability to scroll down to see more.
+
 The following is a short explanation of the fields present on the "Discovery Score" page:
 
 ![](/assets/images/Discovery-scores-pie-charts-2-1.png)
@@ -44,7 +46,7 @@ The following is a short explanation of the fields present on the "Discovery Sco
 - **Port Check**: Port check references the first step of each discovery job where an attempt is made to connect to the target discovery port, e.g. a connection is attempted port 22 for a Linux SSH-based discovery - Green Check (success) / Red-X (failure). 
 - **Auth**: Reports the status of authentication to a given endpoint using the credentials supplied in the discovery job's settings - Green Check (success) / Red-X (failure). 
 - **Discovery Successful**: Success (green check mark) will be shown when both Port check and Auth succeed. If either of those two fail, success column shows Red-X. _Note that only if device is not added, will it be marked as failure - otherwise, based on scores, it will be marked as PARTIAL or OK._ 
-- **Sudo Access**: Indicates whether sudo access is allowed for the discovery job. 
+- **Sudo Access**: Indicates whether sudo access is allowed for the discovery job. The icon will be a green check mark if sudo access is allowed, a red cross if it is not, and a dash if not applicable (for non-nix scores).
 - **Ignored**: Indicates a successful connection to a device to which a [Device Ignore Rule](../../infrastructure-management/devices/device-ignore-rules.md) was applied, and that the device was ruled out and ignored. 
 - **Ignore Rule**: This is the text entered in the _Ignored text contains**:_ field when the [Device Ignore Rule](../../infrastructure-management/devices/device-ignore-rules.md) was created. 
 - **Success**: Indicates whether the device was successfully discovered (and ignored if applicable). 
