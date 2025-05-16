@@ -1,0 +1,54 @@
+# Example YAML file
+
+version: 1.0
+application: SampleApp
+
+database:
+  host: localhost
+  port: 5432
+  username: user
+  password: pass
+
+features:
+  logging: true
+  authentication: true
+  caching: 
+    enabled: true
+    type: redis
+    timeout: 300
+
+users:
+  - name: John Doe
+    email: john.doe@example.com
+    roles:
+      - admin
+      - user
+
+  - name: Jane Smith
+    email: jane.smith@example.com
+    roles:
+      - user
+    preferences:
+      language: en
+      timezone: UTC
+
+paths:
+  - /home
+  - /login
+  - /dashboard
+
+settings:
+  theme: dark
+  notifications:
+    email: true
+    sms: false
+
+tags:
+  environment: production
+  version: stable
+
+# Multiline text example
+description: |
+  This is a sample application
+  supporting multiple features
+  and configurations.
