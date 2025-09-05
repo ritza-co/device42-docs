@@ -1,34 +1,92 @@
 ---
-title: "Power RC Setup & Existing Job Migration"
+title: "Power RC Setup and Existing Job Migration"
 sidebar_position: 5
 ---
 
-Converting existing power autodiscovery jobs to the new PowerRC SNMP autodiscovery can be done with the imports/exports tool.
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-### Power (RC) Setup
+Converting existing power discovery jobs to the PowerRC SNMP discovery can be done using the Device42 Imports/Exports tool.
 
-**First, follow the instructions to setup a Remote Collector (RC) here:** - [discovery/remote-collector-rc.md](auto-discovery/remote-collector-rc.mdx)
+## Migrate Existing Power Appliance Jobs to Power RC
 
-### Migrating Existing Power Appliance Jobs to Power RC
+First, ensure you have set up a [Remote Collector (RC)](auto-discovery/remote-collector-rc.mdx).
 
-1. Head to the TOOLS menu --> Import/Export (XLS)
+1. Head to **Tools > Import/Export (xls)**
     
     ![Export current power autodiscovery jobs](/assets/images/import-export-xls.png)
+
+<ThemedImage
+  alt="Import export XLS"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/import-export-xls-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/import-export-xls-dark.png'),
+  }}
+/>
+
 2. Export the current data for “Add Power Autodiscovery Jobs”
     
     ![Download Current Data](/assets/images/download-current-data.png)
+
+<ThemedImage
+  alt="Download current data"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/download-current-data-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/download-current-data-dark.png'),
+  }}
+/>
 3. Modify the data in cell A1 so that it contains “/api/1.0/auto\_discovery/networks” without the quotes:
     
     ![Modify data in cell A1](/assets/images/power-xls-config.png)
+
+<ThemedImage
+  alt="Power XLS configuration"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/power-xls-config-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/power-xls-config-dark.png'),
+  }}
+/>
 4. Rename the header in column V from “appliance” to “remote\_collector\_id”
     
     ![Rename header in column V](/assets/images/power-xls-column-rename.png)
+
+<ThemedImage
+  alt="Power XLS column rename"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/power-xls-column-rename-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/power-xls-column-rename-dark.png'),
+  }}
+/>
 5. Delete all of the data under the column V header and replace them with Remote Collector IDs. The IDs can be found by navigating to Tools > Autodiscovery > Remote Collectors:
     
     ![Select remote collector to view](/assets/images/select-rc-view.png)
+
+<ThemedImage
+  alt="Select remote collector view"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/select-rc-view-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/select-rc-view-dark.png'),
+  }}
+/>
 6. Import the file on the same page that it was exported from:
     
     ![Re-import the modified XLS on the import/export page](/assets/images/import-modified-xls.png)
+
+<ThemedImage
+  alt="Import modified XLS"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/import-modified-xls-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/import-modified-xls-dark.png'),
+  }}
+/>
 7. When the data has been imported successfully the jobs will no longer appear under Tools > Autodiscovery > Power (SNMP). The last step is to go to Tools > Autodiscovery > SNMP and edit the jobs to enable monitoring:
     
     ![Jobs moved after successful import](/assets/images/enable-monitoring-discovered-pdu.png)
+
+<ThemedImage
+  alt="Enable monitoring discovered PDU"
+  sources={{
+    light: useBaseUrl('/assets/images/power-rc-setup-job-migration/enable-monitoring-discovered-pdu-light.png'),
+    dark: useBaseUrl('/assets/images/power-rc-setup-job-migration/enable-monitoring-discovered-pdu-dark.png'),
+  }}
+/>
