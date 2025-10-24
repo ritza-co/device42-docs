@@ -14,10 +14,13 @@ Ensure that your Device42 license has Enterprise Application Discovery enabled (
 If you are new to autodiscovery or would like to learn more about autodiscovery, see [Getting Started with Auto-Discovery](/getstarted/getting-started-with-auto-discovery.mdx) to get acquainted with the process.
 :::
 
-Application discovery is enabled by default for individual autodiscovery jobs that have the **Enterprise Application Mapping** option selected under the **Software and Applications** section and the sampling interval set to four hours. 
+Application discovery is enabled by default for individual autodiscovery jobs that have the **Enterprise Application Mapping** option selected under the **Software and Applications** section. 
 
-You can change the ADM sampling interval to be used with your autodiscovery job.
+### Creating a Discovery Job
 
+Identify key Windows and *nix servers in your application and add them as **Discovery Target(s)** in the new discovery job. 
+
+The default sampling interval is **4 hours**. For initial ADM sampling, applications with less persistent connections, and migration projects, you can sample more frequently. After some time has passed, revert back to **4 hours**.
 
   <ThemedImage
     alt="*nix autodiscovery job with ADM sampling interval"
@@ -28,7 +31,17 @@ You can change the ADM sampling interval to be used with your autodiscovery job.
     style={{ width: '80%' }} 
   />
 
-### Importing Config Files
+Go to the **Software and Applications** sections and enable **Discover Services** and **Discover Software**. The next time the discovery job runs, it will discovery Services and Applications on the systems. 
+
+  <ThemedImage
+    alt="Discover Services and Applications checkboxes"
+    sources={{
+      light: useBaseUrl('/assets/images/configure-application-dependency-mapping/discover-services-applications-light.png'),
+      dark: useBaseUrl('/assets/images/configure-application-dependency-mapping/discover-services-applications-dark.png'),
+    }}
+  />
+  
+### Storing Config Files
 
 You can opt to store config files by selecting the **Store Applications Components Config Files** option under the **Software and Applications** section of the autodiscovery job.
 
@@ -38,8 +51,13 @@ You can opt to store config files by selecting the **Store Applications Componen
       light: useBaseUrl('/assets/images/configure-application-dependency-mapping/software-and-apps-light.png'),
       dark: useBaseUrl('/assets/images/configure-application-dependency-mapping/software-and-apps-dark.png'),
     }}
-    style={{ width: '80%' }} 
   />
+
+### Periodic Jobs
+
+The discovery job with ADM enabled creates child jobs called [Periodic Jobs](/reports/reports/periodic-jobs-page.mdx) (under **Analytics > Discovery Status > Periodic Jobs**) that are linked to each of the discovered systems.
+
+Keep the original discovery job to make adjustments to the ADM sampling interval of the created Periodic jobs, as the parent and child jobs are linked.  
 
 ## Viewing Application Dependencies
 
