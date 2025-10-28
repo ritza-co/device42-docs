@@ -6,6 +6,33 @@ sidebar_position: 1
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
+[Application Dependency Mapping (ADM)](https://www.device42.com/features/application-mappings/) is a separately licensed Device42 component that maps and provides insight about how your applications and infrastructure work together in your IT environment. 
+
+At it's core, ADM is built on relationship information collected between servers over time (known as a sampling interval) using Netstat. More broadly, ADM includes Device42 Discovery, Application Components, Application Groups, and Business Services. 
+
+The best practice workflow for getting the most out of ADM goes in a order of operations visualized below and outlined in the sections that follow.
+
+1. Discovery and Services
+2. Application Groups
+3. Business Services
+
+### Discovery, Services, and Service Communication
+
+Build up the dataset used to map applications using four categories:
+
+- Run ADM and Netflow sampling
+- Discover load balancers 
+- Discover databases
+- Facilitate Device42's creation of Application Components by configuring Templates. Consult the Service Instance list page for values to use when configuring Templates, like "Path Args".
+
+(Services vs Service Communication?)
+
+### Application Groups
+
+### Business Services
+
+## [Revise or Remove]
+
 After you have performed a successful autodiscovery of your environment, you can view all the discovered Application Dependency data under the **Applications** section in the Device42 main menu.
 
 <ThemedImage
