@@ -5,27 +5,55 @@ sidebar_position: 1
 
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import ADMflow from '/assets/images/ADMflowdiagram.png'
+import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
 
-[Application Dependency Mapping (ADM)](https://www.device42.com/features/application-mappings/) is a separately licensed Device42 component that maps and provides insight about how your applications and infrastructure work together in your IT environment. 
+[Application Dependency Mapping (ADM)](https://www.device42.com/features/application-mappings/) is a separately licensed Device42 component that maps communication between applications and infrastructure, showing you how they work together in your IT environment. 
 
-At it's core, ADM is built on relationship information collected between servers over time (known as a sampling interval) using Netstat. More broadly, ADM includes Device42 Discovery, Application Components, Application Groups, and Business Services. 
+This page describes the core ADM components and roadmap of the recommended order in which to configure the ADM components.
 
-The best practice workflow for getting the most out of ADM goes in a order of operations visualized below and outlined in the sections that follow.
+At it's core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat. More broadly, ADM is made up of several Device42 features: Discovery, Application Components, Application Groups, and Business Services. 
 
-1. Discovery and Services
+ADM can be divided into three groups board groups of Device42 features that together make up the full ADM picture:
+
+1. Discovery, Application Components, and Service Communication
 2. Application Groups
 3. Business Services
 
-### Discovery, Services, and Service Communication
+<center>
+  <img src={ADMflow} width="50%"/>
+</center>
 
-Build up the dataset used to map applications using four categories:
+Work in order from top to bottom and left to right – starting by creating ADM-enabled discovery jobs, optionally enabling Netflow sampling, and finally ending with Business Services.
 
-- Run ADM and Netflow sampling
-- Discover load balancers 
-- Discover databases
-- Facilitate Device42's creation of Application Components by configuring Templates. Consult the Service Instance list page for values to use when configuring Templates, like "Path Args".
+### Licensing
 
-(Services vs Service Communication?)
+In addition to signing up for an ADM license, you may optionally obtain a Netflow license and [enable Netflow](/auto-discovery/netflow-collector/) on your Remote Collector. 
+
+If you need to upgrade your license, contact the support team for more information at [support@device42.com.](mailto:support@device42.com).
+
+### Discovery, Application Components, and Service Communication
+
+Begin by configuring and running discovery jobs in the following order:
+
+1. Identify the Windows and *Nix application servers in your environment to target.
+2. Create and run ADM-enabled discovery jobs for the target servers.
+3. Create and run load balancer discovery jobs.
+4. Create and run database discovery jobs.
+
+<center>
+  <img src={ADMflowdiscovery} width="45%"/>
+</center>
+
+From the Operating-System-level discovery run, Device42 creates Application Components – building blocks for mapping application relationships. 
+
+1. Identify any missing applications in the list of Application Components that Device42 has created: 
+- Check if [the list of commonly supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx) (and their services) includes the applications you use. 
+- Visit the Device42 Main appliance, go to **Applications > Application Components** and check if all the applications you expect are listed. 
+
+2. Get Device42 to create Application Components of the missing applications with Application Component Templates:
+- Go to **Resources > Service Instances** and view Service Instances details to use as values that can be matched against to find the missing application when creating the Template.
+- Configure an Application Component Template, which allows Device42 to find and create an Application Component for the missing application services. 
 
 ### Application Groups
 
