@@ -65,6 +65,16 @@ Keep the original discovery job to make adjustments to the ADM sampling interval
 
 ## Viewing Application Dependencies
 
+After you have performed a successful autodiscovery of your environment, you can view the discovered Application Dependency data under the **Applications** section in the Device42 main menu.
+
+<ThemedImage
+  alt="Applications menu of the Main Appliance"
+  sources={{
+    light: useBaseUrl('/assets/images/applications/applications-menu-light.png'),
+    dark: useBaseUrl('/assets/images/applications/applications-menu-dark.png'),
+  }}
+/>
+
 When autodiscovery is run, [Application Components](/apps/application-components) will be created based on related services on a server. For example, for a server running Oracle Database, a component would be created to group together all Oracle Database services on that machine. The autodiscovery application would also find the service-to-service connections so that you could, for example, see that your Apache service on "Prod-Server1" was directly dependent on the MySQL service running on "Prod-Database3".
 
 To see the autodiscovered application dependencies, go to **Applications > Application Components**.

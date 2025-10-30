@@ -2,28 +2,78 @@
 title: "Application Dependency Mapping"
 ---
 
-:::info
-Get started – visit the [Calculation Rules](/apps/application-groups/calculation-rules/) page and set up a Calculation Rule.
-:::
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import ADMflow from '/assets/images/ADMflowdiagram.png'
+import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
 
-## What is Application Dependency Mapping?
+This page is a best practices roadmap of configuring [Application Dependency Mapping (ADM)](https://www.device42.com/features/application-mappings/) components to get the best out of this powerful Device42 feature.
 
-The goal of Application Dependency Mapping (ADM) is to build insightful models of your IT services and applications in the context of your business services.
+ADM is a separately licensed Device42 component that maps communication between applications and infrastructure, showing you how they work together in your IT environment. 
 
-After configuring and running autodiscovery jobs, the Device42 dependency mapping module picks up on communication patterns, which you shape via Application Groups. 
+At it's core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat. More broadly, ADM is made up of several Device42 features: Discovery, Application Components, Application Groups, and Business Services. 
 
-[Application Groups](/apps/application-groups) are generated using [sets of rules](/apps/application-groups/calculation-rules) that define the starting points for your applications, and [Logic Templates](apps/application-groups#calculation-logic-templates) define how discovery traverses the network and when it stops for each application.
+ADM can be divided into three groups board groups of Device42 features that together make up the full ADM picture:
 
-Add Application Groups to your [Business Services](/apps/business-services) to visualize and organize the results in a way that makes sense for your business. 
+1. Discovery, Application Components, and Service Communication
+2. Application Groups
+3. Business Services
 
-On upgrade to v19.05, you'll find that ADM is easier and faster to configure and consists of a more natural flow. The logic used to calculate Application Groups has been significantly enhanced to show the most relevant relationships, and your existing applications will now better model shared infrastructure. 
+<center>
+  <img src={ADMflow} width="50%"/>
+</center>
 
-![Components of Application Dependency Mapping](/assets/images/application-dependency-mapping/ADM-v19.05-2.png)
+Work in order from top to bottom and left to right – starting by creating ADM-enabled discovery jobs, optionally enabling Netflow sampling, and finally ending with Business Services.
 
-## ADM Features
+## Licensing
 
-- **Discover services–to-services mapping**: Device42 can show you which service on a machine or instance is connected to which other service(s) on other machines.
-- **Automate Application Component grouping**: You can automatically add Application Components based on groupings of services on a server. For example, once Device42 discovers different Oracle services running on a machine, it will automatically group those services together as an Oracle application.
-- **Grab the configuration data for major applications**: You are able to see config details (and for some software, the actual configuration file contents) of certain applications from within Device42. These applications include Oracle, Microsoft SQL, MongoDB, PostgreSQL, MySQL, Cold Fusion, IIS, Apache HTTPD, and more.
-- **Automate Periodic Sampling Jobs**: You can automate Periodic Jobs for both port and database connections to gain a comprehensive view of applications as you use these resources over time. This will enhance the discovery beyond a point-in-time usage.
+In addition to signing up for an ADM license, you may optionally obtain a Netflow license and [enable Netflow](/auto-discovery/netflow-collector/) on your Remote Collector. 
 
+If you need to upgrade your license, contact the support team for more information at [support@device42.com.](mailto:support@device42.com).
+
+## Discovery, Application Components, and Service Communication
+
+Begin by configuring and running discovery jobs in the following order:
+
+1. Identify the Windows and *Nix application servers in your environment to target.
+2. Create and run ADM-enabled discovery jobs for the target servers.
+3. Create and run load balancer discovery jobs.
+4. Create and run database discovery jobs.
+
+<center>
+  <img src={ADMflowdiscovery} width="45%"/>
+</center>
+
+From the Operating-System-level discovery run, Device42 creates Application Components – building blocks for mapping application relationships. 
+
+1. Identify any missing applications in the list of Application Components that Device42 has created: 
+- Check if [the list of commonly supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx) (and their services) includes the applications you use. 
+- Visit the Device42 Main appliance, go to **Applications > Application Components** and check if all the applications you expect are listed. 
+
+2. Get Device42 to create Application Components of the missing applications with Application Component Templates:
+- Go to **Resources > Service Instances** and view Service Instances details to use as values that can be matched against to find the missing application when creating the Template.
+- Configure an Application Component Template, which allows Device42 to find and create an Application Component for the missing application services. 
+
+## Application Groups
+
+Application Groups (**Applications > Application Groups**) are the map of your services and applications and how they communicate. 
+
+Device42 generates Applications Group Suggestions based on collected relationship data and your input in the form of Calculation Rules and Logic Templates.
+
+Accepting informative Application Group Suggestions moves them to the **My Application Groups** tab. These Application Groups progress to Business Services.
+
+Application Groups offer many insights:
+- For example, you can identify devices communicating with, and dependent on, core servers via a service, such as development or test servers.
+- Identify servers added to an Application without being documented.
+- See how an application in your environment has changed over time.
+- Get a deeper understanding of what service is creating a relationship in an Application Group.
+
+Application Groups are dynamic. New discoverd data from your environment will update Application Groups.
+
+## Business Services
+
+Business Services are used to solidify your understanding of an Application gathered from examining its Application group and create referenceable documentation.
+
+Unlike Application Groups, Business Services are static and will not change unless you have created an [Alert](/reports/reports/setup-alerts-and-notifications.mdx) for added and removed dependencies.
+
+Create a Business Service (under **Applications > Business Services**) by adding a Application Group to the Business Service.
