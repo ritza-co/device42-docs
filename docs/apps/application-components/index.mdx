@@ -5,7 +5,23 @@ title: "Application Components"
 import ThemedImage from '@theme/ThemedImage'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-Application Components capture what people generally think of as "applications." An application could be a CEO Dashboard that requires a web server/farm, an app server, and a database server. An Application Component can be linked to just one service or be defined without any underlying service.
+[Application Dependency Mapping (ADM)](/apps/index.mdx) uses Application Components as building blocks of the bigger application relationship model. Application Components capture what people generally think of as "applications." An application could be a CEO Dashboard that requires a web server/farm, an app server, and a database server.
+
+## How Application Components are Created
+
+Device42 automatically creates Application Components during Windows and *Nix discovery job runs. 
+
+Go to **Applications > Application Components** to view the created components. 
+
+Application Components are created for [this predefined list of supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx). The list includes databases, web servers, and application layers used in application design. 
+
+If the services you use in your application are not on the [list](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx), create an Application Component Template that guides Device42 in creating an Application Component for it. See the [Application Component Templates](application-component-templates.mdx) for details on creating a new template.
+
+
+
+## Services and Application Components
+
+An Application Component can be linked to just one service or be defined without any underlying service.
 
 ### Defining Application Components Based on Services
 
@@ -113,6 +129,3 @@ Let's create a new Application Component with dependencies. All of the dependenc
     }}
   />
 
-:::tip
-Set up Application Groups by defining a Starting Point or accepting suggestions. See the [Application Groups Calculation Rules](/apps/application-groups/calculation-rules) page for more details.
-:::
