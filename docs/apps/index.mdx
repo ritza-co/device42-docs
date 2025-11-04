@@ -36,8 +36,8 @@ The order of documentation subsections follows that of the ADM best practices, w
 The ADM order of operations is:
 
 1. Run OS-level discovery jobs with ADM enabled. See [Configure ADM](/apps/enterprise-application-dependency-mapping/configure-application-dependency-mapping.mdx)
-2. View the discovered Services in your environment. See [Service Instances](/apps/services/service-instances.mdx).
-
+2. **[Application Components](application-components/)** are discovered components such as databases, web servers, and load balancers. See a complete list of Device42’s supported applications here: **[ADM supported applications](apps/enterprise-application-dependency-mapping/adm-supported-applications)**. For applications not on the list, you need to configure Templates to get Device42 to find the services associated with the missing applications and create Application Components them.
+3. View the discovered Services in your environment. See the [All Services](/apps/services/index.mdx) and [Service Instances](/apps/services/service-instances.mdx) pages for details.
 
     <ThemedImage
     alt="Services menu of the Main Appliance"
@@ -47,7 +47,6 @@ The ADM order of operations is:
     }}
     />
 
-3. **[Application Components](application-components/)** are discovered components such as databases, web servers, and load balancers. See a complete list of Device42’s supported applications here: **[ADM supported applications](apps/enterprise-application-dependency-mapping/adm-supported-applications)**.
 4. **[Application Groups](/apps/application-groups/index.mdx)** (previously known as Affinity Groups) offer an opinionated view of the impactful applications and their dependencies in your environment.
 5. **[Business Services](business-services/)** allow you to design and customize your map of critical business functions based on the Application Groups you choose.
 
