@@ -6,18 +6,14 @@ import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import ADMflow from '/assets/images/ADMflowdiagram.png'
 import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
+import ADMflowappgroups from '/assets/images/adm-flow-app-groups.png'
+import ADMflowbusiness from '/assets/images/adm-flow-business-services.png'
 
-This page is a best practices roadmap of configuring [Application Dependency Mapping (ADM)](https://www.device42.com/features/application-mappings/) components to get the best out of this powerful Device42 feature.
+This page outlines the best practices roadmap in more detail of configuring to get the best out of this powerful Device42 feature.
 
-ADM is a separately licensed Device42 component that maps communication between applications and infrastructure, showing you how they work together in your IT environment. 
+At it's core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat. 
 
-At it's core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat. More broadly, ADM is made up of several Device42 features: Discovery, Application Components, Application Groups, and Business Services. 
-
-ADM can be divided into three groups board groups of Device42 features that together make up the full ADM picture:
-
-1. Discovery, Application Components, and Service Communication
-2. Application Groups
-3. Business Services
+## Best Practice Workflow
 
 <center>
   <img src={ADMflow} width="50%"/>
@@ -25,36 +21,30 @@ ADM can be divided into three groups board groups of Device42 features that toge
 
 Work in order from top to bottom and left to right – starting by creating ADM-enabled discovery jobs, optionally enabling Netflow sampling, and finally ending with Business Services.
 
-## Licensing
-
-In addition to signing up for an ADM license, you may optionally obtain a Netflow license and [enable Netflow](/auto-discovery/netflow-collector/) on your Remote Collector. 
-
-If you need to upgrade your license, contact the support team for more information at [support@device42.com.](mailto:support@device42.com).
-
 ## Discovery, Application Components, and Service Communication
-
-Begin by configuring and running discovery jobs in the following order:
-
-1. Identify the Windows and *Nix application servers in your environment to target.
-2. Create and run ADM-enabled discovery jobs for the target servers.
-3. Create and run load balancer discovery jobs.
-4. Create and run database discovery jobs.
 
 <center>
   <img src={ADMflowdiscovery} width="45%"/>
 </center>
 
-From the Operating-System-level discovery run, Device42 creates Application Components – building blocks for mapping application relationships. 
+Begin by configuring and running discovery jobs:
 
-1. Identify any missing applications in the list of Application Components that Device42 has created: 
-- Check if [the list of commonly supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx) (and their services) includes the applications you use. 
-- Visit the Device42 Main appliance, go to **Applications > Application Components** and check if all the applications you expect are listed. 
+1. Identify the Windows and *Nix application servers in your environment to target, create and run ADM-enabled discovery jobs for the target servers.
+2. Create and run load balancer discovery jobs.
+3. Create and run database discovery jobs.
+4. From the Operating-System-level discovery run, Device42 creates Application Components – building blocks for mapping application relationships. Identify any missing applications in the list of Application Components that Device42 has created: 
+    - Check if [the list of commonly supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx) (and their services) includes the applications you use. 
+    - Visit the Device42 Main appliance, go to **Applications > Application Components** and check if all the applications you expect are listed. 
 
-2. Get Device42 to create Application Components of the missing applications with Application Component Templates:
-- Go to **Resources > Service Instances** and view Service Instances details to use as values that can be matched against to find the missing application when creating the Template.
-- Configure an Application Component Template, which allows Device42 to find and create an Application Component for the missing application services. 
+5. Get Device42 to create Application Components of the missing applications with Application Component Templates:
+    - Go to **Resources > Service Instances** and view Service Instances details to use as values that can be matched against to find the missing application when creating the Template.
+    - Configure an Application Component Template, which allows Device42 to find and create an Application Component for the missing application services. 
 
 ## Application Groups
+
+<center>
+  <img src={ADMflowappgroups} width="45%"/>
+</center>
 
 Application Groups (**Applications > Application Groups**) are the map of your services and applications and how they communicate. 
 
@@ -71,6 +61,10 @@ Application Groups offer many insights:
 Application Groups are dynamic. New discoverd data from your environment will update Application Groups.
 
 ## Business Services
+
+<center>
+  <img src={ADMflowbusiness} width="45%"/>
+</center>
 
 Business Services are used to solidify your understanding of an Application gathered from examining its Application group and create referenceable documentation.
 
