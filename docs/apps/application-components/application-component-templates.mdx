@@ -6,61 +6,59 @@ sidebar_position: 1
 import ThemedImage from '@theme/ThemedImage'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-## Introduction
 
-You can use Application Component Templates to create and define your own Application Components based on services discovered by [Hypervisor/\*nix/Windows](/auto-discovery/windows-and-hyper-v-auto-discovery) autodiscovery jobs run against *nix and Windows platforms. 
+Configure a new Application Component Template to guide Device42 in creating [Application Components](/apps/application-components/index.mdx) that weren't created during your initial [Windows and *nix discovery job](/auto-discovery/windows-and-hyper-v-auto-discovery) runs.
 
-Device42 adds the Application Components you create using templates to the [Application Components](/apps/application-components) list page.
+Device4 automatically creates components for a [set list of applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx). Other applications, such as in-house applications, won't have components automatically created for them, in which case you'll create a template. 
 
-:::info
-Application Components now automatically [suggest Application Groups](/apps/application-groups#application-group-list-page) that you can accept or ignore under **Applications > Application Groups > Application Group Suggestions** on the Main Appliance. 
-:::
+Device42 matches services during discovery to the template criteria you define and creates an Application Component for it. 
 
-## View Application Component Templates
+Device42 adds the Application Components to the [Application Components](/apps/application-components) list page under **Applications > Application Components**. Device records show the detected application under the **Application** tab.
 
-Select **Applications > Application Component Templates** from the Device42 menu to display the templates list.
+## Example Application Components Templates
+
+Java is a very common service you might find throughout your environment, but not all instances of it will be relevant to your application. You can tune which of the Java service instances you create Application
+Components from. 
+
+You could define the listening port for the Java service, the Command Argument, or other services that must be present on the device for it to create an Application Component.
+
+In the example below, a Java [Service Instance](/apps/services/service-instances.mdx) listening on port `8181` that's found during discovery will be named “Jupiter”. The "Jupiter" application will be linked under the **Application** tab of the device record.
 
 <ThemedImage
-  alt="App Comp Templates menu"
+  alt="Jupiter Template example"
   sources={{
-    light: useBaseUrl('/assets/images/application-component-templates/menu-light.png'),
-    dark: useBaseUrl('/assets/images/application-component-templates/menu-dark.png'),
+    light: useBaseUrl('/assets/images/application-component-templates/jupiter-example-light.png'),
+    dark: useBaseUrl('/assets/images/application-component-templates/jupiter-example-dark.png'),
   }}
 />
 
-On the Application Component Templates list page, you can **Search by template name**, or filter the list by **Application Category**, **Enabled**, **Platform**, **Associated Service**, or by any of the options under **More Filters**.
+In the example below, more complex application instance criteria are used:
 
-<ThemedImage
-  alt="More filters"
-  sources={{
-    light: useBaseUrl('/assets/images/application-component-templates/more-filters-light.png'),
-    dark: useBaseUrl('/assets/images/application-component-templates/more-filters-dark.png'),
-  }}
-/>
+- The **Associate Service** is `OracleWebAssitant0`:
 
-The Application Component Templates list page also includes an **Advanced Search** option you can use to construct more specific searches. See the [Advanced Search Feature](/getstarted/advanced-search-feature.mdx) page for instructions.
+  <ThemedImage
+    alt="WebLogic Template example"
+    sources={{
+      light: useBaseUrl('/assets/images/application-component-templates/weblogic-example-light.png'),
+      dark: useBaseUrl('/assets/images/application-component-templates/weblogic-example-dark.png'),
+    }}
+  />
 
-<ThemedImage
-  alt="Advanced Search"
-  sources={{
-    light: useBaseUrl('/assets/images/application-component-templates/advanced-search-query-light.png'),
-    dark: useBaseUrl('/assets/images/application-component-templates/advanced-search-query-dark.png'),
-  }}
-/>
+- The **Related Software Component** is `IBM WebSphere Application Server V9.0`:
 
-Click on a template name to see more details about that template. Click **Edit** in the upper right corner of the details page to change or update an existing template.
+  <ThemedImage
+    alt="WebLogic Template example"
+    sources={{
+      light: useBaseUrl('/assets/images/application-component-templates/weblogic-example-related-software-components-light.png'),
+      dark: useBaseUrl('/assets/images/application-component-templates/weblogic-example-related-software-components-dark.png'),
+    }}
+  />
 
-<ThemedImage
-  alt="Info view of an Application Component Template"
-  sources={{
-    light: useBaseUrl('/assets/images/application-component-templates/template-info-light.png'),
-    dark: useBaseUrl('/assets/images/application-component-templates/template-info-dark.png'),
-  }}
-/>
+A `OracleWebAssitant0` Service instance found during discovery will be named “WebLogic” and found under the **Application** tab of the device record.
 
 ## Add an Application Component Template
 
-You can add a new template by clicking **Create** in the top right of the template list page.
+Add a new template by clicking **Create** in the top right of the template list page.
 
 <ThemedImage
   alt="Create an Application Component Template"
@@ -70,7 +68,12 @@ You can add a new template by clicking **Create** in the top right of the temp
   }}
 />
 
-### Application Component Template Configuration
+Application Component Templates allow you a lot granular control to avoid false positives. Though, all you need to enter on the Template form to start creating Application Components discovery are:
+- a **Name**
+- the **System Type** (**Windows** or ***Nix**) 
+- an **Associated Service**
+
+Entering minimal details like this works great if you have a clearly defined service name.
 
 <ThemedImage
   alt="Docusaurus themed image"
@@ -82,9 +85,6 @@ You can add a new template by clicking **Create** in the top right of the temp
 
 - Enter a **Name** for the template (required).
 - Select whether the template should be **Enabled** for use in autodiscovery jobs. This option lets you enable or disable the template according to when you need it without having to delete it when it's not in use.
-
-### Characteristics
-
 - Select the **Service Type** (Windows or \*Nix) to specify which platform Device42 autodiscovery searches for the service(s) that the Application Component will be based on.(required).
 - Select, enter, or add (using the **plus sign** icon) the **Associated Service** that autodiscovery will search for and use to create the Application Component (required).
 - Enter a port in the **Only services listening on this port** field to limit autodiscovery to only the services that are listening on your chosen port. Leave the field empty to ignore the port.
@@ -184,7 +184,7 @@ Select the templates to which you want to add the Custom Field values, then sele
     }}
     />
 
-To create a new Custom Field, navigate to Tools > Custom Fields and click Create.
+To create a new Custom Field, navigate to **Tools > Custom Fields** and click **Create**.
 
     <ThemedImage
     alt="Custom Field menu location"
@@ -235,6 +235,48 @@ To create a new Custom Field, navigate to Tools > Custom Fields and click Create
         dark: useBaseUrl('/assets/images/application-component-templates/delete-confirmation-dark.png'),        
     }}
     />
+
+## Search for Application Component Templates
+
+Select **Applications > Application Component Templates** from the Device42 menu to display the templates list.
+
+<ThemedImage
+  alt="App Comp Templates menu"
+  sources={{
+    light: useBaseUrl('/assets/images/application-component-templates/menu-light.png'),
+    dark: useBaseUrl('/assets/images/application-component-templates/menu-dark.png'),
+  }}
+/>
+
+On the Application Component Templates list page, you can **Search by template name**, or filter the list by **Application Category**, **Enabled**, **Platform**, **Associated Service**, or by any of the options under **More Filters**.
+
+<ThemedImage
+  alt="More filters"
+  sources={{
+    light: useBaseUrl('/assets/images/application-component-templates/more-filters-light.png'),
+    dark: useBaseUrl('/assets/images/application-component-templates/more-filters-dark.png'),
+  }}
+/>
+
+The Application Component Templates list page also includes an **Advanced Search** option you can use to construct more specific searches. See the [Advanced Search Feature](/getstarted/advanced-search-feature.mdx) page for instructions.
+
+<ThemedImage
+  alt="Advanced Search"
+  sources={{
+    light: useBaseUrl('/assets/images/application-component-templates/advanced-search-query-light.png'),
+    dark: useBaseUrl('/assets/images/application-component-templates/advanced-search-query-dark.png'),
+  }}
+/>
+
+Click on a template name to see more details about that template. Click **Edit** in the upper right corner of the details page to change or update an existing template.
+
+<ThemedImage
+  alt="Info view of an Application Component Template"
+  sources={{
+    light: useBaseUrl('/assets/images/application-component-templates/template-info-light.png'),
+    dark: useBaseUrl('/assets/images/application-component-templates/template-info-dark.png'),
+  }}
+/>
 
 ## Autodiscovery Options
 
