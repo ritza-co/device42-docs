@@ -8,28 +8,18 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 ## What is Application Dependency Mapping?
 
-The goal of Application Dependency Mapping (ADM) is to build insightful models of your IT services and applications in the context of your business services.
+Application Dependency Mapping (ADM) builds insightful models of your IT services and applications.
 
-After configuring and running autodiscovery jobs, the Device42 dependency mapping module picks up on communication patterns, which you shape via Application Groups. 
+ADM consists of the following Device42 features that together offer the complete ADM package:
 
-[Application Groups](/apps/application-groups) are generated using [sets of rules](/apps/application-groups/calculation-rules) that define the starting points for your applications, and [Logic Templates](apps/application-groups#calculation-logic-templates) define how discovery traverses the network and when it stops for each application.
-
-Add Application Groups to your [Business Services](/apps/business-services) to visualize and organize the results in a way that makes sense for your business. 
-
-On upgrade to v19.05, you'll find that ADM is easier and faster to configure and consists of a more natural flow. The logic used to calculate Application Groups has been significantly enhanced to show the most relevant relationships, and your existing applications will now better model shared infrastructure. 
+- [ADM-enabled discovery](/apps/enterprise-application-dependency-mapping/configure-application-dependency-mapping.mdx#creating-a-discovery-job)
+- [Application Components](/apps/application-components/)
+- [Application Groups](/apps/application-groups)
+- [Business Services](/apps/business-services)
 
 ![Components of Application Dependency Mapping](/assets/images/application-dependency-mapping/ADM-v19.05-2.png)
 
-## ADM Features
-
-- **Discover services–to-services mapping**: Device42 can show you which service on a machine or instance is connected to which other service(s) on other machines.
-- **Automate Application Component grouping**: You can automatically add Application Components based on groupings of services on a server. For example, once Device42 discovers different Oracle services running on a machine, it will automatically group those services together as an Oracle application.
-- **Grab the configuration data for major applications**: You are able to see config details (and for some software, the actual configuration file contents) of certain applications from within Device42. These applications include Oracle, Microsoft SQL, MongoDB, PostgreSQL, MySQL, Cold Fusion, IIS, Apache HTTPD, and more.
-- **Automate Periodic Sampling Jobs**: You can automate Periodic Jobs for both port and database connections to gain a comprehensive view of applications as you use these resources over time. This will enhance the discovery beyond a point-in-time usage.
-
-## Navigating the ADM Documentation
-
-These sections cover the following entries found in the **Applications** menu of the documentation. 
+## Best Practices Overview
 
 The order of documentation subsections follows that of the ADM best practices, which is explained in more detail on the [Application Dependency Mapping](enterprise-application-dependency-mapping.index) page.
 
@@ -50,3 +40,9 @@ The ADM order of operations is:
 4. **[Application Groups](/apps/application-groups/index.mdx)** (previously known as Affinity Groups) offer an opinionated view of the impactful applications and their dependencies in your environment.
 5. **[Business Services](business-services/)** allow you to design and customize your map of critical business functions based on the Application Groups you choose.
 
+## ADM Features
+
+- **Discover services–to-services mapping**: Device42 can show you which service on a machine or instance is connected to which other service(s) on other machines.
+- **Grab the configuration data for major applications**: You are able to see config details (and for some software, the actual configuration file contents) of certain applications from within Device42. These applications include Oracle, Microsoft SQL, MongoDB, PostgreSQL, MySQL, Cold Fusion, IIS, Apache HTTPD, and more.
+- **Automate Periodic Sampling Jobs**: You can automate Periodic Jobs for both port and database connections to gain a comprehensive view of applications as you use these resources over time. This will enhance the discovery beyond a point-in-time usage.
+- **Automate Application Component grouping**: You can automatically add Application Components based on groupings of services on a server. For example, once Device42 discovers different Oracle services running on a machine, it will automatically group those services together as an Oracle application.
