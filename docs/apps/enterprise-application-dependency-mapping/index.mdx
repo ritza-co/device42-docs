@@ -44,26 +44,68 @@ ADM is enabled by default on discovery jobs when you have ADM licenses enabled. 
   }}
 />
 
-### ADM Discovery, Application Components, and Service Communication
+## ADM-Enabled Discovery
+
+Once you’ve discovered your inventory, analyze the list of servers and identify the servers you wish to include in a discovery job. This ADM-enabled discovery job is orientated towards the creation of Application Groups (detailed in the section that follows).
 
 <center>
   <img src={ADMflowdiscovery} width="45%"/>
 </center>
 
-Begin by configuring and running discovery jobs:
+### Identifying Servers using Application Components
 
-1. Identify the Windows and *Nix application servers in your environment to target, create and run ADM-enabled discovery jobs for the target servers.
-2. Create and run load balancer discovery jobs.
-3. Create and run database discovery jobs.
-4. From the Operating-System-level discovery run, Device42 creates Application Components – building blocks for mapping application relationships. Identify any missing applications in the list of Application Components that Device42 has created: 
-    - Check if [the list of commonly supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx) (and their services) includes the applications you use. 
-    - Visit the Device42 Main appliance, go to **Applications > Application Components** and check if all the applications you expect are listed. 
+To help identify servers to include in ADM-enabled discovery, you can navigate to **Applications -> Application Components** 
 
-5. Get Device42 to create Application Components of the missing applications with Application Component Templates:
-    - Go to **Resources > Service Instances** and view Service Instances details to use as values that can be matched against to find the missing application when creating the Template.
-    - Configure an Application Component Template, which allows Device42 to find and create an Application Component for the missing application services. 
+Application Components are building blocks for mapping application relationships. Device42 created these components during the initial Operating-System-level discovery run.
 
-### Application Groups
+Have a look through the Application Components under the **Application Layer**, **Database**, and **Web Server** categories. You can also search by **Name**.
+
+<ThemedImage
+  alt="Application Component Category filter"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-comp-categories-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-comp-categories-dark.png'),
+  }}
+/>
+
+### Leveraging App Comp Templates  
+
+Is there a service you want to use that's not in your list of Application Components?
+
+Device42 creates Application Components for the [applications on this list](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx).
+
+For custom applications, configure an Application Component Template to guide Device42 to create an Application Component for the custom application. See [Application Component Templates](/apps/application-components/application-component-templates/) for configuration details.
+
+A useful tip, especially for Java applications, is that you can look up Command Arguments of discovered services. Input the Command Argument as a match criteria in the Application Component Template.
+  - Go to **Resources > Service Instances**.
+  - View Service Instances details. See [ADM and Service Instances](/apps/services/service-instances/#application-dependency-mapping-and-service-instances) for configuration details.
+
+### Configuring and Running the ADM Discovery Job
+
+Now you can create and run ADM-enabled discovery jobs for the target servers you identified.
+
+- Create a new discovery job, select Windows or *nix and add the systems to the job.
+- Set the **ADM Sampling Interval** to **4 hours** (recommended for initial scans).
+- Keep the **Discover Services** and **Discover Applications** checkboxes unselected.
+- Schedule and run this discovery job. When this job runs it will create additional jobs per server called Periodic Jobs. See the created Periodic Jobs under **Analytics > Discovery Status > Periodic Jobs**.
+
+Periodic Jobs run at default 4 hour interval and performs Netstat commands to get listener and client communications happening on the server(s).
+
+Wait about 24 hours to allow the Periodic Jobs enough time to gather communication information.
+
+### Verifying Data
+
+Next, verify the discoverd data:
+
+- Check the Discovery Score(s) of the target devices in the Discovery Job configured for ADM. This can be done by locating the Discovery Scores section of the Device record then clicking on the Discovery Target IP.
+
+### Run More Discovery Jobs
+
+Next, we recommend that you:
+1. Create and run load balancer discovery jobs.
+2. Create and run database discovery jobs.
+
+## Application Groups
 
 <center>
   <img src={ADMflowappgroups} width="45%"/>
@@ -83,7 +125,7 @@ Application Groups offer many insights:
 
 Application Groups are dynamic. New discoverd data from your environment will update Application Groups.
 
-### Business Services
+## Business Services
 
 <center>
   <img src={ADMflowbusiness} width="45%"/>
