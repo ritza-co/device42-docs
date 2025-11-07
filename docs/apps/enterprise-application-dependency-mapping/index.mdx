@@ -4,24 +4,47 @@ title: "Application Dependency Mapping"
 
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import ADMflow from '/assets/images/ADMflowdiagram.png'
 import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
 import ADMflowappgroups from '/assets/images/adm-flow-app-groups.png'
 import ADMflowbusiness from '/assets/images/adm-flow-business-services.png'
 
 This page outlines the best practices roadmap in more detail of configuring to get the best out of this powerful Device42 feature.
 
-At it's core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat. 
+## ADM Best Practice Workflow
 
-## Best Practice Workflow
+See [ADM Best Practices Overview](/apps/) for an outline of the workflow detailed below.
 
-<center>
-  <img src={ADMflow} width="50%"/>
-</center>
+### Initial Discovery without ADM
 
-Work in order from top to bottom and left to right – starting by creating ADM-enabled discovery jobs, optionally enabling Netflow sampling, and finally ending with Business Services.
+Discover your Windows and/or Linux environment.
 
-## Discovery, Application Components, and Service Communication
+Begin by running Windows and *nix discovery jobs with ADM features turned off. You can also identify Windows and *nix systems on selected networks by running a [TCP Port Scan job](/auto-discovery/tcp-port-scan-auto-discovery.mdx).
+
+We recommend running initial discovery with ADM turned off to be resourceful with licenses. In most cases, your ADM licenses are not equal to your Core licenses, resulting in ADM licenses being allocated to servers that are not part of the Application inventory.
+
+ADM is enabled by default on discovery jobs when you have ADM licenses enabled. Turn off ADM services on the discovery job form:
+
+- Set **ADM Sampling Interval** to **Off**.
+
+<ThemedImage
+  alt="Turn off ADM Sampling Interval"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-dark.png'),
+  }}
+/>
+
+- Under the **Software and Applications** section, unselect the **Discover Services** and **Discover Applications** checkboxes.
+
+<ThemedImage
+  alt="Uncheck Services and Applications discovery"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-dark.png'),
+  }}
+/>
+
+### ADM Discovery, Application Components, and Service Communication
 
 <center>
   <img src={ADMflowdiscovery} width="45%"/>
@@ -40,7 +63,7 @@ Begin by configuring and running discovery jobs:
     - Go to **Resources > Service Instances** and view Service Instances details to use as values that can be matched against to find the missing application when creating the Template.
     - Configure an Application Component Template, which allows Device42 to find and create an Application Component for the missing application services. 
 
-## Application Groups
+### Application Groups
 
 <center>
   <img src={ADMflowappgroups} width="45%"/>
@@ -60,7 +83,7 @@ Application Groups offer many insights:
 
 Application Groups are dynamic. New discoverd data from your environment will update Application Groups.
 
-## Business Services
+### Business Services
 
 <center>
   <img src={ADMflowbusiness} width="45%"/>
