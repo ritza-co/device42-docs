@@ -2,27 +2,137 @@
 title: "Application Dependency Mapping"
 ---
 
-:::info
-Get started – visit the [Calculation Rules](/apps/application-groups/calculation-rules/) page and set up a Calculation Rule.
-:::
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl'
+import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
+import ADMflowappgroups from '/assets/images/adm-flow-app-groups.png'
+import ADMflowbusiness from '/assets/images/adm-flow-business-services.png'
 
-## What is Application Dependency Mapping?
+This page outlines the best practices roadmap in more detail of configuring to get the best out of this powerful Device42 feature.
 
-The goal of Application Dependency Mapping (ADM) is to build insightful models of your IT services and applications in the context of your business services.
+## ADM Best Practice Workflow
 
-After configuring and running autodiscovery jobs, the Device42 dependency mapping module picks up on communication patterns, which you shape via Application Groups. 
+See [ADM Best Practices Overview](/apps/) for an outline of the workflow detailed below.
 
-[Application Groups](/apps/application-groups) are generated using [sets of rules](/apps/application-groups/calculation-rules) that define the starting points for your applications, and [Logic Templates](apps/application-groups#calculation-logic-templates) define how discovery traverses the network and when it stops for each application.
+### Initial Discovery without ADM
 
-Add Application Groups to your [Business Services](/apps/business-services) to visualize and organize the results in a way that makes sense for your business. 
+Discover your Windows and/or Linux environment.
 
-On upgrade to v19.05, you'll find that ADM is easier and faster to configure and consists of a more natural flow. The logic used to calculate Application Groups has been significantly enhanced to show the most relevant relationships, and your existing applications will now better model shared infrastructure. 
+Begin by running Windows and *nix discovery jobs with ADM features turned off. You can also identify Windows and *nix systems on selected networks by running a [TCP Port Scan job](/auto-discovery/tcp-port-scan-auto-discovery.mdx).
 
-![Components of Application Dependency Mapping](/assets/images/application-dependency-mapping/ADM-v19.05-2.png)
+We recommend running initial discovery with ADM turned off to be resourceful with licenses. In most cases, your ADM licenses are not equal to your Core licenses, resulting in ADM licenses being allocated to servers that are not part of the Application inventory.
 
-## ADM Features
+ADM is enabled by default on discovery jobs when you have ADM licenses enabled. Turn off ADM services on the discovery job form:
 
-- **Discover services–to-services mapping**: Device42 can show you which service on a machine or instance is connected to which other service(s) on other machines.
-- **Automate Application Component grouping**: You can automatically add Application Components based on groupings of services on a server. For example, once Device42 discovers different Oracle services running on a machine, it will automatically group those services together as an Oracle application.
-- **Grab the configuration data for major applications**: You are able to see config details (and for some software, the actual configuration file contents) of certain applications from within Device42. These applications include Oracle, Microsoft SQL, MongoDB, PostgreSQL, MySQL, Cold Fusion, IIS, Apache HTTPD, and more.
-- **Automate Periodic Sampling Jobs**: You can automate Periodic Jobs for both port and database connections to gain a comprehensive view of applications as you use these resources over time. This will enhance the discovery beyond a point-in-time usage.
+- Set **ADM Sampling Interval** to **Off**.
+
+<ThemedImage
+  alt="Turn off ADM Sampling Interval"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-dark.png'),
+  }}
+/>
+
+- Under the **Software and Applications** section, unselect the **Discover Services** and **Discover Applications** checkboxes.
+
+<ThemedImage
+  alt="Uncheck Services and Applications discovery"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-dark.png'),
+  }}
+/>
+
+## ADM-Enabled Discovery
+
+Once you’ve discovered your inventory, analyze the list of servers and identify the servers you wish to include in a discovery job. This ADM-enabled discovery job is orientated towards the creation of Application Groups (detailed in the section that follows).
+
+<center>
+  <img src={ADMflowdiscovery} width="45%"/>
+</center>
+
+### Identifying Servers using Application Components
+
+To help identify servers to include in ADM-enabled discovery, you can navigate to **Applications -> Application Components** 
+
+Application Components are building blocks for mapping application relationships. Device42 created these components during the initial Operating-System-level discovery run.
+
+Have a look through the Application Components under the **Application Layer**, **Database**, and **Web Server** categories. You can also search by **Name**.
+
+<ThemedImage
+  alt="Application Component Category filter"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-comp-categories-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-comp-categories-dark.png'),
+  }}
+/>
+
+### Leveraging App Comp Templates  
+
+Is there a service you want to use that's not in your list of Application Components?
+
+Device42 creates Application Components for the [applications on this list](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx).
+
+For custom applications, configure an Application Component Template to guide Device42 to create an Application Component for the custom application. See [Application Component Templates](/apps/application-components/application-component-templates/) for configuration details.
+
+A useful tip, especially for Java applications, is that you can look up Command Arguments of discovered services. Input the Command Argument as a match criteria in the Application Component Template.
+  - Go to **Resources > Service Instances**.
+  - View Service Instances details. See [ADM and Service Instances](/apps/services/service-instances/#application-dependency-mapping-and-service-instances) for configuration details.
+
+### Configuring and Running the ADM Discovery Job
+
+Now you can create and run ADM-enabled discovery jobs for the target servers you identified.
+
+- Create a new discovery job, select Windows or *nix and add the systems to the job.
+- Set the **ADM Sampling Interval** to **4 hours** (recommended for initial scans).
+- Keep the **Discover Services** and **Discover Applications** checkboxes unselected.
+- Schedule and run this discovery job. When this job runs it will create additional jobs per server called Periodic Jobs. See the created Periodic Jobs under **Analytics > Discovery Status > Periodic Jobs**.
+
+Periodic Jobs run at default 4-hour interval and performs Netstat commands to get listener and client communications happening on the server(s).
+
+Wait about 24 hours to allow the Periodic Jobs enough time to gather communication information.
+
+### Verifying Data
+
+Next, verify the discoverd data:
+
+- Check the Discovery Score(s) of the target devices in the Discovery Job configured for ADM. This can be done by locating the Discovery Scores section of the Device record then clicking on the Discovery Target IP.
+
+### Run More Discovery Jobs
+
+Next, we recommend that you:
+1. Create and run load balancer discovery jobs.
+2. Create and run database discovery jobs.
+
+## Application Groups
+
+<center>
+  <img src={ADMflowappgroups} width="45%"/>
+</center>
+
+Application Groups (**Applications > Application Groups**) are the map of your services and applications and how they communicate. 
+
+Device42 generates Applications Group Suggestions based on collected relationship data and your input in the form of Calculation Rules and Logic Templates.
+
+Accepting informative Application Group Suggestions moves them to the **My Application Groups** tab. These Application Groups progress to Business Services.
+
+Application Groups offer many insights:
+- For example, you can identify devices communicating with, and dependent on, core servers via a service, such as development or test servers.
+- Identify servers added to an Application without being documented.
+- See how an application in your environment has changed over time.
+- Get a deeper understanding of what service is creating a relationship in an Application Group.
+
+Application Groups are dynamic. Newly discovered data from your environment will update Application Groups.
+
+## Business Services
+
+<center>
+  <img src={ADMflowbusiness} width="45%"/>
+</center>
+
+Business Services are used to solidify your understanding of an Application gathered from examining its Application group and create referenceable documentation.
+
+Unlike Application Groups, Business Services are static and will not change unless you have created an [Alert](/reports/reports/setup-alerts-and-notifications.mdx) for added and removed dependencies.
+
+Create a Business Service (under **Applications > Business Services**) by adding an Application Group to the Business Service.
