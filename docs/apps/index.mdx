@@ -11,11 +11,11 @@ Build insightful models of your IT services and applications.
 
 ## What is Application Dependency Mapping?
 
-Application Dependency Mapping (ADM) is a separately licensed Device42 component that maps communication between applications and infrastructure, showing you how they work together in your IT environment. 
+Application Dependency Mapping (ADM) is a separately licensed Device42 component that maps communication between applications and infrastructure, showing you how they work together in your IT environment.
 
-At its core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat. 
+At its core, ADM is built on service-to-service communication information, represented as 'listeners' and 'clients', collected over time using Netstat.
 
-ADM consists of the following Device42 features that together offer the complete ADM package:
+ADM consists of the following Device42 features:
 
 - [ADM-enabled discovery](/apps/enterprise-application-dependency-mapping/configure-application-dependency-mapping.mdx#creating-a-discovery-job)
 - [Application Components](/apps/application-components/)
@@ -33,7 +33,7 @@ ADM consists of the following Device42 features that together offer the complete
 
 ## ADM Best Practices Overview
 
-The order of documentation subsections follows that of the ADM best practices. Each step is explained in more detail on the [Application Dependency Mapping](enterprise-application-dependency-mapping/index.mdx) page.
+The order of documentation subsections follows the ADM best practices. The [Application Dependency Mapping](enterprise-application-dependency-mapping/index.mdx) page explains each step in more detail.
 
 After the initial discovery without ADM, work in order from top to bottom and left to right – run ADM-enabled discovery jobs, optionally enabling Netflow sampling, and finally ending with Business Services.
 
@@ -41,11 +41,10 @@ After the initial discovery without ADM, work in order from top to bottom and le
   <img src={ADMflow} width="50%"/>
 </center>
 
-1. Run Windows and *nix discovery jobs with ADM and service features turned off. This will help
-you be resourceful with licenses by helping you determine the specific application servers you wish to perform the deeper level of Services and Application Component discovery on. 
+1. Run Windows and *nix discovery jobs with ADM and service features turned off. This helps you be resourceful with licenses by helping you determine the specific application servers where you want to discover Services and Application Components.
 2. Run OS-level discovery jobs with ADM enabled. See [Configure ADM](/apps/enterprise-application-dependency-mapping/configure-application-dependency-mapping.mdx) for the detailed setup.
 3. Verify the discovered data. 
-4. **[Application Components](application-components/)** are discovered components such as databases, web servers, and load balancers. See a complete list of Device42’s supported applications here: **[ADM supported applications](apps/enterprise-application-dependency-mapping/adm-supported-applications)**. For applications not on the list, you need to configure Templates to get Device42 to find the services associated with the missing applications and create Application Components them.
+4. **[Application Components](application-components/)** are discovered components such as databases, web servers, and load balancers. See a complete list of Device42’s [ADM supported applications](apps/enterprise-application-dependency-mapping/adm-supported-applications). For applications not on the list, you need to configure Templates to get Device42 to find the services associated with the missing applications and create Application Components for them.
 5. View the discovered services in your environment. See the [All Services](/apps/services/index.mdx) and [Service Instances](/apps/services/service-instances.mdx) pages for details on how services relate to ADM.
 
     <ThemedImage

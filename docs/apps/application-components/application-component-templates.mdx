@@ -9,20 +9,20 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 Configure a new Application Component Template to guide Device42 in creating [Application Components](/apps/application-components/index.mdx) that weren't created during your initial [Windows and *nix discovery job](/auto-discovery/windows-and-hyper-v-auto-discovery) runs.
 
-Device42 automatically creates components for a [set list of applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx). Other applications, such as in-house applications, won't have components automatically created for them, in which case you'll create a template. 
+Device42 automatically creates components for a [set list of applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx). Other applications, such as in-house applications, won't have components automatically created for them, so you need to create component templates for them.
 
-Device42 matches services during discovery to the template criteria you define and creates an Application Component for it. 
+Device42 matches services it finds during discovery to the template criteria you define. When a service meets your template criteria, Device42 creates an Application Component for it.
 
-Device42 adds the Application Components to the [Application Components](/apps/application-components) list page under **Applications > Application Components**. Device records show the detected application under the **Application** tab.
+Device42 adds the Application Components to the [Application Components](/apps/application-components) list page under **Applications > Application Components**. Device42 records show the detected application under the **Application** tab.
 
 ## Example Application Components Templates
 
-Java is a very common service you might find throughout your environment, but not all instances of it will be relevant to your application. You can tune which of the Java service instances you create Application
-Components from. 
+Java is a very common service you may find throughout your environment, but not all instances of it are relevant to your application. You can tune which of the Java service instances you create Application
+Components from.
 
-You could define the listening port for the Java service, the Command Argument, or other services that must be present on the device for it to create an Application Component.
+Define the listening port for the Java service, the Command Argument, or other services that must be present on the device for Device42 to create an Application Component.
 
-In the example below, a Java [Service Instance](/apps/services/service-instances.mdx) listening on port `8181` that's found during discovery will be named “Jupiter”. The "Jupiter" application will be linked under the **Application** tab of the device record.
+In the example below, a Java [Service Instance](/apps/services/service-instances.mdx) listening on port `8181`, found during discovery, is named “Jupiter”. The "Jupiter" application will be linked under the **Application** tab of the device record.
 
 <ThemedImage
   alt="Jupiter Template example"
@@ -32,7 +32,7 @@ In the example below, a Java [Service Instance](/apps/services/service-instances
   }}
 />
 
-In the example below, more complex application instance criteria are used:
+The example below uses more complex application instance criteria:
 
 - The **Associate Service** is `OracleWebAssistant0`:
 
@@ -54,7 +54,7 @@ In the example below, more complex application instance criteria are used:
     }}
   />
 
-A `OracleWebAssitant0` Service instance found during discovery will be named “WebLogic” and found under the **Application** tab of the device record.
+An `OracleWebAssitant0` Service instance found during discovery is named “WebLogic” and found under the **Application** tab of the device record.
 
 ## Add an Application Component Template
 
@@ -68,10 +68,11 @@ Add a new template by clicking **Create** in the top right of the template lis
   }}
 />
 
-Application Component Templates allow you a lot granular control to avoid false positives. Though, all you need to enter on the Template form to start creating Application Components discovery are:
-- a **Name**
-- the **System Type** (**Windows** or ***Nix**) 
-- an **Associated Service**
+Although Application Component Templates grant you extensive granular control to avoid false positives, you only need to enter the following fields on the Template form to start creating Application Components:
+
+- The **Name**
+- The **System Type** (**Windows** or ***Nix**) 
+- The **Associated Service**
 
 Entering minimal details like this works great if you have a clearly defined service name.
 
@@ -84,9 +85,9 @@ Entering minimal details like this works great if you have a clearly defined ser
 />
 
 - Enter a **Name** for the template (required).
-- Select whether the template should be **Enabled** for use in autodiscovery jobs. This option lets you enable or disable the template according to when you need it without having to delete it when it's not in use.
-- Select the **Service Type** (Windows or \*Nix) to specify which platform Device42 autodiscovery searches for the service(s) that the Application Component will be based on.(required).
-- Select, enter, or add (using the **plus sign** icon) the **Associated Service** that autodiscovery will search for and use to create the Application Component (required).
+- Select whether the template should be **Enabled** for use in autodiscovery jobs. This option lets you enable or disable the template according to when you need it, without having to delete it when it's not in use.
+- Select the **Service Type** (Windows or \*Nix) to specify which platform Device42 autodiscovery searches for the service(s) that the Application Component is based on (required).
+- Select, enter, or add (using the **plus sign** icon) the **Associated Service** that autodiscovery searches for and uses to create the Application Component (required).
 - Enter a port in the **Only services listening on this port** field to limit autodiscovery to only the services that are listening on your chosen port. Leave the field empty to ignore the port.
 - For **Match Type**, select **Text** or **Regular Expression** to specify how you want to filter services:
   - You can enter a **Text** string pattern that discovery will use to create more service-specific Application Components by only generating Application Components for services with Service Command Arguments that contain the string.
@@ -101,7 +102,7 @@ Entering minimal details like this works great if you have a clearly defined ser
 
     >Performs simple text contains match on command argument text
 
-  - Enter a **Regular Expression** for more control over how you want to filter services. 
+  - Enter a **Regular Expression** for more control over how you want to filter services.
 
     <ThemedImage
     alt="Docusaurus themed image"
@@ -122,7 +123,7 @@ Entering minimal details like this works great if you have a clearly defined ser
   }}
 />
 
-- Enter an **Application Name Pattern** to specify how the Application Component is named. You can use static text and the following variables to construct the Application Component name.
+- Enter an **Application Name Pattern** to specify how Device42 names the Application Component. You can use static text and the following variables to construct the Application Component name.
 
     >The pattern can contain the following variables:
     >- `%(device_name)s` (required)
@@ -142,7 +143,7 @@ Entering minimal details like this works great if you have a clearly defined ser
     %(regex_name)s, %(regex_name1)s, %(regex_name2)s, %(regex_name3)s
     ```   
 
-- Select, enter, or add (using the **plus sign** icon) any **Related Software Components** or **Related Services** that should be associated with the Application Component. For Related Services, you can specify **Only services listening on this port**.
+- Select, enter, or add (using the **plus sign** icon) any **Related Software Components** or **Related Services** that Device42 should associate with the Application Component. For Related Services, you can specify **Only services listening on this port**.
 - Enter a path in **Configuration File Location** to specify the directory that Device42 should search for configuration files.
 - Enter a name or partial name in the **Configuration Filename Filter** field to identify the configuration file(s).
 - Select **Traverse subdirectories** to have Device42 traverse the Configuration File Location directory.
@@ -174,7 +175,7 @@ Select the templates to which you want to add the Custom Field values, then sele
   }}
 />
 
-- If you don't have any Custom Fields defined, you'll be guided to the **Add Custom Field** page where you can add one or several Custom Fields.
+- If you don't have any Custom Fields defined, Device42 guides you to the **Add Custom Field** page where you can add one or several Custom Fields.
   
     <ThemedImage
     alt="Custom Field Value action"
@@ -288,7 +289,7 @@ Click on a template name to see more details about that template. Click **Edi
   }}
 />
 
-The Windows/\*nix autodiscovery jobs you run will check to see which Application Component Templates are enabled and use them to create Application Components. When creating an autodiscovery job, the following necessary options are enabled by default in the **Software and Applications** tab:
+The Windows/\*nix autodiscovery jobs you run will check to see which Application Component Templates you have enabled and use them to create Application Components. When creating an autodiscovery job, the following necessary options are enabled by default in the **Software and Applications** tab:
 
 - **Discover Software**
 - **Discover Services**
