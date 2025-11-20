@@ -8,21 +8,29 @@ import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
 import ADMflowappgroups from '/assets/images/adm-flow-app-groups.png'
 import ADMflowbusiness from '/assets/images/adm-flow-business-services.png'
 
-This page outlines the best practices roadmap in more detail of configuring to get the best out of this powerful Device42 feature.
+ADM provides a complete solution for mapping applications and their dependencies. we recommend the following workflow to get the best results. 
 
-## ADM Best Practice Workflow
+This page is a comprehensive workflow. Visit [ADM Best Practices Overview](/apps/#adm-best-practices-overview) to see a summary of the process.
 
-See [ADM Best Practices Overview](/apps/) for an outline of the workflow detailed below.
+## Overview
+
+The diagram below shows the complete ADM workflow – from top to bottom, left to right The blue backgrounds boxes show user input is needed, while the white boxes show what Device42 generates automatically:
+
+<center>
+  <img src="/assets/images/adm-best-practices-legend.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
+
+## Set Up Discovery Jobs
+
+Start by discovering your Windows and Linux environments without ADM enabled, and without  **Discover Services** and **Discover Applications** options enabled. 
+
+This approach helps you manage your ADM licenses efficiently. Running initial discovery without ADM prevents licenses from being allocated to servers that are not part of your application inventory.
+
+You can also identify Windows and *nix systems on selected networks by running a [TCP Port Scan job](/auto-discovery/tcp-port-scan-auto-discovery.mdx).
 
 ### Initial Discovery without ADM
 
-Discover your Windows and/or Linux environment.
-
-Begin by running Windows and *nix discovery jobs with ADM features turned off. You can also identify Windows and *nix systems on selected networks by running a [TCP Port Scan job](/auto-discovery/tcp-port-scan-auto-discovery.mdx).
-
-We recommend running initial discovery with ADM turned off to be resourceful with licenses. In most cases, your ADM licenses are not equal to your Core licenses, resulting in ADM licenses being allocated to servers that are not part of the Application inventory.
-
-ADM is enabled by default on discovery jobs when you have ADM licenses enabled. Turn off ADM services on the discovery job form:
+Create your Windows or *nix discovery job and configure it as follows:
 
 - Set **ADM Sampling Interval** to **Off**.
 
@@ -34,7 +42,7 @@ ADM is enabled by default on discovery jobs when you have ADM licenses enabled. 
   }}
 />
 
-- Under the **Software and Applications** section, unselect the **Discover Services** and **Discover Applications** checkboxes.
+- Under the **Software and Applications** section, leave **Discover Services** and **Discover Applications** unchecked.
 
 <ThemedImage
   alt="Uncheck Services and Applications discovery"
@@ -44,21 +52,19 @@ ADM is enabled by default on discovery jobs when you have ADM licenses enabled. 
   }}
 />
 
-## ADM-Enabled Discovery
+Run this discovery job and allow it to complete. Review the discovered inventory to identify your application servers.
 
-Once you’ve discovered your inventory, analyze the list of servers and identify the servers you wish to include in a discovery job. This ADM-enabled discovery job is orientated towards the creation of Application Groups (detailed in the section that follows).
+### Identify Application Servers
 
-<center>
-  <img src={ADMflowdiscovery} width="45%"/>
-</center>
+After the initial discovery completes, identify the servers you want to include in ADM-enabled discovery.
 
-### Identifying Servers using Application Components
+Navigate to **Applications > Application Components** to see what Device42 has automatically discovered. Filter by **Category** to view:
 
-To help identify servers to include in ADM-enabled discovery, you can navigate to **Applications -> Application Components** 
+- **Application Layer:** Application servers and middleware
+- **Database:** Database servers and instances
+- **Web Server:** Web servers and load balancers
 
-Application Components are building blocks for mapping application relationships. Device42 created these components during the initial Operating-System-level discovery run.
-
-Have a look through the Application Components under the **Application Layer**, **Database**, and **Web Server** categories. You can also search by **Name**.
+You can also search by **Name** to find specific applications.
 
 <ThemedImage
   alt="Application Component Category filter"
@@ -68,71 +74,340 @@ Have a look through the Application Components under the **Application Layer**, 
   }}
 />
 
-### Leveraging App Comp Templates  
+
+### Use App Comp Templates  
 
 Is there a service you want to use that's not in your list of Application Components?
 
-Device42 creates Application Components for the [applications on this list](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx).
+Device42 automatically creates Application Components for commonly used applications like Apache, IIS, Oracle, Microsoft SQL, and others. See the complete list of [supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx).
 
-For custom applications, configure an Application Component Template to guide Device42 to create an Application Component for the custom application. See [Application Component Templates](/apps/application-components/application-component-templates/) for configuration details.
+For applications not on the supported list or for in-house developed solutions, you can create [Application Component Templates](/apps/application-components/application-component-templates/). These templates define detection criteria so Device42 can identify and create Application Components for custom applications.
 
-A useful tip, especially for Java applications, is that you can look up Command Arguments of discovered services. Input the Command Argument as a match criteria in the Application Component Template.
-  - Go to **Resources > Service Instances**.
-  - View Service Instances details. See [ADM and Service Instances](/apps/services/service-instances/#application-dependency-mapping-and-service-instances) for configuration details.
+At its simplest, a template needs:
 
-### Configuring and Running the ADM Discovery Job
+- **System Type:** Windows or *nix
+- **Associated Service:** The service name to detect.
 
-Now you can create and run ADM-enabled discovery jobs for the target servers you identified.
+See the dedicated [Application Components](/apps/application-components/application-component-templates/) page for detailed configuration options.
 
-- Create a new discovery job, select Windows or *nix and add the systems to the job.
+### Enable ADM Sampling
+
+Create a new discovery job specifically for your identified application servers.
+
+Configure the job settings:
+
 - Set the **ADM Sampling Interval** to **4 hours** (recommended for initial scans).
-- Keep the **Discover Services** and **Discover Applications** checkboxes unselected.
-- Schedule and run this discovery job. When this job runs it will create additional jobs per server called Periodic Jobs. See the created Periodic Jobs under **Analytics > Discovery Status > Periodic Jobs**.
+- Select **Discover Services** and **Discover Applications**.
 
-Periodic Jobs run at default 4-hour interval and performs Netstat commands to get listener and client communications happening on the server(s).
+Schedule and run this discovery job.
 
-Wait about 24 hours to allow the Periodic Jobs enough time to gather communication information.
+When this job runs it will create additional jobs per server called Periodic Jobs. See **Analytics > Discovery Status > Periodic Jobs**.
 
-### Verifying Data
+Periodic Jobs run at default 4-hour interval and run Netstat commands to capture listener and client communication.
 
-Next, verify the discoverd data:
+**Important**: Keep the original discovery job. The Periodic Jobs are linked to it, so any adjustments to the ADM sample frequency are managed through the original job.
 
-- Check the Discovery Score(s) of the target devices in the Discovery Job configured for ADM. This can be done by locating the Discovery Scores section of the Device record then clicking on the Discovery Target IP.
+### Wait for Data Collection
 
-### Run More Discovery Jobs
+Allow the Periodic Jobs to run for at least 24 hours before continuing. This gives Device42 time to build up a view of service communications.
 
-Next, we recommend that you:
-1. Create and run load balancer discovery jobs.
-2. Create and run database discovery jobs.
+Device42 stores service communication data over time to see patterns and identify dependencies, not only those active at a single point in time.
 
-## Application Groups
+### Discover Load Balancers
 
-<center>
-  <img src={ADMflowappgroups} width="45%"/>
-</center>
+Discovering load balancers is not mandatory unless there are load balancers in the network where traffic flows through.
 
-Application Groups (**Applications > Application Groups**) are the map of your services and applications and how they communicate. 
+SNMP will get you the device information along with the virtual servers from the Load Balancers
+
+1. Create an SNMP discovery job to capture device information and virtual servers from your load balancers.
+2. Create a UCS/Load Balancer API discovery job to gather netstat data from F5 load balancers.
+
+Run the SNMP job first, then the UCS/Load Balancer API discovery job to run after it completes. 
+
+The order is to create the SNMP scan first to capture the Device information then add the UCS/ACI Discovery job to gather resource information via the API and complement the device discovery. 
+
+### Discover Databases
+
+Database discovery is optional, as ADM works for web servers or any other listener-client communication.
+
+Database-level discovery is important when database servers host multiple applications. Mapping from the database instance level (rather than the server level) allows you to separate communications for different applications that share the same database server.
+
+Enable database discovery on your Windows or *nix discovery job:
+
+- Check **Collect Database Server Information**.
+- Specify the **Database Username/Password** with appropriate permissions.
+- Scroll down and under the **Software and Applications** section tick the **Discover
+Services** and **Discover Applications** checkboxes.
+
+The desired outcome of DB discovery is to see your databases listed on the **Resources > On-Prem Databases** page with values in both the **Database Count** and **Connection Count** columns.
+
+If you see 0 in the **Connection Count**, Device42 has not been able to fully discover the database. This is usually due to insufficient permissions for the account used.
+
+## Verify Data
+
+Before configuring Application Groups, verify that discovery is collecting the data you need.
+
+### Check Discovery Scores
+
+Discovery Scores indicate how successfully Device42 discovered information from a device.
+
+Navigate to a device record and locate the **Discovery Scores** section. Click on the **Discovery Target** IP to view details.
+
+[image]
+
+Click **Show** next to **Detailed Discovery Scores** and verify that **Service Lists** and **Service Ports** are at least yellow, and ideally green.
+
+An overall score in the low 90s or higher is a good result.
+
+[image]
+
+### Review Service Data
+
+Navigate to **Resources > All Services** to see all discovered services. This page shows the **Service Instance** count for each service.
+
+Click on a service name to see the individual instances and the devices they are running on.
+
+Use this page to identify "noisy" services like monitoring or backup agents that you may want to exclude from Application Groups. You can sort by **Service Instances** count from high to low to find services with many instances.
+
+Navigate to **Resources > Service Instances** to see details of individual service instances. This page is useful for finding values to use in Application Component Templates, such as Path Args.
+
+## Configure Application Groups
+
+Application Groups  (**Applications > Application Groups**) are created based on service-to-service communications captured during discovery. Device42 follows the client-listener path of services to build a map of your application.
+
+### Understanding Application Group Logic
+
+Application Groups start from a pinned or starred service and follow connection chains:
+
+- A **Listener** service on Device B receives connections from a **Client** service on Device A.
+- Device B's service is also a **Client** that connects to a **Listener** on Device C.
+- Device C's service connects to a **Listener** on Device D.
+
+Device42 follows these chains until reaching the end of the connection path.
+
+Application Components (which can contain multiple services) allow the connection chains to fork. If Device B has multiple services that are part of an Application Component, connections to those different services are all included in the Application Group.
+
+### About Application Group Calculation Logic Templates
+
+Calculation Logic Templates define how Device42 processes service communication data to create Application Groups. You can use the default Device42 template or create a new template.
+
+### Create Logic Templates
+
+You can use Form-based or DOQL-based templates.
+
+**Form-Based Templates** provide a simple interface where you can:
+
+- Set the **Depth** (number of connection levels to follow)
+- Set the **Limit of connections** to prevent excessively large groups
+- Define **Inclusions** to focus on specific systems
+- Define **Exclusions** to filter out unwanted services, devices, or connections
+
+Form-based templates are recommended over DOQL-based templates for most use cases.
+
+**DOQL-Based Templates** use database queries to filter and manipulate the dataset. These provide more control for complex scenarios.
+
+Navigate to **Tools > Saved DOQL Queries** and search for "D42_Affinity" to see the default DOQL queries.
+
+You can clone and modify these queries to customize the data passed to Application Groups. For example, you might:
+
+- Filter by Service Level to only include Production servers
+- Exclude monitoring or backup services to reduce noise
+- Filter by Custom Fields to target specific groups of servers
+
+### About Application Group Calculation Rules
+
+Application Group Calculation Rules define the starting point for Application Groups and how they are created.
+
+Device42 provides three system-defined rules, or you can create your own.
+
+- **Database:** Starts from the database instance level.
+- **Database Server:** Starts from the database server level.
+- **LB VIP:** Starts from load balancer virtual IPs.
+
+The **Database** rule provides the best control for environments where database servers host multiple applications. It maps connections from the database instance level, allowing you to separate applications that share the same database server.
+
+The **Database Server** rule works well when you have dedicated database instances per application.
+
+### Create a Calculation Rule
+
+
+To create a custom Application Group Calculation Rule:
+
+1. Navigate to **Applications > Application Groups > Application Group Calculation Rules**.
+2. Click **Create Calculation Rule**.
+3. Define the **Starting Points**:
+   - **Criteria:** Use search filters to define a set of devices, resources, or components
+   - **Fixed:** Specify exact devices, resources, Application Components, or Service Instances
+4. Select the **Outcome**:
+  - **Suggest:** Creates suggestions for you to review
+  - **Auto-Create:** Automatically creates Application Groups
+5. Set the **Group By** option (required for Fixed starting points):
+  - **Name:** Creates one Application Group per unique name.
+  - **Service Level:** Creates separate groups for Production, Development, and so on
+  - You can also group by Custom Fields
+6. Select the **Calculation Logic Template** – Choose a Form-based or DOQL-based template.
+7. Save the rule.
+
+After saving, you can click **Process Now** to run the calculation immediately, or wait for the automated job that runs at 2:00 AM daily.
+
+Monitor the **Status** field to track processing. Refresh the page if needed to see updates.
+
+### Review Application Group Suggestions
 
 Device42 generates Applications Group Suggestions based on collected relationship data and your input in the form of Calculation Rules and Logic Templates.
 
-Accepting informative Application Group Suggestions moves them to the **My Application Groups** tab. These Application Groups progress to Business Services.
+Accepting informative Application Group Suggestions moves them to the **My Application Groups** tab. 
+
+Once processing completes, navigate to **Applications > Application Groups** and click the **Application Group Suggestions** tab.
+
+Review the suggested Application Groups by clicking the **Chart** link. The chart shows:
+
+- **AppFocus Box:** Devices that meet your calculation rule criteria (these are the core of your application)
+- **Outside AppFocus:** Devices that have dependencies on the core devices but don't meet the criteria (these might be development/test servers, supporting applications, or servers added to the application that haven't been documented)
+
+You can drill into connections by clicking on the communication lines between devices. This shows you the specific services and Application Components that create the relationship.
+
+Click on individual elements to see details in a popup dialog. Use the pop-out icon to navigate to the full page for that element.
+
+### Accept Application Groups
+
+Once you've reviewed a suggested Application Group and decided it accurately represents your application, click **Accept** in the **Quick Actions** column.
+
+This moves the Application Group from **Application Group Suggestions** to **My Application Groups**.
+
+### Benefits of Application Groups
+
+Application Groups are dynamic. Newly discovered data from your environment will update Application Groups.
 
 Application Groups offer many insights:
+
 - For example, you can identify devices communicating with, and dependent on, core servers via a service, such as development or test servers.
 - Identify servers added to an Application without being documented.
 - See how an application in your environment has changed over time.
 - Get a deeper understanding of what service is creating a relationship in an Application Group.
 
-Application Groups are dynamic. Newly discovered data from your environment will update Application Groups.
-
-## Business Services
-
-<center>
-  <img src={ADMflowbusiness} width="45%"/>
-</center>
+## About Business Services
 
 Business Services are used to solidify your understanding of an Application gathered from examining its Application group and create referenceable documentation.
 
 Unlike Application Groups, Business Services are static and will not change unless you have created an [Alert](/reports/reports/setup-alerts-and-notifications.mdx) for added and removed dependencies.
 
-Create a Business Service (under **Applications > Business Services**) by adding an Application Group to the Business Service.
+### Create a Business Service
+
+- Navigate to **Applications > Business Services** and click **Create**.
+- Fill in at least the **Name** field and save.
+- After saving, click the **Application Layout** tab, then click **Edit** in the upper right corner.
+- Drag the **Application Group** icon to the workspace. You'll be prompted to search for an Application Group. Type the name and select it from the results.
+
+You  having the flexibility of creating a own Business Service by dragging devices, Application Components, and Resources to the workspace.
+
+- Click **Add** to place the Application Group in the Business Service.
+
+You can now customize the layout:
+
+- Rearrange components
+- Add colors and shading to objects
+- Add additional devices, Application Components, or resources
+- Group related items
+
+Use the **File**, **Edit**, **View**, and **Arrange** menus to work with the layout.
+
+When you're done editing, save your changes. The Business Service provides a clear, documented view of your application that you can reference and share.
+
+## Troubleshooting Application Groups
+
+If you encounter issues with Application Groups, check the following areas:
+
+### Verify Discovery Settings
+
+- Confirm that discovery jobs are configured with the correct credentials, IP ranges, and options.
+- Ensure ADM Sampling Interval is set appropriately for your environment and use case.
+
+### Check Network Connectivity
+
+- Verify network connectivity between Device42 (main appliance or remote collector) and target devices.
+- Ensure firewalls or network security settings are not blocking discovery traffic.
+
+### Verify License Usage
+
+Navigate to **Tools > Licensing** and confirm that the ADM license discovered count is below the licensed amount.
+
+If you've exhausted your ADM licenses on the wrong systems, you can reclaim them by removing those servers from ADM-enabled discovery jobs. See the [ADM License Management webinar](https://www.device42.com/getting-started/?wvideo=0vuv9l7jbf) about reclaiming licenses.
+
+### Review Discovery Logs
+
+Check the discovery logs for errors or warnings that might indicate issues with the discovery process.
+
+Look for authentication failures, timeouts, or connectivity issues.
+
+- Go into each Discovery Job and click **Show** in the job results breakdown.
+- Turn on **Payload Diagnostics** (under **Tools > Global Settings**) then review them in the Payload Diagnostics section of the Discovery menu.
+
+[image]
+
+### Validate Service Detection
+
+Confirm that services are being detected correctly on the target devices. Inaccurate service detection can lead to incomplete or
+incorrect Application Groups.
+
+- Navigate to **Resources > All Services** and **Service Instances** and to review the detected services and their instances.
+
+### Ensure Key Services Are Starred or Pinned
+
+Verify that key services for applications are starred (for Form-based logic) or pinned (for DOQL-based logic):
+
+- Navigate to **Resources > Service Instances**.
+- Filter by **Topology Status** to find starred services.
+- Check the **Pinned** column to see pinned services.
+
+[verify - image]
+
+### Check Application Component Creation
+
+Navigate to **Applications > Application Components** and to ensure that application components are created based on the Application Component template rules for finding services.
+
+Review **Applications > Application Component Templates** to confirm that template rules are valid.
+
+### Examine Application Groups
+
+Verify that Application Groups are being generated correctly and represent the expected application dependencies
+
+Change the Application Calculation Rule or DOQL that is used to create Application Groups as needed. If Application Groups are not showing enough connections:
+
+- Increase the **Limit of connections** in the Calculation Logic Template (try `60` or `80` instead of the default `20`).
+- If a DOQL query is being used, ensure client OS device communications are not being calculated so we only see Server OS communications, or lower the date range for discovered services. Customizing the
+DOQL(s) can be used as necessary for more specific fine-tuning.
+
+Use the Application Group Calculation Rules to refine the focus of the Application Groups if necessary. 
+- If you expect more than one
+device to be inside of an **AppFocus** box, then change the **Group By** in the Application Calculation Group rule to **Service Level** instead of **Name**. 
+
+This **Group By** clause will create multiple Application Groups based on the rule. If we are grouping by name, this will include devices with unique names and each device with a unique name will have its own Application Group, whereas when you choose group by Service Level this will make one affinity group for all ‘production’ service level devices, and allows multiple devices
+to be included in the same AppFocus box. Custom Fields for devices can be used in the **Group By** logic as well.
+
+### Check Database Discovery
+
+If database discovery is part of your Application Groups ensure that database instances and their connections are being
+discovered accurately:
+
+- Navigate to **Resources > On-Prem Databases**.
+- Verify that you see values in both **Database Count** and **Connection Count**.
+- If **Connection Count** is 0, check the permissions of the database account used for discovery.
+
+### Check Load Balancer Discovery
+
+For load balancer discovery:
+
+- Verify that SNMP jobs completed successfully.
+- Ensure UCS/ACI/Load Balancer discovery jobs are scheduled to run after SNMP jobs.
+
+### Update Device42
+
+Ensure your Device42 instance is running the latest version, as updates may contain fixes and improvements for the AGs
+discovery process. 
+
+Navigate to **Tools > Update** to check your current version and see if updates are available.
+
+### Contact Support
+
+If you encounter persistent issues, contact Device42 support at [support@device42.com](mailto:support@device42.com) or reach out to your Customer Success Team for assistance.
