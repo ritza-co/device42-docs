@@ -14,15 +14,22 @@ This page is a comprehensive workflow. Visit [ADM Best Practices Overview](/apps
 
 ## Overview
 
-The diagram below shows the complete ADM workflow – from top to bottom, left to right The blue backgrounds boxes show user input is needed, while the white boxes show what Device42 generates automatically:
+Our recommended steps for success are:
+
+1. Set up discovery jobs
+2. Verify data
+3. Configure Application Groups
+4. Configure Business Services
+
+The diagram below shows the complete ADM workflow – from top to bottom, left to right. The blue backgrounds boxes show some user configuration is needed at that step, while the white boxes show what Device42 generates automatically:
 
 <center>
-  <img src="/assets/images/adm-best-practices-legend.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/adm-best-practices-legend-2.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 ## Set Up Discovery Jobs
 
-Start by discovering your Windows and Linux environments without ADM enabled, and without  **Discover Services** and **Discover Applications** options enabled. 
+Start by discovering your Windows and Linux environments without ADM, **Discover Services** and **Discover Applications** options enabled. After discovering your environment, you then identify the specific Application Servers you want to perform the deeper Services and Application  discovery on.
 
 This approach helps you manage your ADM licenses efficiently. Running initial discovery without ADM prevents licenses from being allocated to servers that are not part of your application inventory.
 
@@ -30,7 +37,11 @@ You can also identify Windows and *nix systems on selected networks by running a
 
 ### Initial Discovery without ADM
 
-Create your Windows or *nix discovery job and configure it as follows:
+Go to **Discovery > HyperVisors / *nix / Windows** and click **Create**.
+
+- Choose **Windows** or **\*nix** for the **Platform** and select a **Remote Collector**.  
+
+Ensure ADM features are off:
 
 - Set **ADM Sampling Interval** to **Off**.
 
@@ -58,11 +69,13 @@ Run this discovery job and allow it to complete. Review the discovered inventory
 
 After the initial discovery completes, identify the servers you want to include in ADM-enabled discovery.
 
-Navigate to **Applications > Application Components** to see what Device42 has automatically discovered. Filter by **Category** to view:
+To help identify these servers, navigate to **Applications > Application Components** to see what Device42 has discovered. You may have discovered servers in different categories. 
 
-- **Application Layer:** Application servers and middleware
-- **Database:** Database servers and instances
-- **Web Server:** Web servers and load balancers
+Filter by **Category** to view:
+
+- **Application Layer** 
+- **Database**
+- **Web Server** 
 
 You can also search by **Name** to find specific applications.
 
@@ -74,36 +87,62 @@ You can also search by **Name** to find specific applications.
   }}
 />
 
+Application Components are part of what build application relationships. These are created
+during the deeper discovery phase of the Operating-System level (Windows or *Nix Discovery)
+job run.
 
-### Use App Comp Templates  
+Once you’ve identified the servers you will create a new *nix or Windows Discovery job for these systems with additional options selected to gather the communication information.
 
-Is there a service you want to use that's not in your list of Application Components?
+### Optional: Use App Comp Templates  
+
+Is there a service that's not in your list of Application Components?
 
 Device42 automatically creates Application Components for commonly used applications like Apache, IIS, Oracle, Microsoft SQL, and others. See the complete list of [supported applications](/apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx).
 
 For applications not on the supported list or for in-house developed solutions, you can create [Application Component Templates](/apps/application-components/application-component-templates/). These templates define detection criteria so Device42 can identify and create Application Components for custom applications.
 
-At its simplest, a template needs:
+Go to **Applications > Application Component Templates**. 
+At its simplest, a template needs a:
 
+- **Name**
 - **System Type:** Windows or *nix
-- **Associated Service:** The service name to detect.
+- **Associated Service:** The service name to detect
 
 See the dedicated [Application Components](/apps/application-components/application-component-templates/) page for detailed configuration options.
 
-### Enable ADM Sampling
+### Create an ADM Job
 
-Create a new discovery job specifically for your identified application servers.
+Create a job with ADM, Services, and Applications discovery enabled specifically for your identified application servers.
 
-Configure the job settings:
+Go to **Discovery > HyperVisors / \*nix / Windows** and click **Create**.
 
+- Choose **Windows** or **\*nix** for the **Platform** and select a **Remote Collector**. 
+- Add the identified systems to the job as **Discovery Target(s)**.
 - Set the **ADM Sampling Interval** to **4 hours** (recommended for initial scans).
+
+<ThemedImage
+  alt="ADM interval set to 4 hours"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-sampling-enabled-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-sampling-enabled-dark.png'),
+  }}
+/>
+
 - Select **Discover Services** and **Discover Applications**.
+
+<ThemedImage
+  alt="Enable Services and Applications discovery"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discover-services-applications-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discover-services-applications-dark.png'),
+  }}
+/>
 
 Schedule and run this discovery job.
 
-When this job runs it will create additional jobs per server called Periodic Jobs. See **Analytics > Discovery Status > Periodic Jobs**.
-
-Periodic Jobs run at default 4-hour interval and run Netstat commands to capture listener and client communication.
+When this job runs it will create additional jobs per server called Periodic Jobs.
+- Periodic Jobs run at default 4-hour interval and run Netstat commands to capture listener and client communication.
+- See **Analytics > Discovery Status > Periodic Jobs**
 
 **Important**: Keep the original discovery job. The Periodic Jobs are linked to it, so any adjustments to the ADM sample frequency are managed through the original job.
 
@@ -151,129 +190,277 @@ Before configuring Application Groups, verify that discovery is collecting the d
 
 Discovery Scores indicate how successfully Device42 discovered information from a device.
 
-Navigate to a device record and locate the **Discovery Scores** section. Click on the **Discovery Target** IP to view details.
+- Select a device record (**Resources > All Devices**) and click **Discovery Scores** on the right panel. - Click on the **Discovery Target** IP to view details.
 
-[image]
+  <ThemedImage
+    alt="Device Discovery Scores links"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discovery-score-ip-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discovery-score-ip-dark.png'),
+    }}
+  />
 
-Click **Show** next to **Detailed Discovery Scores** and verify that **Service Lists** and **Service Ports** are at least yellow, and ideally green.
+- Click **Show** next to **Detailed Discovery Scores** and check if **Service Lists** and **Service Ports** are at least yellow, and ideally green.
+- A **Cumulative score** in the low 90s or higher is a good result.
 
-An overall score in the low 90s or higher is a good result.
+  <ThemedImage
+    alt="Device Discovery Scores section"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/detailed-discovery-scores-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/detailed-discovery-scores-dark.png'),
+    }}
+  />
 
-[image]
+### Check App Group Calculation and Topology Views  
+
+- Next open the device record. Click on the **object link**. 
+
+  <ThemedImage
+    alt="Object link"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/linked-object-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/linked-object-dark.png'),
+    }}
+  />
+
+- Verify that the **Application Group Calculation** view looks similar to the image below and makes sense for your environment. 
+
+  <ThemedImage
+    alt="Object link"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/linked-object-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/linked-object-dark.png'),
+    }}
+  />
+
+- Verify that the **Topology** view looks similar to the image below and makes sense for your environment. 
+
+  <ThemedImage
+    alt="Object link"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/topology-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/topology-dark.png'),
+    }}
+  />
+
+For help, see the [Troubleshooting section](#troubleshooting-application-groups) or [contact support](mailto:support@device42.com). 
 
 ### Review Service Data
 
 Navigate to **Resources > All Services** to see all discovered services. This page shows the **Service Instance** count for each service.
 
-Click on a service name to see the individual instances and the devices they are running on.
+- Click on a service name to see the individual instances and the devices they are running on.
+- Use this page to identify "noisy" services like monitoring or backup agents that you may want to exclude from Application Groups. You can sort by **Service Instances** count from high to low to find services with many instances.
 
-Use this page to identify "noisy" services like monitoring or backup agents that you may want to exclude from Application Groups. You can sort by **Service Instances** count from high to low to find services with many instances.
+  <ThemedImage
+    alt="All Services with Instance count"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/all-services-instances-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/all-services-instances-dark.png'),
+    }}
+  />
 
-Navigate to **Resources > Service Instances** to see details of individual service instances. This page is useful for finding values to use in Application Component Templates, such as Path Args.
+- If you click on the `java` service above, you'll see a list of the individual instances and the devices they are running on.
+
+  <ThemedImage
+    alt="All Services with Instance count"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/instances-devices-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/instances-devices-dark.png'),
+    }}
+  />
+
+Navigate to **Resources > Service Instances** to see details of individual service instances. 
+
+- This page is useful for finding values to use in Application Component Templates, such as **Path Args**. See [ADM and Service Instances](/apps/services/service-instances/#application-dependency-mapping-and-service-instances) for details.
+
+  <ThemedImage
+    alt="Service Instances list page"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/service-instances-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/service-instances-dark.png'),
+    }}
+  />
 
 ## Configure Application Groups
 
-Application Groups  (**Applications > Application Groups**) are created based on service-to-service communications captured during discovery. Device42 follows the client-listener path of services to build a map of your application.
+Application Groups (**Applications > Application Groups**) are created based on service-to-service communications captured during discovery. Device42 follows the client-listener path of services to build a map of your application.
 
-### Understanding Application Group Logic
+There are two main components when configuring Application Groups: 
 
-Application Groups start from a pinned or starred service and follow connection chains:
-
-- A **Listener** service on Device B receives connections from a **Client** service on Device A.
-- Device B's service is also a **Client** that connects to a **Listener** on Device C.
-- Device C's service connects to a **Listener** on Device D.
-
-Device42 follows these chains until reaching the end of the connection path.
-
-Application Components (which can contain multiple services) allow the connection chains to fork. If Device B has multiple services that are part of an Application Component, connections to those different services are all included in the Application Group.
+- Application Group Calculation Logic Template
+- Application Group Calculation Rules
 
 ### About Application Group Calculation Logic Templates
 
-Calculation Logic Templates define how Device42 processes service communication data to create Application Groups. You can use the default Device42 template or create a new template.
+Calculation Logic Templates are the rules that define what data gets passed to Application Groups to calculate dependencies.
 
-### Create Logic Templates
+You can use the **D42 Default Template** or create a custom template to use when configuring the calculation rule in the [next step](#create-a-calculation-rule).
 
-You can use Form-based or DOQL-based templates.
+### Create a Custom Logic Template
 
-**Form-Based Templates** provide a simple interface where you can:
+Go to **Applications > Application Groups** and click **Settings > Create Calculation Logic Template**.
 
-- Set the **Depth** (number of connection levels to follow)
-- Set the **Limit of connections** to prevent excessively large groups
-- Define **Inclusions** to focus on specific systems
-- Define **Exclusions** to filter out unwanted services, devices, or connections
+Create a custom logic template using the wizard-like **Form** (recommended) or **DOQL** for advanced control.
 
-Form-based templates are recommended over DOQL-based templates for most use cases.
+<ThemedImage
+  alt="Format: Choose Form or DOQL"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/logic-format-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/logic-format-dark.png'),
+  }}
+  style={{ width: '65%' }} 
+/>
 
-**DOQL-Based Templates** use database queries to filter and manipulate the dataset. These provide more control for complex scenarios.
+The form is an interface where you:
 
-Navigate to **Tools > Saved DOQL Queries** and search for "D42_Affinity" to see the default DOQL queries.
+- Set the **Levels of Depth:** Number of connection levels to follow (connections the Ending Point will have).
+- Set the **Limit of connections:** Limit the number of connections made when calculating listener and
+client connections to prevent excessively large groups.
+- Define **Inclusions:** Typically left blank unless you need to focus on a particular group of systems.
+- Define **Exclusions:** Specify Application Components, Devices, Resources, Service
+Communications, or Service Instances that will be excluded from the Calculation Logic Calculation for that specific Application Group. For example, exclude antivirus software.
 
-You can clone and modify these queries to customize the data passed to Application Groups. For example, you might:
+See [Calculation Logic Templates](/apps/application-groups/calculation-rules/#calculation-logic-templates) for an explanation of the form fields.
 
-- Filter by Service Level to only include Production servers
-- Exclude monitoring or backup services to reduce noise
-- Filter by Custom Fields to target specific groups of servers
+Save and run the template by clicking **Process now** (under **Applications > Application Groups > Settings**).
 
-### About Application Group Calculation Rules
+<ThemedImage
+  alt="Application Group Calculation Logic Form"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/logic-form-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/logic-form-dark.png'),
+  }}
+/>
 
-Application Group Calculation Rules define the starting point for Application Groups and how they are created.
+**DOQL-Based Templates** use database queries to filter and manipulate the dataset. These provide more control for complex scenarios. 
 
-Device42 provides three system-defined rules, or you can create your own.
+<ThemedImage
+  alt="Application Group Calculation Logic DOQL"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/logic-template-doql-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/logic-template-doql-dark.png'),
+  }}
+/>
 
-- **Database:** Starts from the database instance level.
-- **Database Server:** Starts from the database server level.
+You can clone and modify existing system queries to customize the data passed to Application Groups.
+
+- Navigate to **Tools > Saved DOQL Queries**.
+- Search for "D42_affinity" to see the default DOQL queries. The most common one used is `DOQL D42_Affinity_Group_Ignore_Hidden_Services`. 
+- Click on the name of the DOQL to see the query being run on all of your data to build the dataset
+used by Application Groups. This is where you can do bulk editing to manipulate the dataset.
+- Click on the **Query URL** to download a CSV of the raw data that is passed to the Application Groups. 
+
+On the cloned query, you could:
+
+- Filter by **Service Level** to only include production servers in the application group.
+- Exclude monitoring or backup services to reduce noise.
+- Filter by **Custom Fields** to target specific server groups.
+
+Test the impact of these changes by saving it and clicking on the **Query URL** and checking if the changes had the desired impact on the CSV data.
+
+Save and run the template by clicking **Process now** (under **Applications > Application Groups > Settings**).
+
+### Default Application Group Calculation Rules
+
+Application Group Calculation Rules are the foundations of building Application Groups. Create your own Calculation Rule or use one of the the three Device42 system-defined rules:
+
+- **Database:** Starts from the database instance level to map connections This rule offers the best control for environments where database servers host multiple applications, allowing you to separate connections for each database instance.
+- **Database Server:** Starts from the database server level. Maps connections at the server level and includes all connections to the database instance. Use this rule when you have dedicated database servers per application.
 - **LB VIP:** Starts from load balancer virtual IPs.
 
-The **Database** rule provides the best control for environments where database servers host multiple applications. It maps connections from the database instance level, allowing you to separate applications that share the same database server.
-
-The **Database Server** rule works well when you have dedicated database instances per application.
-
-### Create a Calculation Rule
-
+### Create a Custom Calculation Rule
 
 To create a custom Application Group Calculation Rule:
 
 1. Navigate to **Applications > Application Groups > Application Group Calculation Rules**.
 2. Click **Create Calculation Rule**.
-3. Define the **Starting Points**:
-   - **Criteria:** Use search filters to define a set of devices, resources, or components
-   - **Fixed:** Specify exact devices, resources, Application Components, or Service Instances
-4. Select the **Outcome**:
-  - **Suggest:** Creates suggestions for you to review
-  - **Auto-Create:** Automatically creates Application Groups
-5. Set the **Group By** option (required for Fixed starting points):
-  - **Name:** Creates one Application Group per unique name.
-  - **Service Level:** Creates separate groups for Production, Development, and so on
-  - You can also group by Custom Fields
-6. Select the **Calculation Logic Template** – Choose a Form-based or DOQL-based template.
+3. Select the **Outcome**:
+    - **Suggest:** Creates suggestions for you to review.
+    - **Auto-Create:** Automatically creates Application Groups.
+4. Define the **Starting Points**:
+   - **Criteria:** Use search filters to define a set of devices, resources, or components.
+   - **Fixed:** Specify exact Devices, Resources, Application Components, or Service Instances.
+
+  <ThemedImage
+    alt="Application Group Calculation Rule form"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/calculation-rule-starting-points-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/calculation-rule-starting-points-dark.png'),
+    }}
+  />
+
+
+5. Set the **Group By** option (required for **Fixed** starting points). For example:
+    - **Name:** Creates one Application Group per unique name.
+    - **Service Level:** Creates separate Application Groups for each service level (Production, Development, and so on).
+    - You can also group by custom fields.
+6. Select the **Calculation Logic Template**. Choose a Form-based or DOQL-based template.
+
+    <ThemedImage
+    alt="Application Group Calculation Rule form "
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/calculation-rule-group-by-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/calculation-rule-group-by-dark.png'),
+    }}
+    />
+
 7. Save the rule.
+8. Click **Process Now** to run the calculation immediately, or wait for the automated job that runs at 2:00 AM daily.
+9. Monitor the **Status** field to track processing. Refresh the page if needed to see updates.
 
-After saving, you can click **Process Now** to run the calculation immediately, or wait for the automated job that runs at 2:00 AM daily.
+    <ThemedImage
+    alt="Application Group Calculation Rule Processing status"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/rule-processing-status-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/rule-processing-status-dark.png'),
+    }}
+    />
 
-Monitor the **Status** field to track processing. Refresh the page if needed to see updates.
+If you have just began discovering these devices and their communications you may not get the map you expect right away. Wait several days for communication information to be captured so it can be calculated properly.
 
-### Review Application Group Suggestions
+### Review and Accept Application Group Suggestions
 
-Device42 generates Applications Group Suggestions based on collected relationship data and your input in the form of Calculation Rules and Logic Templates.
+Once the Calculation Rule processing is complete – and the rule **Outcome** was set to **Suggest** – Application Group *Suggestions* are created.  
 
-Accepting informative Application Group Suggestions moves them to the **My Application Groups** tab. 
+- Navigate to **Applications > Application Groups** and click the **Application Group Suggestions** tab. 
+- Review the suggested Application Groups by clicking the **Chart** link. 
 
-Once processing completes, navigate to **Applications > Application Groups** and click the **Application Group Suggestions** tab.
-
-Review the suggested Application Groups by clicking the **Chart** link. The chart shows:
-
-- **AppFocus Box:** Devices that meet your calculation rule criteria (these are the core of your application)
-- **Outside AppFocus:** Devices that have dependencies on the core devices but don't meet the criteria (these might be development/test servers, supporting applications, or servers added to the application that haven't been documented)
-
-You can drill into connections by clicking on the communication lines between devices. This shows you the specific services and Application Components that create the relationship.
-
-Click on individual elements to see details in a popup dialog. Use the pop-out icon to navigate to the full page for that element.
-
-### Accept Application Groups
+See [My Application Groups](#my-application-groups) below for a quick explanation of the chart.
 
 Once you've reviewed a suggested Application Group and decided it accurately represents your application, click **Accept** in the **Quick Actions** column.
 
-This moves the Application Group from **Application Group Suggestions** to **My Application Groups**.
+<ThemedImage
+  alt="Application Group Suggestions"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-group-suggestions-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-group-suggestions-dark.png'),
+  }}
+/>
+
+Accepting informative Application Group Suggestions moves them to the **My Application Groups** tab.
+
+### My Application Groups
+
+For accepted and auto-created Application Groups, find the **Chart** link under the **My Application Groups** tab of the Applications Group list page.
+
+The chart shows:
+  - **AppFocus Box:** Devices that meet your calculation rule criteria (these are the core of your application)
+  - **Outside AppFocus:** Devices that have dependencies on the core devices but don't meet the criteria (these might be development/test servers, supporting applications, or servers added to the application that haven't been documented)
+
+You can drill into connections by clicking on the communication lines between devices. This shows you the specific services and Application Components that create the relationship. See [Relationship Lines and Metadata](/apps/application-groups/#relationship-lines-and-metadata).
+
+Click on individual elements to see details in a popup dialog. Use the pop-out icon to navigate to the full page for that element.
+
+<ThemedImage
+  alt="Application Group Chart"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-group-chart-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/app-group-chart-dark.png'),
+  }}
+/>
+
+See [Chart Usability Tips](http://localhost:3000/apps/application-groups/#chart-usability-tips).
 
 ### Benefits of Application Groups
 
@@ -281,7 +468,7 @@ Application Groups are dynamic. Newly discovered data from your environment will
 
 Application Groups offer many insights:
 
-- For example, you can identify devices communicating with, and dependent on, core servers via a service, such as development or test servers.
+- Identify devices communicating with, and dependent on, core servers via a service, such as development or test servers.
 - Identify servers added to an Application without being documented.
 - See how an application in your environment has changed over time.
 - Get a deeper understanding of what service is creating a relationship in an Application Group.
@@ -295,7 +482,7 @@ Unlike Application Groups, Business Services are static and will not change unle
 ### Create a Business Service
 
 - Navigate to **Applications > Business Services** and click **Create**.
-- Fill in at least the **Name** field and save.
+- Fill in at least the **Name** field to save.
 - After saving, click the **Application Layout** tab, then click **Edit** in the upper right corner.
 - Drag the **Application Group** icon to the workspace. You'll be prompted to search for an Application Group. Type the name and select it from the results.
 
