@@ -167,14 +167,10 @@ Device42 stores service communication data over time to see patterns and identif
 
 Discovering load balancers is not mandatory unless there are load balancers in the network where traffic flows through.
 
-SNMP will get you the device information along with the virtual servers from the Load Balancers
+1. Go to **Discovery > SNMP** and create a job to capture device information and virtual servers from your load balancers. Wait for the job to complete. See [SNMP - Network Discovery](/auto-discovery/network-auto-discovery/) for config details.
+2. Got to **Discovery > UCS/ACI/Load Balancers** and create a new job to gather netstat data from F5 load balancers. See [UCS / ACI / Load Balancer / F5 Autodiscovery](/auto-discovery/load-balancer-f5-autodiscovery/) for config details.
 
-1. Create an SNMP discovery job to capture device information and virtual servers from your load balancers.
-2. Create a UCS/Load Balancer API discovery job to gather netstat data from F5 load balancers.
-
-Run the SNMP job first, then the UCS/Load Balancer API discovery job to run after it completes. 
-
-The order is to create the SNMP scan first to capture the Device information then add the UCS/ACI Discovery job to gather resource information via the API and complement the device discovery. 
+The order captures device information with SNMP and then add the UCS/ACI Discovery job to gather resource information via the API and complement the device discovery. 
 
 ### Discover Databases
 
@@ -182,16 +178,37 @@ Database discovery is optional, as ADM works for web servers or any other listen
 
 Database-level discovery is important when database servers host multiple applications. Mapping from the database instance level (rather than the server level) allows you to separate communications for different applications that share the same database server.
 
-Enable database discovery on your Windows or *nix discovery job:
+Enabling Database discovery is similar to enabling ADM sampling. Ensure you have the Enterprise
+Application Discovery and Services Discovery modules with your license and 
 
-- Check **Collect Database Server Information**.
-- Specify the **Database Username/Password** with appropriate permissions.
+- Go to **Discovery > Hypervisors/\*nix/win for Autodiscovery**.
+- Set the **Platform** at the top of the page to Windows or \*nix.
+- Check **Collect database server information**.
+- Specify the **Database Username/Password(s)** on an account with appropriate permissions.
+
+  <ThemedImage
+    alt="Enable database discovery"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/collect-database-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/collect-database-dark.png'),
+    }}
+  />
+
+
 - Scroll down and under the **Software and Applications** section tick the **Discover
 Services** and **Discover Applications** checkboxes.
 
-The desired outcome of DB discovery is to see your databases listed on the **Resources > On-Prem Databases** page with values in both the **Database Count** and **Connection Count** columns.
+Run the job and go to **Resources > On-Prem Databases**. Verify that your databases are listed and have values in both the **Database Count** and **Connection Count** columns.
 
-If you see 0 in the **Connection Count**, Device42 has not been able to fully discover the database. This is usually due to insufficient permissions for the account used.
+<ThemedImage
+  alt="On-Prem Databases counts"
+  sources={{
+    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/on-prem-dbs-light.png'),
+    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/on-prem-dbs-dark.png'),
+  }}
+/>
+
+If you see `0` in the **Connection Count**, Device42 has not been able to fully discover the database – likely because of insufficient permissions on the account used.
 
 ## Verify Data
 
@@ -465,8 +482,8 @@ Accepting informative Application Group Suggestions moves them to the **My Appli
 For accepted and auto-created Application Groups, find the **Chart** link under the **My Application Groups** tab of the Applications Group list page.
 
 The chart shows:
-  - **AppFocus Box:** Devices that meet your calculation rule criteria (these are the core of your application)
-  - **Outside AppFocus:** Devices that have dependencies on the core devices but don't meet the criteria (these might be development/test servers, supporting applications, or servers added to the application that haven't been documented)
+  - **AppFocus Box:** Devices that meet your calculation rule criteria or fixed Starting Points (these are the core of your application).
+  - **Outside AppFocus:** Devices that have dependencies on the core devices but don't meet the criteria (these might be development/test servers, supporting applications, or servers added to the application that haven't been documented).
 
 You can drill into connections by clicking on the communication lines between devices. This shows you the specific services and Application Components that create the relationship. See [Relationship Lines and Metadata](/apps/application-groups/#relationship-lines-and-metadata).
 
@@ -508,13 +525,19 @@ Unlike Application Groups, Business Services are static and will not change unle
 - Navigate to **Applications > Business Services** and click **Create**.
 - Fill in at least the **Name** field to save.
 - After saving, click the **Application Layout** tab, then click **Edit** in the upper right corner.
-- Drag the **Application Group** icon to the workspace. You'll be prompted to search for an Application Group. Type the name and select it from the results.
+- Drag the **Application Group** icon to the workspace. Type the name and select it from the results.
+
+  <ThemedImage
+    alt="Drag Application Group to workspace"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/business-service-workspace-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/business-service-workspace-dark.png'),
+    }}
+  />
 
 You  having the flexibility of creating a own Business Service by dragging devices, Application Components, and Resources to the workspace.
 
-- Click **Add** to place the Application Group in the Business Service.
-
-You can now customize the layout:
+You can customize the layout:
 
 - Rearrange components
 - Add colors and shading to objects
@@ -523,7 +546,7 @@ You can now customize the layout:
 
 Use the **File**, **Edit**, **View**, and **Arrange** menus to work with the layout.
 
-When you're done editing, save your changes. The Business Service provides a clear, documented view of your application that you can reference and share.
+When you're done editing, save your changes. The Business Service provides a clear, documented view of your application that you can reference and share. See [Business Services](/apps/business-services/) for more details.
 
 ## Troubleshooting Application Groups
 
@@ -568,6 +591,22 @@ Verify that key services for applications are starred (for Form-based logic) or 
 - Navigate to **Resources > Service Instances**.
 - Filter by **Topology Status** to find starred services.
 - Check the **Pinned** column to see pinned services.
+
+If you need to pin a service instance you can do that from the list page. 
+
+- Select the service instance.
+- From the **Actions** dropdown menu you can select to in the service or change its Topology Status. 
+
+Optionally you can modify the Service Instance directly from the Service Instance window itself.
+
+  <ThemedImage
+    alt="Pin and Star Service Instance"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/service-instance-topology-pinned-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/service-instance-topology-pinned-dark.png'),
+    }}
+  />
+
 
 ### Check Application Component Creation
 
