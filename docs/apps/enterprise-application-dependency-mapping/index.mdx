@@ -4,9 +4,6 @@ title: "Application Dependency Mapping"
 
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import ADMflowdiscovery from '/assets/images/adm-flow-discovery.png'
-import ADMflowappgroups from '/assets/images/adm-flow-app-groups.png'
-import ADMflowbusiness from '/assets/images/adm-flow-business-services.png'
 
 ADM provides a complete solution for mapping applications and their dependencies. we recommend the following workflow to get the best results. 
 
@@ -45,23 +42,23 @@ Ensure ADM features are off:
 
 - Set **ADM Sampling Interval** to **Off**.
 
-<ThemedImage
-  alt="Turn off ADM Sampling Interval"
-  sources={{
-    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-light.png'),
-    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-dark.png'),
-  }}
-/>
+  <ThemedImage
+    alt="Turn off ADM Sampling Interval"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-off-dark.png'),
+    }}
+  />
 
 - Under the **Software and Applications** section, leave **Discover Services** and **Discover Applications** unchecked.
 
-<ThemedImage
-  alt="Uncheck Services and Applications discovery"
-  sources={{
-    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-light.png'),
-    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-dark.png'),
-  }}
-/>
+  <ThemedImage
+    alt="Uncheck Services and Applications discovery"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/uncheck-apps-services-dark.png'),
+    }}
+  />
 
 Run this discovery job and allow it to complete. Review the discovered inventory to identify your application servers.
 
@@ -120,23 +117,23 @@ Go to **Discovery > HyperVisors / \*nix / Windows** and click **Create**.
 - Add the identified systems to the job as **Discovery Target(s)**.
 - Set the **ADM Sampling Interval** to **4 hours** (recommended for initial scans).
 
-<ThemedImage
-  alt="ADM interval set to 4 hours"
-  sources={{
-    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-sampling-enabled-light.png'),
-    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-sampling-enabled-dark.png'),
-  }}
-/>
+  <ThemedImage
+    alt="ADM interval set to 4 hours"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-sampling-enabled-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/adm-sampling-enabled-dark.png'),
+    }}
+  />
 
 - Select **Discover Services** and **Discover Applications**.
 
-<ThemedImage
-  alt="Enable Services and Applications discovery"
-  sources={{
-    light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discover-services-applications-light.png'),
-    dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discover-services-applications-dark.png'),
-  }}
-/>
+  <ThemedImage
+    alt="Enable Services and Applications discovery"
+    sources={{
+      light: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discover-services-applications-light.png'),
+      dark: useBaseUrl('/assets/images/enterprise-application-dependency-mapping/discover-services-applications-dark.png'),
+    }}
+  />
 
 Schedule and run this discovery job.
 
