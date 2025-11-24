@@ -21,7 +21,7 @@ Our recommended steps for success are:
 The diagram below shows the complete ADM workflow – from top to bottom, left to right. The blue backgrounds boxes show some user configuration is needed at that step, while the white boxes show what Device42 generates automatically:
 
 <center>
-  <img src="/assets/images/adm-best-practices-legend-2.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-2.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 ## Set Up Discovery Jobs
@@ -33,6 +33,10 @@ This approach helps you manage your ADM licenses efficiently. Running initial di
 You can also identify Windows and *nix systems on selected networks by running a [TCP Port Scan job](/auto-discovery/tcp-port-scan-auto-discovery.mdx).
 
 ### Initial Discovery without ADM
+
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-initial.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
 
 Create a discovery job without ADM features enabled.
 
@@ -65,6 +69,10 @@ Ensure these ADM features are off:
 Run this discovery job and allow it to complete. Review the discovered inventory to identify your application servers.
 
 ### Identify Application Servers
+
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-appcomp.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
 
 After the initial discovery completes, identify the servers you want to include in ADM-enabled discovery.
 
@@ -110,6 +118,10 @@ At its simplest, a template needs a:
 See the dedicated [Application Components](/apps/application-components/application-component-templates/) page for detailed configuration options.
 
 ### Create an ADM Job
+
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-discovery.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
 
 Create a job with ADM, Services, and Applications discovery enabled specifically for your identified application servers.
 
@@ -246,6 +258,10 @@ For help, see the [Troubleshooting section](#troubleshooting-application-groups)
 
 ### Review Service Data
 
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-services.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
+
 Navigate to **Resources > All Services** to see all discovered services. This page shows the **Service Instance** count for each service.
 
 - Click on a service name to see the individual instances and the devices they are running on.
@@ -283,12 +299,17 @@ Navigate to **Resources > Service Instances** to see details of individual servi
 
 ## Configure Application Groups
 
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-appgroups.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
+
 Application Groups (**Applications > Application Groups**) are created based on service-to-service communications captured during discovery. Device42 follows the client-listener path of services to build a map of your application.
 
 There are two main components when configuring Application Groups: 
 
 - Application Group Calculation Logic Template
 - Application Group Calculation Rules
+
 
 ### About Application Group Calculation Logic Templates
 
@@ -473,6 +494,10 @@ Application Groups offer many insights:
 - Get a deeper understanding of what service is creating a relationship in an Application Group.
 
 ## About Business Services
+
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-business.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
 
 Business Services are used to solidify your understanding of an Application gathered from examining its Application group and create referenceable documentation.
 
