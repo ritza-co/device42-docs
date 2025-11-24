@@ -21,7 +21,7 @@ Our recommended steps for success are:
 The diagram below shows the complete ADM workflow – from top to bottom, left to right. The blue backgrounds boxes show some user configuration is needed at that step, while the white boxes show what Device42 generates automatically:
 
 <center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-2.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 ## Set Up Discovery Jobs
@@ -35,7 +35,7 @@ You can also identify Windows and *nix systems on selected networks by running a
 ### Initial Discovery without ADM
 
 <center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-initial.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3-initial.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 Create a discovery job without ADM features enabled.
@@ -71,7 +71,7 @@ Run this discovery job and allow it to complete. Review the discovered inventory
 ### Identify Application Servers
 
 <center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-appcomp.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3-appcomp.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 After the initial discovery completes, identify the servers you want to include in ADM-enabled discovery.
@@ -120,7 +120,7 @@ See the dedicated [Application Components](/apps/application-components/applicat
 ### Create an ADM Job
 
 <center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-discovery.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3-discovery.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 Create a job with ADM, Services, and Applications discovery enabled specifically for your identified application servers.
@@ -197,6 +197,10 @@ If you see 0 in the **Connection Count**, Device42 has not been able to fully di
 
 Before configuring Application Groups, verify that discovery is collecting the data you need.
 
+<center>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3-verify.png" alt="ADM Best Practices Workflow" width="100%"/>
+</center>
+
 ### Check Discovery Scores
 
 Discovery Scores indicate how successfully Device42 discovered information from a device.
@@ -258,10 +262,6 @@ For help, see the [Troubleshooting section](#troubleshooting-application-groups)
 
 ### Review Service Data
 
-<center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-services.png" alt="ADM Best Practices Workflow" width="100%"/>
-</center>
-
 Navigate to **Resources > All Services** to see all discovered services. This page shows the **Service Instance** count for each service.
 
 - Click on a service name to see the individual instances and the devices they are running on.
@@ -300,7 +300,7 @@ Navigate to **Resources > Service Instances** to see details of individual servi
 ## Configure Application Groups
 
 <center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-appgroups.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3-appgroups.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 Application Groups (**Applications > Application Groups**) are created based on service-to-service communications captured during discovery. Device42 follows the client-listener path of services to build a map of your application.
@@ -493,10 +493,10 @@ Application Groups offer many insights:
 - See how an application in your environment has changed over time.
 - Get a deeper understanding of what service is creating a relationship in an Application Group.
 
-## About Business Services
+## Business Services
 
 <center>
-  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-business.png" alt="ADM Best Practices Workflow" width="100%"/>
+  <img src="/assets/images/enterprise-application-dependency-mapping/adm-best-practices-legend-3-business.png" alt="ADM Best Practices Workflow" width="100%"/>
 </center>
 
 Business Services are used to solidify your understanding of an Application gathered from examining its Application group and create referenceable documentation.
@@ -568,8 +568,6 @@ Verify that key services for applications are starred (for Form-based logic) or 
 - Navigate to **Resources > Service Instances**.
 - Filter by **Topology Status** to find starred services.
 - Check the **Pinned** column to see pinned services.
-
-[verify - image]
 
 ### Check Application Component Creation
 
