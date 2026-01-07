@@ -15,12 +15,33 @@ Support for the 'external' JSM Assets integration app [ended on December 30, 202
 
 The instructions below describe the initial setup process of integrating Device42 with your JSM Cloud account.
 
+## Integrate Device42 and Jira Service Management
+
+With just a few minutes of setup, your Device42-Jira integration will allow you to link assets between the two systems.
+
 ### Prerequisites
 
 This integration requires that you have:
 
-* admin privileges to a running Device42 virtual appliance 
-* a Jira Service Management Cloud Premium or Enterprise account
+* Admin privileges to a running Device42 virtual appliance [Update your software](https://device42.com/update/) or [download a free trial](https://device42.com/download/).
+* A Jira Service Management Cloud Premium or Enterprise account.
+* A network setup that allows the browser to access `jsm.device42.io`. Ensure outbound communication is not blocked by WAF or other network and security controls.
+
+### Configure Cloud Services
+
+We'll start by preparing Device42 for cloud service integrations. Navigate to **Tools > Integrations > Cloud Services**, and complete the following fields:
+
+* **D42 URL for SaaS apps:** This is the hostname your Device42 instance is accessible on.
+* **Company Name:** Your company name.
+* **Email:** Your email address.
+
+<ThemedImage
+    alt="Device42 Cloud Services"
+    sources={{
+        light: useBaseUrl('/assets/images/jsm-solution-guide/cloud-services-light.png'),
+        dark: useBaseUrl('/assets/images/jsm-solution-guide/cloud-services-dark.png'),
+    }}
+/>
 
 ### Add an External Integration to Device42 
 
@@ -38,16 +59,49 @@ Copy the Device42 **Verification Token** from the External Integration.
   }}
 />
 
-### Add the Device42 Assets App to Jira
 
 Install the [Device42 for Jira Service Management Assets](https://marketplace.atlassian.com/search?query=device42) app from the Atlassian Marketplace.
 
-Next, open the Device42 Insight Connect app and configure it by clicking on the **Settings** tab. In the "Device42 Cloud Connector" field type in `connect.device42.io`. Paste the verification token that you copied from the Device42 external integration into the "Device42 Verification Token" field. Click on the **Save** button. 
+### Connect the Integration App with Device42
 
+Next, open the Device42 Insight Connect app and configure it by clicking on the **Settings** tab. 
+
+Navigate to the **Settings** tab and complete the two required fields.
+
+1. **Device42 Cloud Connector** Enter URL of the Device42 connector here, for example, `connect.device42.io`.
+2. **Device42 Verification Token** To get the verification token from your Device42 instance, follow these steps:
+    * In Device42, navigate to **Tools -> Integrations -> External integrations -> Add External integration**.
+    * Copy the token.
+    * Return to the app and paste the token into the verification token field.
+
+TODO: update/remove image
 ![JSM Device42 app settings](/assets/images/jsm-assets-integration/jira-d42-app-settings.png)
+
+Click the **Save** button and the app will attempt to connect to Device42.
 
 A successful connection will display the green "Connection Enabled" status. 
 
 ![connection enabled status](/assets/images/jsm-solution-guide/image38.png)
 
-See the [JSM solution guide](solution-guides/jira-service-management-integration.mdx) for information on connection statuses, using object schema imports, and setting user permissions.
+Following the app attempting to connect to Device42, the app displays one of six states:
+
+* Connection enabled.
+* Connection not enabled.
+* Credentials do not exist.
+* Error in verifying Device42 account.
+* Request URL not found.
+* An error occurred on Device42.
+
+## Connect the Device42 for Jira Service Management Assets App
+
+Install the Device42 for Jira Service Management Assets app and connect to Device42.
+
+1. From the Jira Administration page, go to the **Connected apps** page and select **View app details**.
+
+[Connected apps](/assets/images/jsm-assets-integration/connected-apps.png)
+
+2. Go to **App settings** > **Set access token**.
+
+[Set access token](/assets/images/jsm-assets-integration/set-access-token.png)
+
+3. 
