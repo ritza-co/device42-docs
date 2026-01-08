@@ -47,9 +47,11 @@ We'll start by preparing Device42 for cloud service integrations. Navigate to **
 
 Create an External Integration in Device42 by going to the **Tools > Integrations > External Integration** page. Click the **Create** button on the top left corner to open a form. 
 
-Fill in the URL you chose when creating your Jira account and select **Insight in JSM Cloud** as the **Type**.
+- Fill in the URL you chose when creating your Jira account and select **Insight in JSM Cloud** as the **Type**.
+- Click **Save**
+- Copy the Device42 **Verification Token** from the External Integration. 
 
-Copy the Device42 **Verification Token** from the External Integration. 
+Note: The verification token changes after saving. Use the Token after saving the External Integration.
 
 <ThemedImage
   alt="Add external integration form"
@@ -59,10 +61,10 @@ Copy the Device42 **Verification Token** from the External Integration.
   }}
 />
 
+ED NOTE: when does this happen?
+### Connect the Integration App with Device42
 
 Install the [Device42 for Jira Service Management Assets](https://marketplace.atlassian.com/search?query=device42) app from the Atlassian Marketplace.
-
-### Connect the Integration App with Device42
 
 Next, open the Device42 Insight Connect app and configure it by clicking on the **Settings** tab. 
 
@@ -104,4 +106,7 @@ Install the Device42 for Jira Service Management Assets app and connect to Devic
 
 [Set access token](/assets/images/jsm-assets-integration/set-access-token.png)
 
-3. 
+3. Paste in the Device42 Verification Token from the External Integration.
+
+[Access token](/assets/images/jsm-assets-integration/access-token.png)
+
