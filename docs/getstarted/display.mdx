@@ -3,6 +3,9 @@ title: "Display"
 sidebar_position: 6
 ---
 
+import ThemedImage from '@theme/ThemedImage'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
 In the Display phase you will translate your validated, discovered data into actionable intelligence through various reporting and visualization capabilities, empowering users to make informed business decisions and integrate Device42 into their operational workflows.
 
 :::tip
@@ -18,6 +21,14 @@ There are two main types of Device42 reporting: Standard and Insights+.
 Standard Reports is the first place you will look for information. You can use and modify pre-defined reports, list reports, guided reports, and even use our Device42 Object Query Language (DOQL) if you are so inclined. You can export and schedule Standard Reports.
 
 Click [here](/reports/reports/standard-reports.mdx) for more information about Standard Reports.
+
+<ThemedImage
+alt="Creating a Standard Report"
+sources={{
+    light: useBaseUrl('/assets/images/display/create-standard-report-light.png'),
+    dark: useBaseUrl('/assets/images/display/create-standard-report-dark.png'),
+}}
+/>
 
 :::tip
 To view a video on ensuring success with Standard Reports, click [here](https://device42.wistia.com/medias/fm3qxr3oxw).
@@ -48,7 +59,24 @@ In addition to the above report links, below are links to additional reporting d
 
 - We have created a [Data Building Blocks Cookbook](/reports/dbb-cookbook/index.mdx) that provides the 'recipes' to more easily create and run report-based queries.
 - The [Database Viewer Schema](/reports/device42-doql/db-viewer-schema.mdx) page explains how to view Device42's Entity Relationship Diagram and Data Dictionary.
+
+    <ThemedImage
+    alt="Data dictionary"
+    sources={{
+        light: useBaseUrl('/assets/images/display/data-dictionary-light.png'),
+        dark: useBaseUrl('/assets/images/display/data-dictionary-dark.png'),
+    }}
+    />
+
 - The [InsightsAI Chat](/reports/device42-doql/insightsai.mdx) page explains how to use natural language descriptions to generate DOQL queries and tailored reports.
+
+    <ThemedImage
+    alt="InsightsAI chat"
+    sources={{
+        light: useBaseUrl('/assets/images/display/insightsai-light.png'),
+        dark: useBaseUrl('/assets/images/display/insightsai-dark.png'),
+    }}
+    />
 
 ## Key Customer Reporting Responsibilities
 
@@ -75,4 +103,4 @@ Congratulations, You have completed the base Device42 implementation! Based on o
 
 Please contact [Device42 Support](https://support.device42.com/) should you encounter any issues, and please contact your Account Representative or your Customer Success Manager should you require assistance with any non-support matters.
 
-Please also use [Additional Customer Resources] for a list of links that can assist you with your Device42 journey.
+Please also refer to [Additional Customer Resources](/getstarted/additional-customer-resources/) for links that can assist you with your Device42 journey.
