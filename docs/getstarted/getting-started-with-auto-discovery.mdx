@@ -200,6 +200,14 @@ To create and run a Hypervisor discovery job, perform the following steps:
 10. Click the **Save** button.
 11. Click the checkbox next to the discovery job(s) and choose **Actions > Run Selected Jobs**.
 
+<ThemedImage
+alt="Create a VMWare discovery job"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/vmware-discovery-job-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/vmware-discovery-job-dark.png'),
+}}
+/>
+
 Click [here](/auto-discovery/hypervisors-and-containers-supported-in-auto-discovery.mdx) for more detail regarding Hypervisor Autodiscovery. This should be your first place to look when troubleshooting Hypervisor discovery job issues.
 
 :::tip
@@ -232,6 +240,14 @@ To create and run a Windows discovery job, perform the following steps:
 9. Click the **Save** button.
 10. Click the checkbox next to the discovery job(s) and choose **Actions > Run Selected Jobs**.
 
+<ThemedImage
+alt="Windows discovery job"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/windows-discovery-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/windows-discovery-dark.png'),
+}}
+/>
+
 **Note:**
 
 - There are sometimes failures when discovering Windows operating system-based devices. Use the [Windows Discovery Troubleshooting](/auto-discovery/windows-discovery-troubleshooting.mdx) guide to help you investigate and resolve these failures. If you are unable to resolve these failures, please contact Device42 Support for assistance.
@@ -243,8 +259,8 @@ To create and run a Windows discovery job, perform the following steps:
   <ThemedImage
   alt="Turn off ADM sampling"
   sources={{
-      light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/adm-off-light.png'),
-      dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/adm-off-dark.png'),
+      light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/windows-job-adm-light.png'),
+      dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/windows-job-adm-dark.png'),
   }}
   />
 
@@ -253,8 +269,8 @@ To create and run a Windows discovery job, perform the following steps:
   <ThemedImage
   alt="Turn off Discover Services and Application"
   sources={{
-      light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/uncheck-apps-services-light.png'),
-      dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/uncheck-apps-services-dark.png'),
+      light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/windows-services-apps-light.png'),
+      dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/windows-services-apps-dark.png'),
   }}
   />
 
@@ -294,6 +310,14 @@ To create and run a Linux or \*nix discovery job, perform the following steps:
 
 **Note:** Organizations that have purchased the Software License Management module can include Software discovery when running *nix discovery jobs (as well as other platforms like Classic WinRM, IBM i/AS400, IBM z/OS, and SCCM) by clicking the **Discover Software** checkbox within the Software and Applications section of the job. For more information regarding Software License Management with Device42, see the [Software License Management Discovery Jobs](#software-license-management-discovery-jobs) section later in this document.
 
+<ThemedImage
+alt="Discover Software"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/discover-software-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/discover-software-dark.png'),
+}}
+/>
+
 :::tip
 To view a video on creating a Linux discovery job, click [here](https://device42.wistia.com/medias/rfsh34oii8).
 :::
@@ -301,6 +325,14 @@ To view a video on creating a Linux discovery job, click [here](https://device42
 ### 2.5 Create Cloud Discovery Jobs
 
 Cloud discovery jobs discover your infrastructure in AWS, Azure, Google Cloud, and other cloud providers and inventory your cloud infrastructure from available cloud solutions: AWS, Azure, GCP, Alibaba Cloud, Amazon API, Digital Ocean, Intune, Linode, Open stack, Oracle Cloud and Standalone Kubernetes.
+
+<ThemedImage
+alt="Cloud discovery platforms"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/cloud-discovery-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/cloud-discovery-dark.png'),
+}}
+/>
 
 **Port and Credential Requirements**
 
@@ -365,6 +397,14 @@ To create and run a Storage Arrays discovery job, perform the following steps:
 14. Click the **Save** button.
 15. Click the checkbox next to the discovery job(s) and choose **Actions > Run Selected Jobs**.
 
+<ThemedImage
+alt="Storage array job"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/storage-array-job-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/storage-array-job-dark.png'),
+}}
+/>
+
 Click [here](/auto-discovery/storage-arrays-autodiscovery/storage-arrays.mdx) to view more information about Storage Arrays, including viewing and editing storage arrays, viewing arrays mapped to devices, viewing storage resource maps and trend graphs, and importing and exporting Storage Array discovery jobs.
 
 ### 2.7 Create Certificates Discovery Jobs
@@ -385,6 +425,14 @@ To create and run a Certificates discovery job, perform the following steps:
 7. Click the **Save** button.
 8. Click the checkbox next to the discovery job(s) and choose **Actions > Run Selected Jobs**.
 
+<ThemedImage
+alt="Certificate discovery job"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/certificate-job-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/certificate-job-dark.png'),
+}}
+/>
+
 Click [here](/infrastructure-management/certificate-management.mdx) for information on managing discovered certificates.
 
 :::tip
@@ -394,6 +442,14 @@ To view a video on viewing the results from Certificates discovery jobs, click [
 ### 2.8 Create Warranty Discovery Jobs
 
 Warranty discovery jobs enable you to discover and document your hardware warranties. Device42 currently supports warranty autodiscovery for the following vendors: Dell, IBM, Lenovo, Meraki, and Cisco (Preview).
+
+<ThemedImage
+alt="Warranty discovery job"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/warranty-job-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/warranty-job-dark.png'),
+}}
+/>
 
 **Warranty Discovery Job Prerequisites**
 
@@ -548,6 +604,14 @@ Users can review these records and either merge them with existing assets, creat
 
 To view Unprocessed Device Records, hover over **Discovery**, then choose **Unprocessed Device Records**.
 
+<ThemedImage
+alt="Unprocessed Device Records menu"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/unprocessed-records-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/unprocessed-records-dark.png'),
+}}
+/>
+
 **Unprocessed Device Records Best Practices**
 
 1. Regularly check the **Unprocessed Device Records** page.
@@ -563,7 +627,17 @@ To view a video providing more information about Unprocessed Device Records, cli
 
 ## Discovery and Auto Clean Rules
 
-AutoClean Rules enable you to automatically manage old and possibly stale data based on specific criteria you set. Data pertaining to objects (e.g a device or an IP address) that is not found in subsequent autodiscovery jobs can be automatically deleted, architect, or otherwise modified. Auto Clean rules are particularly relevant for cleaning up IP Addresses, Devices, and Software. Click [here](/administration/auto-clean-feature.mdx) for more information on adding Auto Clean rules, including instructions to create new rules.
+AutoClean Rules enable you to automatically manage old and possibly stale data based on specific criteria you set. Data pertaining to objects (e.g a device or an IP address) that is not found in subsequent autodiscovery jobs can be automatically deleted, architect, or otherwise modified. Auto Clean rules are particularly relevant for cleaning up IP Addresses, Devices, and Software. 
+
+Click [here](/administration/auto-clean-feature.mdx) for more information on adding Auto Clean rules, including instructions to create new rules.
+
+<ThemedImage
+alt="Auto Clean Rules list page"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/auto-clean-rules-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/auto-clean-rules-dark.png'),
+}}
+/>
 
 :::tip
 To view a video on using Auto Clean rules, click [here](https://device42.wistia.com/medias/2z87thtqh3).
@@ -590,11 +664,29 @@ SLM is configured by enabling certain options within **HyperVisors / \*nix / Win
 
 To enable software discovery for these discovery jobs, click the **Software** checkbox within the **Software and Applications** section of the job.
 
+<ThemedImage
+alt="Discover software option"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/discover-software-option-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/discover-software-option-dark.png'),
+}}
+/>
+
 Click [here](/infrastructure-management/software/software-license-management.mdx) to link to a page providing information on how to configure the SLM module, view discovered software, enable software alerting, run software reports, and more.
 
 ## The Unknown Device Type
 
-All non-virtual devices will initially be assigned the **unknown** device type during discovery. These devices have a hardware model. The appliance categorizes them as **unknown** because it has not yet been instructed which of the following types the hardware models belong to:
+All non-virtual devices will initially be assigned the **unknown** device type during discovery.
+
+<ThemedImage
+alt="Unknown devices"
+sources={{
+    light: useBaseUrl('/assets/images/getting-started-with-auto-discovery/unknown-devices-light.png'),
+    dark: useBaseUrl('/assets/images/getting-started-with-auto-discovery/unknown-devices-dark.png'),
+}}
+/>
+
+These devices have a hardware model. The appliance categorizes them as **unknown** because it has not yet been instructed which of the following types the hardware models belong to:
 
 - **Regular:** Represents physical devices.
 - **Blade:** Represents blade devices.
