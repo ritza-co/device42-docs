@@ -1,23 +1,30 @@
 ---
 title: "Configure Application Dependency Mapping"
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 import ThemedImage from '@theme/ThemedImage'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
+Learn about the license requirement for Application Dependency Mapping (ADM), configuring an ADM discovery job, and viewing the discovered system dependencies.
+
 ## Turning On Application Discovery
 
-Ensure that your Device42 license has Enterprise Application Discovery enabled (**Tools > Settings > Licensing**). If you need to upgrade your license, contact the support team for more information  at [support@device42.com](mailto:support@device42.com).
+Ensure that your Device42 license has Enterprise Application Discovery enabled (**Tools > Settings > Licensing**). If you need to upgrade your license, contact the support team for more information at [support@device42.com](mailto:support@device42.com).
 
 :::tip
-If you are new to autodiscovery or would like to learn more about autodiscovery, see [Getting Started with Auto-Discovery](/getstarted/getting-started-with-auto-discovery.mdx) to get acquainted with the process.
+If you are new to autodiscovery or would like to learn more about autodiscovery, see [Getting Started with Autodiscovery](/getstarted/getting-started-with-auto-discovery.mdx) to get acquainted with the process.
 :::
 
-Application discovery is enabled by default for individual autodiscovery jobs that have the **Enterprise Application Mapping** option selected under the **Software and Applications** section and the sampling interval set to four hours. 
+Application discovery is enabled by default for individual autodiscovery jobs that have the **Enterprise Application Mapping** option selected under the **Software and Applications** section. 
 
-You can change the ADM sampling interval to be used with your autodiscovery job.
+## Creating a Discovery Job
 
+Identify key Windows and *nix servers in your application and add them as **Discovery Target(s)** in the new discovery job. 
+
+The default sampling interval is **4 hours**. You can sample more frequently for initial ADM sampling, applications with less persistent connections, and migration projects. After some time has passed, revert back to **4 hours**.
+
+If you want to collect Netflow data from routers and switches and find that the **ADM Sampling Interval** isn't sufficient to fully capture connections, you can configure the Remote Collector with the optional Netflow Module. See the [Netflow Collector page](/auto-discovery/netflow-collector.mdx) for installation details.
 
   <ThemedImage
     alt="*nix autodiscovery job with ADM sampling interval"
@@ -28,7 +35,17 @@ You can change the ADM sampling interval to be used with your autodiscovery job.
     style={{ width: '80%' }} 
   />
 
-### Importing Config Files
+Go to the **Software and Applications** section and enable **Discover Services** and **Discover Software**. The next time the discovery job runs, it will discover services and applications on the systems. 
+
+  <ThemedImage
+    alt="Discover Services and Applications checkboxes"
+    sources={{
+      light: useBaseUrl('/assets/images/configure-application-dependency-mapping/discover-services-applications-light.png'),
+      dark: useBaseUrl('/assets/images/configure-application-dependency-mapping/discover-services-applications-dark.png'),
+    }}
+  />
+  
+### Storing Config Files
 
 You can opt to store config files by selecting the **Store Applications Components Config Files** option under the **Software and Applications** section of the autodiscovery job.
 
@@ -38,12 +55,27 @@ You can opt to store config files by selecting the **Store Applications Componen
       light: useBaseUrl('/assets/images/configure-application-dependency-mapping/software-and-apps-light.png'),
       dark: useBaseUrl('/assets/images/configure-application-dependency-mapping/software-and-apps-dark.png'),
     }}
-    style={{ width: '80%' }} 
   />
+
+### Periodic Jobs
+
+The ADM-enabled discovery job creates child jobs called [Periodic Jobs](/reports/reports/periodic-jobs-page.mdx) (under **Analytics > Discovery Status > Periodic Jobs**) that are linked to each of the discovered systems.
+
+Keep the original discovery job to make adjustments to the ADM sampling interval of the created periodic jobs, as the parent and child jobs are linked.  
 
 ## Viewing Application Dependencies
 
-When autodiscovery is run, [Application Components](/apps/application-components) will be created based on related services on a server. For example, for a server running Oracle Database, a component would be created to group together all Oracle Database services on that machine. The Autodiscovery Application would also find the service-to-service connections so that you could, for example, see that your Apache service on "Prod-Server1" was directly dependent on the MySQL service running on "Prod-Database3".
+After you have performed a successful autodiscovery of your environment, you can view the discovered Application Dependency data under the **Applications** section in the Device42 main menu.
+
+<ThemedImage
+  alt="Applications menu of the Main Appliance"
+  sources={{
+    light: useBaseUrl('/assets/images/applications/applications-menu-light.png'),
+    dark: useBaseUrl('/assets/images/applications/applications-menu-dark.png'),
+  }}
+/>
+
+When autodiscovery runs, Device42 creates [Application Components](/apps/application-components) based on related services on a server. For example, for a server running Oracle Database, Device42 creates a component that groups all Oracle Database services on that machine together. The autodiscovery application also finds service-to-service connections, so you can, for example, see that your Apache service on "Prod-Server1" is directly dependent on the MySQL service running on "Prod-Database3".
 
 To see the autodiscovered application dependencies, go to **Applications > Application Components**.
 
@@ -57,11 +89,11 @@ To see the autodiscovered application dependencies, go to **Applications > Appli
 
 A full list of currently supported applications is available at [Application Dependency Mapping Supported Applications](apps/enterprise-application-dependency-mapping/adm-supported-applications.mdx).
 
-When you view the details page for an application component, you will see the device it was discovered on, as well as any other application components that it depends on. You'll also see any services that have been associated with the application component. From here, you can also edit the application to assign responsible and/or affected departments, describe what's impacted by downtime, and edit any custom fields.
+When you view the details page for an application component, you see the device it was discovered on, as well as any other application components that it depends on. You also see any services associated with the application component. From here, you can also edit the application to assign responsible and/or affected departments, describe what's impacted by downtime, and edit any custom fields.
 
 ## Application Impact Charts
 
-With Enterprise Application Mapping, your impact charts allow for an enhanced view of the relationships between devices, services, and applications. Viewing a device impact chart will now show you the application components that are on it, as well as the services, listening ports, and service connections between devices.
+With Enterprise Application Mapping, your impact charts provide an enhanced view of the relationships between devices, services, and applications. Viewing a device impact chart now shows you the application components on it, as well as the services, listening ports, and service connections between devices.
 
 <ThemedImage
     alt="Application Component Impact Chart example"
@@ -71,7 +103,7 @@ With Enterprise Application Mapping, your impact charts allow for an enhanced vi
     }}
 />
 
-From this view, you can also see discovered configuration information for web servers, database servers, etc. To view this information, hover over one of the services and click **Details**.
+From this view, you can also see discovered configuration information for web servers, database servers, and other CIs. To view this information, hover over one of the services and click **Details**.
 
 
 <ThemedImage
@@ -87,7 +119,7 @@ From this view, you can also see discovered configuration information for web se
 
 With Application Dependency Mapping, you can create Application Groups to group related devices and services together.
 
-You can create an Application Group using one of the discovered Application Components as a starting point which will serve as one of the focus items for that group. Automatically, Device42 will suggest Application Groups based on the discovered Application Components. Accept the groups that most accurately describe significant dependencies in your environment and ignore the others. 
+You can create an Application Group using one of the discovered Application Components as a starting point, which serves as a focus item for that group. Device42 automatically suggests Application Groups based on the discovered Application Components. Accept the groups that most accurately describe significant dependencies in your environment and ignore the others. 
 
 :::tip
 After configuring ADM sampling on the autodiscovery job, see the [Application Group Calculation Rules](/apps/application-groups/calculation-rules) page for a further explanation of how Starting Points are used to generate Application Groups. 
