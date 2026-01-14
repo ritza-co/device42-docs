@@ -48,3 +48,25 @@ This guide provides step-by-step instructions for configuring your Remote Collec
 5. Enter the OTP.
 6. Choose the **Register** button. Note the green acknowledgement text at the top of the main Appliance Management menu.
 7. Navigate back to the Main Appliance and confirm the RC in the Remote Collectors menu shows a State of "connected".
+
+
+## Deployment Example
+
+RCs are extremely flexible and make discovery with Device42 easier than ever. You can deploy one or more, with no logical limit to the number of RCs you can use.
+
+![main menu](/assets/images/D42_RC_deploy_example.png)
+
+
+In the deployment example pictured above, an RC is deployed within each isolated DMZ network segment that, per firewall rules typical of a DMZ, the Device42 MA is normally unable to reach or discover directly. Deploying an RC to these segments bolsters security by saving the network administrator from making multiple temporary (or permanent and insecure) firewall rules (aka 'holes') to allow discovery traffic to pass from the MA over the wide range of ports used by various vendor APIs.
+
+Please note that the diagram doesn't show the majority of network connectivity that would be present, and instead focuses on what is discovered by the MA and the RC, and the communication between them.
+
+As mentioned briefly in the introduction, all communication and discovery information is securely transmitted between the RC and the MA once a connection is established via Port 443 (HTTPS/SSL). This means a single, secure, and easily monitored 1:1 rule allows for comprehensive and continuous discovery of the secured network segment - as often as scheduled or desired - without compromising its isolation or security.
+
+## Proxy Settings
+
+The proxy settings within the MA and RC are set independently but are often identical. To reduce the potential for error, the RC can pick up preconfigured proxy settings. You can also view and edit the RC proxy settings within the RC view of the MA.
+
+## Scalability
+
+Device42 RCs provide robust scalability by offloading discovery workloads from your MA. You can deploy multiple RCs for each MA. We recommend using one RC with one WDS for every 1,000 workloads.
