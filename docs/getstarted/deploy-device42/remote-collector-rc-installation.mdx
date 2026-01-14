@@ -15,18 +15,31 @@ This guide provides step-by-step instructions for configuring your Remote Collec
 4. Enter and verify the new password.
 5. Choose the **Save** button.
 
+![Change password](/assets/images/remote-collector-rc/change-password.png)
+
 ## Step 2: Specify Hostname
 
 1. Choose option **(s)** to enter the **Server Settings** menu.
 2. Enter a hostname.
 3. Choose the **Save** button.
 
+![Change password](/assets/images/remote-collector-rc/hostname.png)
+
 ## Step 3: Configure the Network Interface
 
 1. Choose option **(u)** to enter the **Network, Connectivity and Utilities** menu.
 2. Choose option **(n)** to enter the **Network Interfaces** menu.
-3. Select the default interface (highlighted in white) and press Enter.
+
+   ![Change password](/assets/images/remote-collector-rc/network-connectivity-utilities.png)
+
+3. Select the default interface (highlighted in white) and press **Enter**.
+
+   ![Change password](/assets/images/remote-collector-rc/select-network-interface.png)
+
 4. If using a Static IP, deselect **Use DHCP** and enter the IP Address, Subnet, Gateway, and DNS server(s). If using IPv6, specify the IPv6 Address and Gateway.
+
+   ![Change password](/assets/images/remote-collector-rc/edit-network-interface.png)
+
 5. Choose **Save**, then **Exit**, then **Exit**.
 
 ## Step 4: Configure the NTP Settings
@@ -35,6 +48,8 @@ This guide provides step-by-step instructions for configuring your Remote Collec
 2. Ensure **Daily sync** is chosen.
 3. Optionally choose to sync on reboot (this enables an admin to reboot the RC within the Device42 interface, which can help resolve unusual RC behavior).
 4. Choose **Manual Sync** should you choose to perform a manual sync now, else choose the **Save** button.
+
+   ![Change password](/assets/images/remote-collector-rc/ntp-settings.png)
 
 ## Step 5: Connect the Remote Collector to the Main Appliance
 
@@ -49,13 +64,11 @@ This guide provides step-by-step instructions for configuring your Remote Collec
 6. Choose the **Register** button. Note the green acknowledgement text at the top of the main Appliance Management menu.
 7. Navigate back to the Main Appliance and confirm the RC in the Remote Collectors menu shows a State of "connected".
 
-
 ## Deployment Example
 
 RCs are extremely flexible and make discovery with Device42 easier than ever. You can deploy one or more, with no logical limit to the number of RCs you can use.
 
 ![main menu](/assets/images/D42_RC_deploy_example.png)
-
 
 In the deployment example pictured above, an RC is deployed within each isolated DMZ network segment that, per firewall rules typical of a DMZ, the Device42 MA is normally unable to reach or discover directly. Deploying an RC to these segments bolsters security by saving the network administrator from making multiple temporary (or permanent and insecure) firewall rules (aka 'holes') to allow discovery traffic to pass from the MA over the wide range of ports used by various vendor APIs.
 
