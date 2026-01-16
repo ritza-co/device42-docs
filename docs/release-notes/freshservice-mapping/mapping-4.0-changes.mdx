@@ -1,6 +1,6 @@
 ---
-title: "Changes in Version 4.0 (CC5.1.0)"
-sidebar_position: 1
+title: "Changes in Version 4.0 (CC 5.1.0)"
+sidebar_position: 2
 ---
 
 The following changes to the `mapping.xml` file are part of the Cloud Connector 5.1.0 release.
@@ -38,13 +38,13 @@ Two changes were made within the `D42 VMware VCenter Disk to Freshservice VMware
 - The `item_id` value in the DOQL query was changed from the following:
 
     ```
-    resource.details ->> 'uuid' AS item_id,
+    resource.details ->> 'uuid'                                                        AS item_id,
     ```
 
     To the following: 
 
     ```
-    resource.identifier AS item_id,
+    resource.identifier                                                                AS item_id,
     ```
 
 - The `WHERE` clause in the DOQL query was updated from the following:
