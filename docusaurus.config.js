@@ -64,6 +64,14 @@ const config = {
       {
         redirects: [
           {
+            to: '/release-notes/freshservice-mapping/mapping-3.0-changes/',
+            from: ['/release-notes/freshservice-mapping/mapping-3.0/'],
+          },
+          {
+            to: '/release-notes/freshservice-mapping/mapping-4.0-changes/',
+            from: ['/release-notes/freshservice-mapping/mapping-4.0/'],
+          },
+          {
             to: '/getstarted/getting-started-with-auto-discovery/',
             from: ['/getstarted/getting-started-with-a-blank-slate/'],
           },
