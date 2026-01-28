@@ -3,8 +3,6 @@ title: "Confluence Integration"
 sidebar_position: 7
 ---
 
-# Atlassian Confluence - Device42 Integration
-
 This integration connects Device42 to your Atlassian Confluence instance with the following features:
 
 - Display details of particular Device42 object (devices, racks, PDUs and parts are supported).
@@ -12,8 +10,6 @@ This integration connects Device42 to your Atlassian Confluence instance with th
 - Display table of Device42 objects.
 - Synchronize Device42 data with Confluence manually or periodically.
 - Filter set of Device42 CIs to display inside macros for specific space.
-
-* * *
 
 ## Installing the Confluence integration add-on
 
@@ -34,8 +30,6 @@ The Confluence plugin is now certified for Data Center and is available on the [
 
 You can now manage the add-on from the user-installed add-on list on the **Manage add-ons** page.
 
-* * *
-
 ### Manual installation
 
 **To install the add-on manually:**
@@ -48,8 +42,6 @@ You can now manage the add-on from the user-installed add-on list on the **Manag
 6. Click **Upload**.A confirmation message will appear when the add-on has been successfully installed.
 
 You can now manage the add-on from the add-on list ("user-installed add-ons"), found on the **Manage add-ons** page.
-
-* * *
 
 ## Configuring the Device42 Confluence add-on
 
@@ -71,8 +63,6 @@ To configure the add-on:
 3. Click '**Save**'.
 4. You will see the saved details on the configuration view screen
 
-* * *
-
 ### Synchronize manually
 
 Data from your Device42 instance is cached inside the internal Confluence database. To keep your data updated, you should run a sync periodically. You can do this automatically or manually.
@@ -82,9 +72,11 @@ Data from your Device42 instance is cached inside the internal Confluence databa
 1. On the configuration information page, click the '**Update**' button
 2. A confirmation dialog will appear. Press the '**Update Data**' button inside that dialog
 3. Wait a couple of seconds until the server requests the new data from Device42
-4. After the synchronization has completed, you will see the following on the synchronization info screen:![confluence-connector-05.png](/assets/images/confluence-connector-05.png) ![confluence-connector-06.png](/assets/images/confluence-connector-06.png) ![confluence-connector-07.png](/assets/images/confluence-connector-07.png)
+4. After the synchronization has completed, you will see the following on the synchronization info screen:
 
-* * *
+![confluence-connector-05.png](/assets/images/confluence-connector-05.png) 
+![confluence-connector-06.png](/assets/images/confluence-connector-06.png) 
+![confluence-connector-07.png](/assets/images/confluence-connector-07.png)
 
 ### Set up automatic synchronization
 
@@ -98,8 +90,6 @@ You can set up the automatic update using the Cron Expressions.
 **Note:** The Device42 Confluence Connector integration uses the default Confluence Scheduler mechanism. Instead of using the "Update Data" dialog or the "Setup Cron" dialog, you can instead use the Scheduled Jobs menu to run Device42 Update jobs directly from that page. You may also set up a cron schedule if desired, and those changes will be automatically reflected on the Device42 Configuration page. By default, the job is scheduled to run on the midnight server time on the daily basis.
 
 ![confluence-connector-11.png](/assets/images/confluence-connector-11.png)
-
-* * *
 
 ## Configuring Confluence Space Filters
 

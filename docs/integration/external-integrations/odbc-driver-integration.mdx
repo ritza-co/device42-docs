@@ -3,13 +3,11 @@ title: "ODBC Driver Integration"
 sidebar_position: 20
 ---
 
-## Device42 ODBC driver
-
 The Device42 ODBC driver allows users to connect to Device42 and pull data externally as an ODBC \[Open Database Connectivity\] data source. The current ODBC driver installs on Microsoft Windows, and we provide instructions to leverage both generic ODBC connectivity, and to connect Microsoft PowerBI to your Device42 ODBC datasource below.
 
 **Download the Device42 ODBC driver** _\[which should work with many ODBC-compatible consumers\]_ directly from the [Device42 Misc. Tools DL page](https://www.device42.com/miscellaneous-tools/).
 
-### ODBC system requirements
+## ODBC System Requirements
 
 System requirements for connecting to Device42 via ODBC are as follows:
 
@@ -17,13 +15,13 @@ System requirements for connecting to Device42 via ODBC are as follows:
 - A host system for the D42 ODBC driver running Microsoft Windows.
 - PowerBI software to follow the tutorial below to connect to the Device42 ODBC data source.
 
-### Installing the Device42 ODBC driver
+### Installing the Device42 ODBC Driver
 
 To install the Device42 ODBC driver, download the .exe installer from https://device42.com and double click to install on a Microsoft Windows-based instance. Simply follow the instructions on the screen, clicking "Next" until you see "Installation Complete", indicating you have finished installing the Device42 ODBC data source driver: 
 
 ![ODBC Driver Installation complete Windows](/assets/images/ODBC_driver_install_complete.png)
 
-## Connecting PowerBI to the Device42 ODBC datasource
+## Connecting PowerBI to the Device42 ODBC Datasource
 
 Device42's ODBC driver works to connect Microsoft PowerBI directly to your Device42 CMDB. For details on using PowerBI with Device42's ODBC driver, see the [Microsoft PowerBI Integration documentation](integration/external-integrations/powerbi-integration.mdx).
 
@@ -54,11 +52,11 @@ Setup of the Device42 ODBC DSN is complete. You should now be able to utilize th
 
 * * *
 
-## Importing Data into MS SQL Server
+## Importing Data Into MS SQL Server
 
 Using the Device42 ODBC driver, it is possible to import data directly into SQL Server. The following procedure will facilitate a data import. \[The following instructions are for Windows 10 and may be differ from other versions of Windows.\]
 
-### Import Pre-requisites
+### Import Prerequisites
 
 1. Begin by copying the Mapping files (The mapping files control how data types from the Device42 ODBC Driver map to Microsoft SQL Server data types).
 2. Start the SQL Server Import and Export Wizard
