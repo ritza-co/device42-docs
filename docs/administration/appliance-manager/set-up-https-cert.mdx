@@ -11,7 +11,7 @@ You can add your own https cert and key in apache style cert files to use a secu
 
 Upload both files: cert and key. The software will validate the certs before applying them.
 
-### Adding the intermediate and the CA Root
+### Add the Intermediate and the CA Root
 
 You'll need to concatenate all the certificates, starting with the server certificate, and going deeper in the chain, running through all the intermediate certificates. This can be done with "cat chain.crt >> mysite.com.crt" on the command line. (or via copy-paste via a text editor)
 
@@ -21,7 +21,7 @@ You'll need to concatenate all the certificates, starting with the server certif
 
 You will need to restart the application to see the new cert.
 
-## Creating your own cert
+## Create Your Own Cert
 
 If you create your own certs, these can be uploaded via the Appliance Manager. Device42 is unable to assist in the creation and signing of certificates, please use a CA like Thawte for creation and signing.
 
