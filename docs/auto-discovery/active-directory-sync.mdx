@@ -130,7 +130,7 @@ Use the **Custom Filter** field to define which objects are synced.
 By default, the LDAP filter is set to retrieve objects of type `group` or `user`, and is denoted by:
 
 ```
-(|(objectCategory=group)(|objectCategory=user))
+(|(objectCategory=group)(objectCategory=user))
 ```
 
 Similarly, the default LDAP filter for OpenLDAP sync is `(objectClass=inetOrgperson)`, which gets the `inetOrgperson` object type.
@@ -138,7 +138,7 @@ Similarly, the default LDAP filter for OpenLDAP sync is `(objectClass=inetOrgper
 You can specify your own LDAP filter to fetch all active users and groups:
 
 ```
-(&(|(objectCategory=group)(|objectCategory=user))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
+(&(|(objectCategory=group)(objectCategory=user))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
 ```
 
 The `userAccountControl` attribute uses a bitwise filter to look for specific flags and is set to `2` for disabled accounts. The preceding exclamation point (`!`) in the command excludes such accounts.
