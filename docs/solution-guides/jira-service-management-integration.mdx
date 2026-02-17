@@ -32,23 +32,6 @@ With just a few minutes of setup, your Device42-Jira integration will allow you 
 
 * Administrator privileges to a running Device42 virtual appliance. [Update your software](https://device42.com/update/) or [download a free trial](https://device42.com/download/).
 * Administrator privileges to a JSM Cloud account.
-* A network setup that allows the browser to access `jsm.device42.io`. Ensure outbound communication is not blocked by WAF or other network and security controls.
-
-### Setting Up Device42
-
-We'll start by preparing Device42 for cloud service integrations. Navigate to **Tools > Integrations > Cloud Services**, and complete the following fields:
-
-* **D42 URL for SaaS apps:** This is the hostname your Device42 instance is accessible on.
-* **Company Name:** Your company name.
-* **Email:** Your email address.
-
-<ThemedImage
-    alt="Device42 Cloud Services"
-    sources={{
-        light: useBaseUrl('/assets/images/jsm-solution-guide/cloud-services-light.png'),
-        dark: useBaseUrl('/assets/images/jsm-solution-guide/cloud-services-dark.png'),
-    }}
-/>
 
 Next, we'll set up a Jira integration. Navigate to **Tools > Integrations > External Integrations** and add a new external integration. Set the URL as the hostname for your Jira Cloud instance, like this:
 
@@ -60,6 +43,7 @@ Next, we'll set up a Jira integration. Navigate to **Tools > Integrations > Exte
     }}
 />
 
+NOTE: This is deprecated, no more JSM app
 ### Installing the Device42 JSM App
 
 The next step is to configure Jira.
@@ -80,6 +64,7 @@ Once you’ve entered your verification token in the Jira configuration and save
 
 ![Jira Device42 account linked](/assets/images/jsm-solution-guide/image72.png)
 
+ED NOTE: I suspect this feature is also deprecated and have not added it to the other page.
 ### Configuring Jira Issue Type Fields
 
 Now we need to configure the Jira fields to use the data in Device42.
@@ -106,6 +91,9 @@ Click **View in Device42** to view the full details of the record in Device42.
 
 ![alt_text](/assets/images/jsm-solution-guide/image28.png)
 
+
+
+#TODO: verify if this is still a thing without the JSM Cloud integration app thing (without assets)
 ### Customizing Syncing Device42 Record Types with Jira
 
 It's important to note that, by default, only a subset of Device42 information is synchronized with Jira. This is controlled by a DOQL query and is customizable. You can change the DOQL queries in your Jira integration settings in **Device42 at Tools > Integrations > External Integrations**:
@@ -149,7 +137,8 @@ Click the **Save** button and the app will attempt to connect to Device42.
 
 ![](/assets/images/jsm-solution-guide/image38.png)
 
-Following the app attempting to connect to Device42, the connection will display one of six states in the **Settings** tab:
+Following the a
+pp attempting to connect to Device42, the connection will display one of six states in the **Settings** tab:
 
 * Connection enabled.
 * Connection not enabled.
