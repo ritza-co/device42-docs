@@ -3,6 +3,9 @@ title: "Troubleshoot the Freshservice Integration"
 sidebar_position: 4
 ---
 
+import ThemedImage from '@theme/ThemedImage'
+import useBaseUrl from '@docusaurus/useBaseUrl'
+
 The Device42 Freshservice integration synchronizes Device42 data with Freshservice through the Device42 Cloud Connector. This page helps Device42 and Freshservice administrators identify sync and connection problems, test likely causes, and apply the appropriate fix.
 
 ## Start With the Symptom
@@ -107,7 +110,13 @@ Queries can be very long, sometimes hundreds of lines, with CTEs, JOINs, and sub
 
 Run the prepared query in **Standard Reports** in Device42 and check the output. You can export the results to an XLSX file to inspect them, or to share them with Device42 support if you have an open ticket.
 
-![DOQL query results in Standard Reports](/assets/images/mapping-integration-troubleshooting/doql-query-standard-reports.png)
+<ThemedImage
+alt="DOQL query results in Standard Reports"
+sources={{
+    light: useBaseUrl('/assets/images/mapping-integration-troubleshooting/doql-query-standard-reports-light.png'),
+    dark: useBaseUrl('/assets/images/mapping-integration-troubleshooting/doql-query-standard-reports-dark.png'),
+}}
+/>
 
 ## Sync Job Errors
 
@@ -385,7 +394,13 @@ If network connectivity succeeds but the WSS connection still fails:
 1. Go to **Tools > Integrations > Cloud Services** in Device42.
 2. Click **Regenerate Instance GUID**.
 
-    ![The Cloud Services page with the Regenerate Instance GUID button](/assets/images/mapping-integration-troubleshooting/cloud-services-instance-guid.png)
+    <ThemedImage
+    alt="The Cloud Services page with the Regenerate Instance GUID button"
+    sources={{
+        light: useBaseUrl('/assets/images/mapping-integration-troubleshooting/cloud-services-instance-guid-light.png'),
+        dark: useBaseUrl('/assets/images/mapping-integration-troubleshooting/cloud-services-instance-guid-dark.png'),
+    }}
+    />
 
 3. Restart the `connect_d42_client` service from the appliance terminal.
 4. Check `/var/log/rc/http-ws-proxy-client.log` for a successful connection.
@@ -397,7 +412,13 @@ If refreshing the Instance GUID does not restore the connection:
 1. Recreate the Freshservice external integration in Device42. See [Create a Freshservice External Integration in Device42](integration/external-integrations/freshservice-integration/index.mdx#2-create-a-freshservice-external-integration-in-device42) for the steps.
 2. Update the verification token in the Device42 app in Freshservice, as recreating the integration generates a new token. Remember to copy the token from the External Integrations list page, not from the **+ Add External Integration** form.
 
-    ![The External Integrations list page with the Verification Token column](/assets/images/mapping-integration-troubleshooting/external-integrations-verification-token.png)
+    <ThemedImage
+    alt="The External Integrations list page with the Verification Token column"
+    sources={{
+        light: useBaseUrl('/assets/images/mapping-integration-troubleshooting/external-integrations-verification-token-light.png'),
+        dark: useBaseUrl('/assets/images/mapping-integration-troubleshooting/external-integrations-verification-token-dark.png'),
+    }}
+    />
 
 3. Restart the `connect_d42_client` service from the appliance terminal.
 
