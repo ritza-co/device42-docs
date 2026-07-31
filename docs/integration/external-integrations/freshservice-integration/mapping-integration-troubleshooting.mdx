@@ -47,11 +47,7 @@ See [View Sync History Logs](integration/external-integrations/freshservice-inte
 
 ### Understand Item-Level Errors
 
-A single item-level error does not stop an entire sync. The integration logs the failed item and continues to the next one. Only user cancellation, the stuck-sync detector (a two-hour threshold), or a [Cloud Connector deployment](integration/external-integrations/freshservice-integration/use-freshservice-integration.mdx#cancelled-syncs) stops the entire sync.
-
-:::note
-A sync marked as successful can still contain item-level errors. Check the sync history log even when the overall sync completes.
-:::
+A single item-level error does not stop an entire sync. The integration logs the failed item and continues to the next one. The only events that stop the entire sync are user cancellation, the stuck-sync detector (a two-hour threshold), and a [Cloud Connector deployment](integration/external-integrations/freshservice-integration/use-freshservice-integration.mdx#cancelled-syncs).
 
 ## Work With DOQL Queries From the Mapping File
 
@@ -108,7 +104,7 @@ Queries can be very long, sometimes hundreds of lines, with CTEs, JOINs, and sub
 
 ### Test the Query
 
-Run the prepared query in **Standard Reports** in Device42 and check the output. You can export the results to an XLSX file to inspect them, or to share them with Device42 support if you have an open ticket.
+Run the prepared query in **Standard Reports** in Device42 and check the output. You can export the results to an XLSX file to inspect them or share them with Device42 Support. If you have access to the appliance terminal, you can also run the query directly in `psql`. To check query performance in `psql`, prefix the query with `EXPLAIN ANALYZE`.
 
 <ThemedImage
 alt="DOQL query results in Standard Reports"
@@ -164,7 +160,7 @@ By default, the integration uses the following [matching criteria](integration/e
 - MAC Address (only for SNMP devices)
 - Hostname (positive match only if the matching asset does not have an Item ID)
 
-**Fix the issue.** Correct the duplicate values in Device42, then run the sync again.
+**Fix the issue.** Correct the duplicate values in Device42. This is the preferred approach.
 
 :::caution
 Changing the matching criteria in a custom mapping file is possible but should be the last resort, as changed criteria can create duplicates if you later use the Freshservice Discovery Probe or another data source. Please [contact support](mailto:support@device42.com) to discuss the pros and cons before changing matching criteria.
@@ -180,19 +176,19 @@ Changing the matching criteria in a custom mapping file is possible but should b
 2. [Extract and prepare the DOQL query](#work-with-doql-queries-from-the-mapping-file) from that task.
 3. Run the query in **Standard Reports** to confirm that it is slow or times out.
 
-**Fix the issue.** Optimize the query in a custom mapping file and verify the revised query in **Standard Reports** before uploading the change. If you need help with DOQL, [contact support](mailto:support@device42.com) and include the affected task name and sync log.
+**Fix the issue.** Modify the query to improve its performance, and verify the revised query in **Standard Reports** before uploading the change.
 
 ### Freshservice API Errors (400, 404, 409, 429, and 500)
 
 These errors occur when the integration successfully retrieves data from Device42 but gets an error response from the Freshservice API when trying to create or update items. Each HTTP status code has a different meaning and retry behavior.
 
-| Status | What it means | Integration behavior and next step |
+| Status | What it means | Integration behavior |
 | --- | --- | --- |
-| `400` | Freshservice rejected the data during validation. | The integration does not retry, except for the duplicate-value case below. Correct the field value in Device42 or adjust its mapping. |
-| `404` | The item to update no longer exists in Freshservice. | The integration skips the item without retrying. Run the next sync and investigate only if the error repeats. |
+| `400` | Freshservice rejected the data during validation. | The integration logs and skips the item without retrying, except for the duplicate-value case below. |
+| `404` | The item to update no longer exists in Freshservice. | The integration logs and skips the item without retrying. |
 | `409` | A validation conflict or infrastructure error occurred. | The response format determines the retry behavior. Inspect the response as described below. |
-| `429` | Freshservice is rate limiting requests. | The integration retries indefinitely and respects the `Retry-After` header, defaulting to 10 seconds. Investigate only if the sync makes no progress. |
-| `500` | A problem occurred on the Freshservice side. | The integration retries up to six times after 2, 4, 8, 16, 32, and 64 seconds. Run the next sync if all retries fail, and escalate repeated errors to Freshservice. |
+| `429` | Freshservice is rate limiting requests. | The integration retries indefinitely and respects the `Retry-After` header, defaulting to 10 seconds if the header is missing. |
+| `500` | A problem occurred on the Freshservice side. | The integration retries up to six times after 2, 4, 8, 16, 32, and 64 seconds. If every retry fails, it logs and skips the item. |
 
 **HTTP `400`: Validation error.**
 
@@ -202,7 +198,7 @@ These errors occur when the integration successfully retrieves data from Device4
 - Field type mismatches, for example, sending a string to an integer field.
 - Values violating field constraints, for example, zero sent to a positive-number field.
 
-**Fix the issue.** Check the sync log for the field or value that failed validation. Correct the value in Device42 or adjust the field mapping, then run the sync again.
+**Investigate the issue.** Check the sync log for the field or value that failed validation.
 
 There is one special case: if the `400` error says the serial number or item ID `must be unique` or `asset already exists`, the integration retries once. It removes fields marked with `error-skip="duplicate value"` in the mapping file before retrying. If the retry still fails, the integration silently drops the item.
 
@@ -213,14 +209,14 @@ There is one special case: if the `400` error says the serial number or item ID 
 - The asset was deleted in Freshservice between when the sync loaded its cache and when it tried to update the item.
 - For asynchronous jobs (relationships and software installations), the job took over one hour and Freshservice discarded it.
 
-**What to do:** The integration skips the item without retrying it. In most cases, the item syncs correctly on the next run. Investigate further only if the same item fails again.
+**Integration behavior:** The integration logs and skips the item without retrying it.
 
 **HTTP `409`: Conflict.**
 
 **What it means:** A `409` error indicates one of two scenarios:
 
 - **A JSON response containing `Validation failed`:** A Freshservice validation error similar to a `400` error. The item is skipped without a retry.
-- **An HTML response (not JSON):** Typically a Cloudflare infrastructure error. The integration retries it the same way as a 500 error.
+- **An HTML response (not JSON):** Typically a Cloudflare infrastructure error. The integration retries it the same way as a `500` error.
 
 ### None Asset Type Errors
 
@@ -242,7 +238,7 @@ You may see the following error when the integration updates an asset:
     GET {{freshservice_url}}/api/v2/asset_types?page=1&per_page=1000
     ```
 
-4. Compare the names exactly, including capitalization and spacing, and identify values that do not exist in Freshservice.
+4. Identify values in the query output that do not match an asset type in Freshservice.
 
 **Fix the issue.** Restore the original asset type name in Freshservice, create the missing asset type, or adjust the mapping file to use the new name. The integration does not create asset types automatically.
 
@@ -287,7 +283,7 @@ Combined, these produce two `WHERE` clauses and invalid SQL.
 
 </details>
 
-Apply the change to every affected task variant. Then [reupload the custom mapping file](integration/external-integrations/freshservice-integration/customize-freshservice.mdx#reupload-the-mappingxml-file) from **Configuration > Data Mapping > Upload Custom Mapping** and run another sync.
+Apply the change to every affected task variant. Then [reupload the custom mapping file](integration/external-integrations/freshservice-integration/customize-freshservice.mdx#reupload-the-mappingxml-file) from **Configuration > Data Mapping > Upload Custom Mapping**.
 
 ### Components Not Syncing for Custom Asset Types
 
@@ -306,7 +302,7 @@ Apply the change to every affected task variant. Then [reupload the custom mappi
     <target asset-type="Computer, POS Terminal"/>
     ```
 
-    This setting retains component sync for **Computer** assets and adds it for the custom type. [Reupload the mapping file](integration/external-integrations/freshservice-integration/customize-freshservice.mdx#reupload-the-mappingxml-file), then run another sync.
+    This setting retains component sync for **Computer** assets and adds it for the custom type. [Reupload the mapping file](integration/external-integrations/freshservice-integration/customize-freshservice.mdx#reupload-the-mappingxml-file).
 
 ### Other Sync Errors
 
@@ -316,9 +312,8 @@ For a sync error not covered above, use the following diagnostic sequence:
 2. Find that task in the mapping file and inspect its query and field mappings.
 3. Note the field or value named in the error.
 4. [Extract and test the query](#work-with-doql-queries-from-the-mapping-file) to inspect the source data. Replace XML-escaped characters and omit the `doql-suffix` before testing.
-5. Correct the source data or mapping and run the sync again.
 
-If the issue continues, [contact support](mailto:support@device42.com) and include the details in [Prepare a Support Request](#prepare-a-support-request).
+If the issue continues, [contact support](mailto:support@device42.com).
 
 ## Cloud Connector Connection Errors
 
@@ -360,18 +355,16 @@ Status checker ping error for trackingID: Not Available, error: write tcp 10.201
 
 </details>
 
-Use the following log patterns to choose the next check:
+Two possible causes on your network are:
 
-| Log text | Likely cause | Next action |
-| --- | --- | --- |
-| `lookup connect.device42.io: i/o timeout` | DNS cannot resolve the Cloud Connector FQDN. | Test DNS resolution, then check the DNS configuration on the Main Appliance. |
-| `connection reset by peer`, `unexpected EOF`, or abnormal closure `1006` | A firewall, proxy, or another network device interrupted the WSS connection. | Confirm outbound WSS access to the regional `*.device42.io` endpoint on port `443`. |
-| `secure tunnel already established with same instance ID` | Another Device42 instance uses the same Instance GUID. | Go to [Duplicate Instance Errors](#duplicate-instance-errors). |
-| Repeated connection attempts without a specific error | Connectivity or instance registration may be stale. | Follow [Resolve Connection Issues](#resolve-connection-issues) in order. |
+- A firewall between the Main Appliance and the Cloud Connector that blocks outbound traffic.
+- A DNS server that cannot resolve the Cloud Connector FQDN, `connect.device42.io`, to an IP address.
+
+For the error `secure tunnel already established with same instance ID`, go to [Duplicate Instance Errors](#duplicate-instance-errors).
 
 ### Resolve Connection Issues
 
-Work through the following steps in order. Stop when the connection remains stable and a sync can start.
+Work through the following steps in order.
 
 **1. Test network connectivity.**
 
@@ -383,13 +376,9 @@ curl -kv https://connect.device42.io
 nc -v connect.device42.io 443
 ```
 
-If you configured a regional Cloud Connector, replace `connect.device42.io` with the hostname shown in the connection log.
+**2. Regenerate the Instance GUID.**
 
-If the hostname does not resolve, correct the DNS configuration. If resolution succeeds but the connection to port `443` fails, allow outbound traffic through the firewall or proxy before continuing.
-
-**2. Refresh the instance registration.**
-
-If network connectivity succeeds but the WSS connection still fails:
+After testing network connectivity:
 
 1. Go to **Tools > Integrations > Cloud Services** in Device42.
 2. Click **Regenerate Instance GUID**.
@@ -403,14 +392,13 @@ If network connectivity succeeds but the WSS connection still fails:
     />
 
 3. Restart the `connect_d42_client` service from the appliance terminal.
-4. Check `/var/log/rc/http-ws-proxy-client.log` for a successful connection.
 
 **3. Recreate the integration.**
 
-If refreshing the Instance GUID does not restore the connection:
+If regenerating the Instance GUID does not restore the connection:
 
 1. Recreate the Freshservice external integration in Device42. See [Create a Freshservice External Integration in Device42](integration/external-integrations/freshservice-integration/index.mdx#2-create-a-freshservice-external-integration-in-device42) for the steps.
-2. Update the verification token in the Device42 app in Freshservice, as recreating the integration generates a new token. Remember to copy the token from the External Integrations list page, not from the **+ Add External Integration** form.
+2. Update the verification token in the Device42 app in Freshservice.
 
     <ThemedImage
     alt="The External Integrations list page with the Verification Token column"
@@ -422,7 +410,7 @@ If refreshing the Instance GUID does not restore the connection:
 
 3. Restart the `connect_d42_client` service from the appliance terminal.
 
-If the issue persists after all steps, [contact support](mailto:support@device42.com) and include the details in [Prepare a Support Request](#prepare-a-support-request).
+If the issue persists after all steps, [contact support](mailto:support@device42.com).
 
 ### Duplicate Instance Errors
 
@@ -434,17 +422,22 @@ Connection error, error: websocket: bad handshake, response: Error: secure tunne
 
 Another Device42 instance is already connected to the Cloud Connector using the same Instance GUID. This typically happens when a Device42 appliance was cloned or restored from a backup without regenerating the GUID. Each Device42 instance must have a unique GUID.
 
-**Fix the issue.**
-
-1. Check the GUID on your primary Device42 instance under **Tools > Integrations > Cloud Services**.
-2. Check the GUID of your other Device42 instances (hot standby, development, and so on).
-3. Identify which instance should retain the existing connection and GUID.
-4. Regenerate the GUID on every other instance that shares it.
-5. Restart Device42 services on each instance where you changed the GUID.
+**Fix the issue.** Identify which Device42 instance should own the connection, then regenerate the Instance GUID on that instance under **Tools > Integrations > Cloud Services > Regenerate Instance GUID**. If the other instance also needs to connect, assign it a unique Instance GUID.
 
 ## Avoid Common Customization Pitfalls
 
-Customizing the mapping file is a frequent source of sync errors. The sections below cover details that are easy to miss. For the full customization process, see [Customize the Freshservice Integration](integration/external-integrations/freshservice-integration/customize-freshservice.mdx).
+Mapping file customizations can cause sync errors. The sections below cover the general customization process and details that are easy to miss. For more information, see [Customize the Freshservice Integration](integration/external-integrations/freshservice-integration/customize-freshservice.mdx).
+
+### Follow the General Customization Process
+
+Use the following process to sync additional data from Device42 to Freshservice:
+
+1. Update the task's DOQL query to include the required column.
+2. Create a field in Freshservice if you need one for the data.
+3. Check the field's internal name in Freshservice. The internal name may differ from the display label. Retrieve it with `GET {{freshservice_url}}/api/v2/asset_types/{{asset_type_id}}/fields`.
+4. Create or update the task mapping. Ensure that the mapped field types match, as a mismatch causes sync errors.
+
+See [Sync to Custom Field Names in Freshservice](integration/external-integrations/freshservice-integration/customize-freshservice.mdx#syncing-to-custom-field-names-in-freshservice) for the field naming conventions.
 
 ### Find the Right Task Version
 
@@ -468,21 +461,7 @@ Each task has optional `d42_min_version` and `d42_max_version` attributes that c
 
 </details>
 
-Edit only the task whose version range includes your current Device42 version. Editing the wrong variant means your change silently never runs.
-
-### Check Field Types and Names
-
-A field type mismatch between the mapping and Freshservice causes errors such as the [`400` validation error](#freshservice-api-errors-400-404-409-429-and-500) described above. Before adding or changing a field mapping:
-
-1. Check that the internal field name in Freshservice matches your mapping. The internal name may differ from the display label. Verify it via the API:
-
-    ```
-    GET {{freshservice_url}}/api/v2/asset_types/{{asset_type_id}}/fields
-    ```
-
-2. Check that the `target-type` in the mapping matches the field type in Freshservice.
-
-See [Sync to Custom Field Names in Freshservice](integration/external-integrations/freshservice-integration/customize-freshservice.mdx#syncing-to-custom-field-names-in-freshservice) for the full field naming conventions.
+Edit only the task whose version range includes your current Device42 version.
 
 ### Map Special Fields Without a Target Header
 
@@ -534,24 +513,7 @@ The Freshservice API is useful for verifying asset types, field names, and IDs. 
 | Get asset types | `GET {{freshservice_url}}/api/v2/asset_types?page=1&per_page=1000` |
 | Get asset type fields | `GET {{freshservice_url}}/api/v2/asset_types/{{asset_type_id}}/fields` |
 | Get locations | `GET {{freshservice_url}}/api/v2/locations` |
-| Get contract type fields | `GET {{freshservice_url}}/api/v2/contract_types/{{contract_type_id}}/fields` |
+| Get contract type fields | `GET {{freshservice_url}}/api/v2/contract_types/4/fields` |
 | Get asset relationships | `GET {{freshservice_url}}/api/v2/relationships` |
 
 For other API requests, refer to the [Freshservice API documentation](https://api.freshservice.com/).
-
-:::caution
-Treat the API token as a password. Do not include it in screenshots, logs, exported queries, or support requests.
-:::
-
-## Prepare a Support Request
-
-If the issue remains after you follow the relevant checks, [contact Device42 Support](mailto:support@device42.com). Include enough context for the support team to reproduce or continue the investigation:
-
-- The exact error message and the time it occurred.
-- The affected mapping task name.
-- The downloaded full sync log for sync errors, or `/var/log/rc/http-ws-proxy-client.log` for connection errors.
-- Your Device42 version and whether the integration uses the default or a custom mapping.
-- The prepared DOQL query and an XLSX export of its results, when the issue is query- or data-related.
-- The troubleshooting steps you have already completed and their results.
-
-Remove API tokens, passwords, and other credentials before attaching any files.
