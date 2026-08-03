@@ -103,32 +103,7 @@ The most frequent cause is that a different asset replaced this asset. This occu
 - MAC Address, for SNMP devices only
 - Hostname, but only if the matched asset has no Item ID
 
-**Check the cause.** One duplicated value can cause an error in every task that refers to the affected asset, so a few duplicates can produce hundreds of log entries. Find all the duplicates first:
-
-1. Run this query as a [DOQL report](#test-the-query). It lists every serial number that more than one device uses:
-
-    ```sql
-    SELECT view_device_v2.serial_no,
-           count(*) AS device_count,
-           string_agg(view_device_v2.name, ', ') AS device_names
-    FROM view_device_v2
-    WHERE view_device_v2.serial_no IS NOT NULL
-      AND view_device_v2.serial_no NOT IN ('', 'N/A', 'n/a', '0', '1')
-    GROUP BY view_device_v2.serial_no
-    HAVING count(*) > 1
-    ORDER BY count(*) DESC
-    ```
-
-    Each row is one duplicated serial number. The `device_names` column gives the devices that share it.
-
-    The `NOT IN` list removes placeholder values. Many devices can hold the same placeholder instead of a real serial number, and these devices are not true duplicates. Add any other placeholder values that your instance uses.
-
-2. To check a different matching criteria field, replace `serial_no` with that field in each line of the query. For example, use `uuid` to find duplicate UUIDs.
-3. Compare the device names in the output against the asset identifiers in your sync log. This shows how many of your errors the duplicates explain.
-
-If the query returns no duplicates, or if it does not account for your errors, investigate a single missing asset with the steps below.
-
-**Investigate a single asset.**
+**Check the cause.** One duplicated value can cause an error in every task that refers to the affected asset, so a few duplicates can produce many log entries. Start with one missing asset, then look for other assets that share its matching criteria values.
 
 1. Find the asset type of the missing asset. You need this asset type in step 2. Use the name of the task that reported the error, and the error text itself. The type of task tells you which asset is missing:
 
@@ -154,6 +129,8 @@ If the query returns no duplicates, or if it does not account for your errors, i
 **Fix the issue.** In Device42, make the duplicated value unique, so that only one asset has it. Then run the sync again. This is the recommended method.
 
 The correct change depends on why the duplicate exists. For example, one device can hold the serial number of a different device because of a data entry error, or two records can exist for the same physical device. Make the change in Device42, which is the source of the synced data.
+
+One correction can remove many errors, because a missing asset causes an error in each task that refers to it. If the log has a large number of these errors, [contact support](mailto:support@device42.com) for help with finding and correcting the duplicates.
 
 :::caution
 You can also change the matching criteria in a custom mapping file, but do this last. If you later use the Freshservice Discovery Probe or a different data source, the new criteria can create duplicate assets. [Contact support](mailto:support@device42.com) before you change the matching criteria.
