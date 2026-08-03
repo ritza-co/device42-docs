@@ -407,7 +407,7 @@ To prepare a query for a test:
     | `&apos;` | `'` |
     | `&quot;` | `"` |
 
-3. Do not include the value of the `doql-suffix` attribute. This attribute is on the `<mapping>` element, not on the `<resource>` element. The integration adds this value to the end of the query in incremental syncs only, so test the query without it.
+3. Do not include the value of the `doql-suffix` attribute, if present. This attribute is on the `<mapping>` element, not on the `<resource>` element. The integration adds this value to the end of the query in incremental syncs only, so test the query without it.
 
     In this example, copy only the `doql` value. Do not copy the `doql-suffix` value:
 
