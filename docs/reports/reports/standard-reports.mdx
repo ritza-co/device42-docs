@@ -113,9 +113,33 @@ Configure the report. Reduce the report data to include only the essential colum
   }}
 />
 
-## Export Standard Reports
+## Clone a Standard Report
 
-You can view the report output on the screen or export the results in tab-separated values (TSV) or Excel formats.
+Open an existing report and click **Clone** to create a separate copy. The cloned report retains the original report definition, including its DOQL or SQL query, selected columns, and layout. Device42 appends ` - Clone` to the report name to distinguish the copy from the original.
+
+Edit the cloned report to change its filters and configure an independent schedule. Changes to the clone do not affect the original report.
+
+## View, Filter, Export, and Edit Standard Reports
+
+Click **Display on Screen** to view the report results. The results grid provides global search, sortable columns, pagination, and a **Table Columns** selector for showing or hiding columns.
+
+### Filter Report Results
+
+Click the filter icon in a column header to open its filter panel. Add or remove rules, select an operator, enter a value, and choose **Match All** (AND) or **Match Any** (OR) logic. Click **Apply** to filter the results. OR logic can also combine rules for different fields. You can use global search together with column filters.
+
+![Advanced report filters using Match Any with multiple rules](/assets/images/standard-reports/advanced-filter-match-any.png)
+
+Date fields support **Date is**, **Date is before**, **Date is after**, and **Between** operators. Select **Between** and use the two date fields to enter a start and end date.
+
+![Between date filter on Standard Report results](/assets/images/standard-reports/advanced-filter-date-between.png)
+
+Click **Clear Filters** to remove all active filters. Filters remain applied when you sort columns, move between result pages, or export the report.
+
+The following additional actions are available from the **Display on Screen** view:
+
+- **Export:** Select the fields to include and export the report in tab-separated values (TSV) or Excel format. The export applies the active data-grid filters and includes all pages of the filtered results.
+- **Edit:** Open the report details page directly in edit mode.
+- **Print:** Print the displayed report results.
 
 ## Schedule Standard Reports
 
