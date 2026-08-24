@@ -3,9 +3,19 @@ title: "Webhooks - Generic Integration"
 sidebar_position: 28
 ---
 
+This page is for administrators who want Device42 to notify another system when something changes in their infrastructure. By the end, a Device42 event such as a new, changed, or deleted device automatically sends a webhook to the endpoint you choose.
+
 Webhooks are used to initiate an external action in another part of your IT environment when some "event", based on rules you define, occurs. Also known as _HTTP callbacks_, webhooks are "fired" at HTTP endpoints (URLs) when a configured "Webhook Action" criteria is met. Within Device42, anything that produces an audit-log entry can also be configured to "fire" a webhook.
 
 For example, when a Device42 auto-discovery job finds a new device, when details about an existing device change, or when an existing device is deleted are three simple examples of actions that can be configured to trigger webhooks from Device42. An IT Administrator might configure a webhook to deliver a "message" to one or more IT employees via a webhook-compatible endpoint _(like Slack or Skype)_, letting them know that this action took place.
+
+## Prerequisites
+
+Before creating a webhook, make sure you have:
+- Administrator access to Device42 to configure **Tools > Webhooks**
+- An HTTP endpoint URL to receive the webhook, such as a Slack, Zapier, or custom endpoint
+- Network connectivity from Device42 to that endpoint URL
+- Any header names and tokens your endpoint requires for authentication
 
 ## Create a Webhook Action in Device42
 

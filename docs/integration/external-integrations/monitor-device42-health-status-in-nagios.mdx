@@ -10,9 +10,15 @@ Device42 offers a [Nagios plugin for Device42](https://github.com/device42/Devic
 - Memory usage
 - CPU usage
 
-## Install the Nagios Add-On
+This page is for administrators who already run Nagios and want the health of their Device42 appliance monitored alongside the rest of their infrastructure. By the end, Nagios reports Device42 database size, disk, memory, and CPU status as standard service checks.
 
-Prior to installing the plugin, there are a couple prerequisites we should make sure are installed.
+## Prerequisites
+
+Before installing the plugin, make sure you have:
+- A running Nagios server with root access to its plugin and configuration directories
+- Network connectivity from the Nagios server to your Device42 appliance
+- `git` on the Nagios server to clone the [plugin repository](https://github.com/device42/Device42-Nagios-Health-Check)
+- The required Perl packages installed, as shown below
 
 On Ubuntu:
 
@@ -25,6 +31,8 @@ On Redhat:
 ```
 yum install perl-JSON.noarch perl-Nagios-Plugin.noarch
 ```
+
+## Install the Nagios Add-On
 
 To install the Nagios plugin, clone the repository to your nagios server, e.g.:
 

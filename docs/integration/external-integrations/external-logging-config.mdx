@@ -3,7 +3,18 @@ title: "External Logging Config"
 sidebar_position: 9
 ---
 
+This page is for administrators who want their Device42 audit log events to appear in the external logging or SIEM platform their organization already uses. By the end, Device42 sends audit log events as webhooks to your logging platform, where you can search and report on them.
+
 This page explains how to configure Device42 to send audit log events to external logging platforms like Splunk or Logstash using webhooks.
+
+## Prerequisites
+
+Before configuring external logging, make sure you have:
+- Administrator access to Device42 to add webhook endpoints and actions under **Tools > Webhooks**
+- An external logging or SIEM platform, such as Splunk or Logstash, with administrator access to configure a data input
+- An HTTP plugin or input installed on that platform, as described in [Install an HTTP Plugin](#install-an-http-plugin) below
+- Network connectivity from Device42 to your logging platform on the listening port you configure
+- For Splunk, an HTTP Event Collector (HEC) token and a randomly generated UUID for the request channel header
 
 ## Install an HTTP Plugin
 
