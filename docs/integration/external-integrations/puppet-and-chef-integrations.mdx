@@ -21,7 +21,15 @@ The Puppet ENC integration also requires:
 - Python v2.7.10 or later
 - Access to your Puppet master to place the script and edit `puppet.conf`
 
-The Chef integration connector works with all Chef-supported versions of Chef software.
+The Puppet node synchronization script also requires:
+- `python-devel` installed, and the packages in the script's `requirements.txt`
+- A client certificate signed on the Puppet server, along with its private key, and optionally the CA certificate
+- Permission for the client to reach the Puppet certificate and node API endpoints
+
+The Chef integration connector works with all Chef-supported versions of Chef software. The Chef synchronization script also requires:
+- The [`pychef`](https://github.com/coderanger/pychef) Python package
+- A Chef client name and its key file, to connect to the Chef server
+- An `organization` value, for Chef Server 12 and later
 
 ## Puppet ENC (External Node Classifier) Integration
 
