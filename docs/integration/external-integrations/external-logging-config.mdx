@@ -3,14 +3,12 @@ title: "External Logging Config"
 sidebar_position: 9
 ---
 
-This page is for administrators who want their Device42 audit log events to appear in the external logging or SIEM platform their organization already uses. By the end, Device42 sends audit log events as webhooks to your logging platform, where you can search and report on them.
-
-This page explains how to configure Device42 to send audit log events to external logging platforms like Splunk or Logstash using webhooks.
+This page is for administrators who want their Device42 audit log events to appear in the external logging or SIEM platform their organization already uses. It explains how to send those events to platforms like Splunk or Logstash using webhooks, so you can search and report on them there.
 
 ## Prerequisites
 
 Before configuring external logging, make sure you have:
-- Administrator access to Device42 to add webhook endpoints and actions under **Tools > Webhooks**
+- Access to Device42 to add webhook endpoints and actions under **Tools > Webhooks**
 - An external logging or SIEM platform, such as Splunk or Logstash, with administrator access to configure a data input
 - An HTTP plugin or input installed on that platform, as described in [Install an HTTP Plugin](#install-an-http-plugin) below
 - Network connectivity from Device42 to your logging platform on the listening port you configure
@@ -28,7 +26,7 @@ You will need an http plugin for Logstash or Splunk to send the data to the SIEM
 
 Webhooks are the best way to get your logs from Device42 to your external logging platform. Begin by setting up a webhook endpoint:
 
-- Begin by navigating to **“Tools -> Webhooks -> Endpoints** — \[Your Splunk / Logstash instance is your endpoint\]. From this page, click the “Add Webhook Action” button in the upper right \[highlighted\]:
+- Begin by navigating to **Tools > Webhooks > Endpoints**. Your Splunk or Logstash instance is your endpoint. From this page, click the **Add Webhook Action** button in the upper right (highlighted):
 
 ![Add webhook endpoint for logging](/assets/images/add_webhook_endpoint-splunklogstash.png)
 
@@ -79,6 +77,6 @@ This section will describe creating a Webhook Action in Device42, in order to de
 
 ## Configure Log Storage Duration
 
-You can also navigate to “Tools -> Settings -> Log Integration to choose how long you want to keep logs in your log solution to save space.
+You can also navigate to **Tools > Settings > Log Integration** to choose how long you want to keep logs in your log solution to save space.
 
 ![Change Log Integration Settings](/assets/images/configure_log_integration.png)

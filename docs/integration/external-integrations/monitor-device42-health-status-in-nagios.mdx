@@ -3,6 +3,8 @@ title: "Nagios Integration"
 sidebar_position: 19
 ---
 
+This page is for administrators who already run Nagios and want the health of their Device42 appliance monitored alongside the rest of their infrastructure. By the end, Nagios reports Device42 health data as standard service checks.
+
 Device42 offers a [Nagios plugin for Device42](https://github.com/device42/Device42-Nagios-Health-Check). It is available for download via Github, and allows easy monitoring of the health status of your Device42 appliance. Data returned includes:
 
 - Device42 Database Size
@@ -10,13 +12,10 @@ Device42 offers a [Nagios plugin for Device42](https://github.com/device42/Devic
 - Memory usage
 - CPU usage
 
-This page is for administrators who already run Nagios and want the health of their Device42 appliance monitored alongside the rest of their infrastructure. By the end, Nagios reports Device42 database size, disk, memory, and CPU status as standard service checks.
-
 ## Prerequisites
 
 Before installing the plugin, make sure you have:
-- A running Nagios server with root access to its plugin and configuration directories
-- Network connectivity from the Nagios server to your Device42 appliance
+- A running Nagios server, with access to its plugin and configuration directories
 - `git` on the Nagios server to clone the [plugin repository](https://github.com/device42/Device42-Nagios-Health-Check)
 - The required Perl packages installed, as shown below
 
