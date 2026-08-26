@@ -18,79 +18,21 @@ Salt (aka SaltStack) is a Python-based open source configuration management soft
 - HDD Count
 - Service Level
 
-## Assumptions & Pre-Requisites
+## Prerequisites
 
-Working Salt & Device42 installations. Tested against Salt Master 2016.11.1 Carbon To allow connections, sign your minions certificate on your Salt Master and run the script on your Salt Master server.
+Before you configure the integration, make sure you have:
 
-
-Python v2.7.x
-- PyYAML  
-	```
-	$ easy_install pyyaml or $ pip install pyyaml
-	```
-- appdirs  
-	```
-	$ easy_install appdirs or $ pip install appdirs
-	```
-- futures  
-	```
-	$ easy_install futures or $ pip install futures
-	```
-- jinja2  
-	```
-	$ easy_install jinja2 or $ pip install jinja2
-	```
-- tornado  
-	```
-	$ easy_install tornado or $ pip install tornado
-	```
-- requests  
-	```
-	$ easy_install requests or $ pip install requests
-	```
-- salt  
-	```
-	$ easy_install salt or $ pip install salt
-	```
-- markupsafe  
-	```
-	$ easy_install markupsafe or $ pip install markupsafe
-	```
-- msgpack-python  
-	```
-	$ easy_install msgpack-python or $ pip install msgpack-python
-	```
-- packaging  
-	```
-	$ easy_install packaging or $ pip install packaging
-	```
-- pycrypto  
-	```
-	$ easy_install pycrypto or $ pip install pycrypto
-	```
-- pyparsing  
-	```
-	$ easy_install pyparsing or $ pip install pyparsing
-	```
-- pyzmq  
-	```
-	$ easy_install pyzmq or $ pip install pyzmq
-	```
-- singledispatch  
-	```
-	$ easy_install singledispatch or $ pip install singledispatch
-	```
-- six  
-	```
-	$ easy_install six or $ pip install six
-	```
+- Working Salt and Device42 installations
+- A certificate for each minion that the Salt Master signed
+- Access to run the script on the Salt Master server
+- The Python packages in the integration repository's [`requirements.txt`](https://github.com/device42/salt_to_device42_sync/blob/master/requirements.txt) file
 
 
 ## Configuration and Usage
 
 1. Create a working directory and copy the contents of the `salt_to_device42_sync` repository to it.
 2. Copy (or move/rename) the settings file settings.yaml.example to `settings.yaml`.
-3. Populate the `settings.yaml` file you created in the last step with your Device42 instance info (host, user, pss):
+3. Add your Device42 host, user name, and password to the `settings.yaml` file:
 
 <details>
     <summary>Click to expand the code block</summary>
