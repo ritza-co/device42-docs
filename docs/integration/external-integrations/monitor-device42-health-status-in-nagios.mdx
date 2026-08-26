@@ -39,7 +39,7 @@ To install the Nagios plugin, clone the repository to your nagios server, e.g.:
 git clone https://github.com/device42/Device42-Nagios-Health-Check
 ```
 
-Copy the check\_d42\_health.pl file to your Nagios plugin directory:
+Copy the `check_d42_health.pl` file to your Nagios plugin directory:
 
 ```
 cp check_d42_health.pl /usr/local/nagios/libexec/
@@ -98,7 +98,7 @@ When you select the Device42 host from Nagios, you will now be able to see the a
 
 ![Device42 Health Status in Nagios](/assets/images/2016-03-26-Nagios-01.png)
 
-The Backup Status will report an error if any one of your backup jobs has failed. The Free disk space, memory, and swap statuses have thresholds that can be set in d42.cfg. When setting the thresholds “50” will trigger the flag if the value is greater than 50 while “50:” will trigger the flag if the value is less than 50.
+The **Backup Status** check reports an error if any one of your backup jobs has failed. The free disk space, memory, and swap statuses have thresholds that you can set in `d42.cfg`. When setting the thresholds, `50` triggers the flag if the value is greater than 50, while `50:` triggers the flag if the value is less than 50.
 
 The following are suggested 'sane' thresholds for the default Device42 disk size and default allotted memory. Note if your appliance is using difference settings, you'll want to configure these appropriately: 50GB HDD, and 4GB RAM:
 
@@ -106,22 +106,22 @@ The following are suggested 'sane' thresholds for the default Device42 disk size
 
 | Health Check | Warning Threshold | Critical Threshold |
 | --- | --- | --- |
-| cpu\_used\_percent | 85 | 95 |
-| dbsize | 1000 | 2000 |
-| disk\_used\_percent | 60 | 80 |
-| memtotal | `<=` 4000 | `<=` 3000 |
-| cached |  |  |
-| swapfree | `<=`15% | `<=` 5% |
-| swaptotal | `<=` 2000 | `<=` 1000 |
-| memfree | `<=`15% | `<=`10% |
-| buffers |  |  |
+| `cpu_used_percent` | 85 | 95 |
+| `dbsize` | 1000 | 2000 |
+| `disk_used_percent` | 60 | 80 |
+| `memtotal` | `<=` 4000 | `<=` 3000 |
+| `cached` |  |  |
+| `swapfree` | `<=`15% | `<=` 5% |
+| `swaptotal` | `<=` 2000 | `<=` 1000 |
+| `memfree` | `<=`15% | `<=`10% |
+| `buffers` |  |  |
 
 * * *
 
+You can also view the trending data for any health stat by clicking the service and then **View Trending Data for this Service**.
+
 ![Device42 Trending Stats](/assets/images/2016-03-26-Nagios-02.png)
 
-You can also view the trending data for any health stat by clicking the service and then "View Trending Data for this Service"
+A log of all statuses is available for the host by clicking **View Notifications for this Host**.
 
 ![Device42 Health Log](/assets/images/2016-03-26-Nagios-03.png)
-
-A log of all statuses is available for the host by clicking "View Notifications for this Host".
