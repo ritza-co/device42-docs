@@ -7,18 +7,30 @@ This page is for automation engineers who want Rundeck to use the Device42 CMDB 
 
 Device42 offers a Rundeck integration plugin that can dynamically pull node data from Device42's CMDB.
 
+:::warning
+Device42 received a report that this plugin stops working after an upgrade to Rundeck 6.1. Device42 has not verified compatibility with Rundeck 6.1.
+
+Contact [Device42 Support](https://support.device42.com) before you install this plugin on Rundeck 6.1 or upgrade an existing Rundeck installation.
+:::
+
 ## Prerequisites
 
-Before installing the plugin, make sure you have:
-- A running Rundeck instance with write access to its plugin folder, which is `/etc/rundeck/libext` by default on Ubuntu
-- Java 1.8 or later on the Rundeck server
-- Your Device42 URL and credentials for the plugin to authenticate with
+Before you install the plugin, make sure you have:
+
+- Write access to the Rundeck plugin directory
+- The Java version required by your Rundeck version
+- Your Device42 URL and credentials
+- Confirmation from [Device42 Support](https://support.device42.com) that your Rundeck version is compatible
 
 ## Installation
 
-To install the Rundeck plugin, Device42 offers a precompiled jar file available at [Device42's Rundeck Integration Page](https://www.device42.com/integrations/rundeck/). Alternatively, you can clone the [plugin repository](https://github.com/device42/rundeck-device42-nodes-plugin) and build it with the included `gradlew` wrapper. After downloading or compiling the plugin, it should be placed in Rundeck's plugin folder. On Ubuntu the default location for this is `/etc/rundeck/libext`.
+Device42 provides a legacy precompiled JAR on the [Device42 Rundeck Integration page](https://www.device42.com/integrations/rundeck/).
 
-The wrapper pins Gradle 2.7, which does not run on Java 9 or later. If you build from source, use Java 8.
+You can also build the plugin from its [source repository](https://github.com/device42/rundeck-device42-nodes-plugin). The repository was last updated in 2016 and uses Rundeck 2.x libraries. Building the source does not add compatibility with current Rundeck releases.
+
+The included wrapper pins Gradle 2.7. Use Java 8 to build the plugin from source.
+
+After you download or build the plugin, copy it to the Rundeck plugin directory. On Ubuntu, the default directory is `/etc/rundeck/libext`.
 
 ## Configuration
 
