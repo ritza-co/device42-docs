@@ -18,6 +18,8 @@ Before installing the plugin, make sure you have:
 
 To install the Rundeck plugin, Device42 offers a precompiled jar file available at [Device42's Rundeck Integration Page](https://www.device42.com/integrations/rundeck/). Alternatively, you can clone the [plugin repository](https://github.com/device42/rundeck-device42-nodes-plugin) and build it with the included `gradlew` wrapper. After downloading or compiling the plugin, it should be placed in Rundeck's plugin folder. On Ubuntu the default location for this is `/etc/rundeck/libext`.
 
+The wrapper pins Gradle 2.7, which builds only on Java 8. If you build from source, use Java 8 rather than Java 9 or later.
+
 ## Configuration
 
 To set up filters, add a new Rundeck resource to the project you are on through Configuration and select “Devices from D42”. Enter your Device42 url and credentials, and then you can enter filter values.
