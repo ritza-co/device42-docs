@@ -13,7 +13,7 @@ Salt (aka SaltStack) is a Python-based open source configuration management soft
 - Virtual Sub-type
 - CPU Core Count
 - Manufacturer
-- Operating System & OS Version
+- Operating System and OS Version
 - Total Memory
 - HDD Count
 - Service Level
@@ -31,7 +31,7 @@ Before you configure the integration, make sure you have:
 ## Configuration and Usage
 
 1. Create a working directory and copy the contents of the `salt_to_device42_sync` repository to it.
-2. Copy (or move/rename) the settings file settings.yaml.example to `settings.yaml`.
+2. Copy or rename the settings file `settings.yaml.example` to `settings.yaml`.
 3. Add your Device42 host, user name, and password to the `settings.yaml` file:
 
 <details>
@@ -57,11 +57,11 @@ Before you configure the integration, make sure you have:
     ```
 </details>
 
-Consult `README.md` and `requirements.txt` for more details
+Consult `README.md` and `requirements.txt` for more details.
 
-1. Configure node filtering, if desired. Details regarding configuration options can be found in `NodeFilter.md`. Filter settings are added following the `Options:` section of `settings.yaml`.
-2. Run the script: `$ python saltexplore.py` (`-c /path/to/settings.yaml`)
+4. Configure node filtering, if required. You can find details about the configuration options in `NodeFilter.md`. Add filter settings after the `Options:` section of `settings.yaml`.
+5. Run the script with `python saltexplore.py`. Use `-c /path/to/settings.yaml` to specify a settings file in another location.
 
-If you run into any unexpected behavior, bugs, or otherwise have questions, comments, or feature requests, feel free to reach out to support@device42.com.
+Download the script from the [`salt_to_device42_sync` repository](https://github.com/device42/salt_to_device42_sync).
 
-**Download the Salt integration script for Device42 today!**
+If you run into unexpected behavior or bugs, or have questions, comments, or feature requests, contact [support@device42.com](mailto:support@device42.com).
